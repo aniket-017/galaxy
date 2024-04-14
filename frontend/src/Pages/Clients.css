@@ -45,4 +45,9 @@
     margin: auto;
   } 
  
+  @media (max-width: 768px) {
+    .logogrid{
+      padding: 20px;
+    }
+  }
   

@@ -91,6 +91,7 @@ body {
     height: calc(100vh - 60px);
     transition: all 0.3s ease-in;
     overflow: hidden;
+    padding-left: 20px;
   }
 
   .nav-elements.active {
