@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Typewriter from "typewriter-effect";
-import { FaAward, FaTools, FaUserTie, FaBuilding, FaHammer, FaIndustry, FaRoad, FaTasks } from "react-icons/fa";
+import {
+  FaAward,
+  FaTools,
+  FaUserTie,
+  FaBuilding,
+  FaHammer,
+  FaIndustry,
+  FaRoad,
+  FaTasks,
+} from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RiBuilding2Fill } from "react-icons/ri";
 import { MdWork } from "react-icons/md";
@@ -30,11 +39,10 @@ import second from "../assets/images/project/Infrastructures bridges,flyovers an
 import third from "../assets/images/project/interior & fitouts, repair & renovation.jpg";
 import fourth from "../assets/images/project/Commercial Buildings,Residential Projects.jpg";
 
-
-import certificate1 from "../assets/images/certificate1.png"
-import certificate2 from "../assets/images/certificate 2.png"
-import award1 from "../assets/images/award1.png"
-import award2 from "../assets/images/award2.png"
+import certificate1 from "../assets/images/certificate1.png";
+import certificate2 from "../assets/images/certificate 2.png";
+import award1 from "../assets/images/award1.png";
+import award2 from "../assets/images/award2.png";
 const Home = () => {
   const beliefs = [
     { text: "On time deliver", image: a1 },
@@ -73,14 +81,37 @@ const Home = () => {
 
   useEffect(() => {
     // Trigger animation for each image with a delay
-    setTimeout(() => setAnimationClasses((classes) => [...classes.slice(0, 1), "animate", "", ""]), 18100);
-    setTimeout(() => setAnimationClasses((classes) => [...classes.slice(0, 2), "animate", ""]), 18600);
-    setTimeout(() => setAnimationClasses((classes) => [...classes.slice(0, 3), "animate"]), 19100);
+    setTimeout(
+      () =>
+        setAnimationClasses((classes) => [
+          ...classes.slice(0, 1),
+          "animate",
+          "",
+          "",
+        ]),
+      18100
+    );
+    setTimeout(
+      () =>
+        setAnimationClasses((classes) => [
+          ...classes.slice(0, 2),
+          "animate",
+          "",
+        ]),
+      18600
+    );
+    setTimeout(
+      () =>
+        setAnimationClasses((classes) => [...classes.slice(0, 3), "animate"]),
+      19100
+    );
   }, []);
 
   useEffect(() => {
     const beliefInterval = setInterval(() => {
-      setCurrentBeliefIndex((prevIndex) => (prevIndex === beliefs.length - 1 ? 0 : prevIndex + 1));
+      setCurrentBeliefIndex((prevIndex) =>
+        prevIndex === beliefs.length - 1 ? 0 : prevIndex + 1
+      );
       if (currentBeliefIndex === beliefs.length - 1) {
         setFirstLoopFinished(true);
       }
@@ -88,7 +119,9 @@ const Home = () => {
 
     const professionInterval = setInterval(() => {
       if (firstLoopFinished && !secondLoopFinished) {
-        setCurrentProfessionIndex((prevIndex) => (prevIndex === professions.length - 1 ? 0 : prevIndex + 1));
+        setCurrentProfessionIndex((prevIndex) =>
+          prevIndex === professions.length - 1 ? 0 : prevIndex + 1
+        );
         if (currentProfessionIndex === professions.length - 1) {
           setSecondLoopFinished(true);
         }
@@ -97,7 +130,9 @@ const Home = () => {
 
     const constructionInterval = setInterval(() => {
       if (secondLoopFinished && !constructionFinished) {
-        setCurrentConstructionIndex((prevIndex) => (prevIndex === constructions.length - 1 ? 0 : prevIndex + 1));
+        setCurrentConstructionIndex((prevIndex) =>
+          prevIndex === constructions.length - 1 ? 0 : prevIndex + 1
+        );
         if (currentConstructionIndex === constructions.length - 1) {
           setConstructionFinished(true);
         }
@@ -148,7 +183,9 @@ const Home = () => {
           <div className="row">
             <div className="column">
               <span className="bold">So whether you are </span>
-              <span className="bold2">{professions[currentProfessionIndex].text}</span>
+              <span className="bold2">
+                {professions[currentProfessionIndex].text}
+              </span>
             </div>
             <div className="column">
               <div className="animation-container">
@@ -170,7 +207,9 @@ const Home = () => {
           <div className="row">
             <div className="column">
               <span className="bold">And you want to construct </span>
-              <span className="bold2">{constructions[currentConstructionIndex].text}</span>
+              <span className="bold2">
+                {constructions[currentConstructionIndex].text}
+              </span>
             </div>
             <div className="column">
               <div className="animation-container">
@@ -191,10 +230,26 @@ const Home = () => {
         {constructionFinished && (
           <div>
             <div className="achyut">
-              <img src={c1} alt="Image 1" className={`achyutimagination ${animationClasses[0]}`} />
-              <img src={c2} alt="Image 2" className={`achyutimagination ${animationClasses[1]}`} />
-              <img src={c3} alt="Image 3" className={`achyutimagination ${animationClasses[2]}`} />
-              <img src={c4} alt="Image 4" className={`achyutimagination ${animationClasses[3]}`} />
+              <img
+                src={c1}
+                alt="Image 1"
+                className={`achyutimagination ${animationClasses[0]}`}
+              />
+              <img
+                src={c2}
+                alt="Image 2"
+                className={`achyutimagination ${animationClasses[1]}`}
+              />
+              <img
+                src={c3}
+                alt="Image 3"
+                className={`achyutimagination ${animationClasses[2]}`}
+              />
+              <img
+                src={c4}
+                alt="Image 4"
+                className={`achyutimagination ${animationClasses[3]}`}
+              />
             </div>
             <div className="achyuttext">
               {/* <h3 className="achyuttext">Or just any Construction, Our team will do the same </h3> */}
@@ -230,21 +285,26 @@ const Home = () => {
         <div className="about-container">
           <h2>About Us</h2>
           <p>
-            Welcome to Progressive Galaxy! Progressive Civil Construction Company is a leading civil construction and
-            infrastructure development company based in India. With over 40 years of experience, we have been delivering
-            effective and high-quality project solutions to our clients.
+            Welcome to Progressive Galaxy! Progressive Civil Construction
+            Company is a leading civil construction and infrastructure
+            development company based in India. With over 40 years of
+            experience, we have been delivering effective and high-quality
+            project solutions to our clients.
           </p>
           <p>
-            Our versatile capabilities include constructing multistoried buildings, industrial structures, factory
-            buildings, residential and commercial complexes, bridges, and flyovers of any size and scale. We are
-            dedicated to providing high-quality construction that is on time and within budget, earning us a reputation
-            as one of the most reliable and dependable civil engineering construction companies in the entire western
-            India region.
+            Our versatile capabilities include constructing multistoried
+            buildings, industrial structures, factory buildings, residential and
+            commercial complexes, bridges, and flyovers of any size and scale.
+            We are dedicated to providing high-quality construction that is on
+            time and within budget, earning us a reputation as one of the most
+            reliable and dependable civil engineering construction companies in
+            the entire western India region.
           </p>
           <p>
-            Our team comprises highly skilled engineers with vast experience in various domains, having handled projects
-            for both private and government organizations. Our clientele includes leading multinational companies and
-            various government departments.
+            Our team comprises highly skilled engineers with vast experience in
+            various domains, having handled projects for both private and
+            government organizations. Our clientele includes leading
+            multinational companies and various government departments.
           </p>
         </div>
       </section>
@@ -310,71 +370,90 @@ const Home = () => {
         <div className="expertise-container">
           <h2>Core Areas of Expertise</h2>
           <div className="expertise-grid">
-  {/* Area 1 */}
-  <div className="expertise-item">
-    <div className="iconcol">
-      <FaBuilding color="#333" className="expertise-icon" /> {/* Add the icon */}
-    </div>
-    <div className="infocol">
-      <h3>Industrial Buildings</h3>
-      <p>Progressive takes pride in our engineering work done for industrial buildings...</p>
-    </div>
-  </div>
-  {/* Area 2 */}
-  <div className="expertise-item">
-    <div className="iconcol">
-      <RiBuilding2Fill color="#333" className="expertise-icon" /> {/* Add the icon */}
-    </div>
-    <div className="infocol">
-      <h3>Infrastructure Projects</h3>
-      <p>We have received accolades for our work in infrastructure projects...</p>
-    </div>
-  </div>
-  {/* Area 3 */}
-  <div className="expertise-item">
-    <div className="iconcol">
-      <FaRoad color="#333" className="expertise-icon" /> {/* Add the icon */}
-    </div>
-    <div className="infocol">
-      <h3>Road Construction</h3>
-      <p>Our team has extensive experience in road construction projects...</p>
-    </div>
-  </div>
-  {/* Area 4 */}
-  <div className="expertise-item">
-    <div className="iconcol">
-      <FaTasks color="#333" className="expertise-icon" /> {/* Add the icon */}
-    </div>
-    <div className="infocol">
-      <h3>Special Assignments</h3>
-      <p>
-        No task is too big or too difficult at Progressive. Our team has actively completed a variety of special
-        assignments...
-      </p>
-    </div>
-  </div>
-</div>
-
+            {/* Area 1 */}
+            <div className="expertise-item">
+              <div className="iconcol">
+                <FaBuilding color="#333" className="expertise-icon" />{" "}
+                {/* Add the icon */}
+              </div>
+              <div className="infocol">
+                <h3>Industrial Buildings</h3>
+                <p>
+                  Progressive takes pride in our engineering work done for
+                  industrial buildings...
+                </p>
+              </div>
+            </div>
+            {/* Area 2 */}
+            <div className="expertise-item">
+              <div className="iconcol">
+                <RiBuilding2Fill color="#333" className="expertise-icon" />{" "}
+                {/* Add the icon */}
+              </div>
+              <div className="infocol">
+                <h3>Infrastructure Projects</h3>
+                <p>
+                  We have received accolades for our work in infrastructure
+                  projects...
+                </p>
+              </div>
+            </div>
+            {/* Area 3 */}
+            <div className="expertise-item">
+              <div className="iconcol">
+                <FaRoad color="#333" className="expertise-icon" />{" "}
+                {/* Add the icon */}
+              </div>
+              <div className="infocol">
+                <h3>Road Construction</h3>
+                <p>
+                  Our team has extensive experience in road construction
+                  projects...
+                </p>
+              </div>
+            </div>
+            {/* Area 4 */}
+            <div className="expertise-item">
+              <div className="iconcol">
+                <FaTasks color="#333" className="expertise-icon" />{" "}
+                {/* Add the icon */}
+              </div>
+              <div className="infocol">
+                <h3>Special Assignments</h3>
+                <p>
+                  No task is too big or too difficult at Progressive. Our team
+                  has actively completed a variety of special assignments...
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Statistics and Awards section */}
       <section className="stats-awards-section">
-  <div className="stats-awards-container">
-    <h2>Statistics and Awards</h2>
-    <div className="stats-awards-grid">
-      {/* Stats */}
-      <div className="stats-item">
-        <img className="certificate"src={certificate1} alt="Certificate 1" />
-        <img className="certificate"src={certificate2} alt="Certificate 2" />
-        <img className="awards"src={award1} alt="Award 1" />
-        <img className="awards"src={award2} alt="Award 2" />
-      </div>
-      {/* Awards */}
-   
-    </div>
-  </div>
-</section>
+        <div className="stats-awards-container">
+          <h2>Statistics and Awards</h2>
+          <div className="stats-awards-grid">
+            {/* Stats */}
+            <div className="stats-item">
+              <img
+                className="certificate"
+                src={certificate1}
+                alt="Certificate 1"
+              />
+              <img
+                className="certificate"
+                src={certificate2}
+                alt="Certificate 2"
+              />
+              <img className="awards" src={award1} alt="Award 1" />
+              <img className="awards" src={award2} alt="Award 2" />
+            </div>
+            {/* Awards */}
+          </div>
+        </div>
+      </section>
 
       {/* Contact Us section */}
       <section className="contact-section">
