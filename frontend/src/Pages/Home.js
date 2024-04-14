@@ -456,13 +456,7 @@ const Home = () => {
       </section>
 
       {/* Contact Us section */}
-      <section className="contact-section">
-        <div className="contact-container">
-          <h2>Contact Us</h2>
-          <p>Get in touch with us for inquiries or projects.</p>
-          {/* Contact form or contact details can be added here */}
-        </div>
-      </section>
+      
 
       {/* Footer section */}
       <footer className="footer">
