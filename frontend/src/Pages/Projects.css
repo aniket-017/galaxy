@@ -102,7 +102,7 @@ html {
 
 .projsection {
   text-align: center;
-  padding: 7em 1em;   
+  padding: 3em 1em;   
   /* this line affect histort as direct css given to section */
   background-color: white;
   /* margin:0 auto; */
@@ -262,7 +262,7 @@ html {
 
 .section-5 ion-icon {
   color: #efefef;
-  font-size: 30px;
+  font-size: 60px;
 }
 
 .section-5 .figure p:before,
@@ -452,4 +452,62 @@ html {
 .section-6 .figure:hover figcaption:after,
 .section-6 .figure.hover figcaption:after {
   opacity: 0.1;
+}
+
+.industrialfilters {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  margin-bottom: 50px;
+
+}
+
+.industrialfilters div {
+  padding: 6px 17px;
+  margin-left: 25px;
+  margin-right: 25px;
+  background-color: #555;
+  color: #000000;
+  border-radius: 35px;
+  cursor: pointer;
+}
+
+.industrialfilters div:hover {
+  background-color: #fff;
+}
+
+.industrialfilters div.active {
+  background-color: #fff;
+  color: #000000;
+}
+
+
+.section-6>.heading h1{
+  font-size: 60px;
+} 
+
+.infrastructureFilters {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.infrastructureFilters div {
+  padding: 8px 20px;
+  margin: 0 10px;
+  background-color: #555;
+  color: #fff;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.infrastructureFilters div:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.infrastructureFilters .active {
+  background-color: #fff;
+  color: #000;
 }
