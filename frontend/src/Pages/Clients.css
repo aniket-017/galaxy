@@ -12,12 +12,16 @@
     flex-wrap: wrap; /* Allow items to wrap to the next row */
     justify-content: space-between; /* Adjust the spacing between items */
     gap: 2rem; /* Adjust the gap between items */
+    padding-bottom: 50px;
   }
   
   /* .logogrid__item */
   .logogrid__item {
     list-style-type: none;
     flex: 0 1 calc(15%); /* Adjust the item width and spacing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   /* .logogrid__img */
@@ -25,8 +29,9 @@
     
     object-fit: cover;
 
-    max-width: 130px;
-    max-height: 130px;
+    max-width: 150px;
+    max-height: 150px;
+    display: flex;
     align-items: center;
     /* max-height: var(--logo-max-height); */
     /* filter: grayscale(100%) contrast(25%); */
