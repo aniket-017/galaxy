@@ -60,3 +60,8 @@
     border: 0; /* Remove iframe border */
   }
   
+  @media (max-width: 768px){
+    .contact-container{
+      padding:70px 20px;
+    }
+  }
