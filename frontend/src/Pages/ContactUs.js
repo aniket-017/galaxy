@@ -4,9 +4,13 @@ import "./ContactUs.css"; // Import your CSS file for styling
 
 const ContactUs = () => {
   return (
+    <div>
+
+  
     <div className="contact-container">
+     <h1>Contact Us</h1>
       <div className="contactFirstColumn">
-        <h1>Contact Us</h1>
+       
         <div className="office">
           <h2>HEAD OFFICE</h2>
           <p>
@@ -66,6 +70,7 @@ const ContactUs = () => {
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
+    </div>
     </div>
   );
 };

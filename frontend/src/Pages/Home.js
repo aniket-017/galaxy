@@ -38,6 +38,8 @@ import first from "../assets/images/project/industrialBuildings.jpg";
 import second from "../assets/images/project/Infrastructures bridges,flyovers and auqaducts.jpg";
 import third from "../assets/images/project/interior & fitouts, repair & renovation.jpg";
 import fourth from "../assets/images/project/Commercial Buildings,Residential Projects.jpg";
+import Imager from "./Imager.js"
+
 
 import certificate1 from "../assets/images/certificate1.png";
 import certificate2 from "../assets/images/certificate 2.png";
@@ -155,6 +157,9 @@ const Home = () => {
 
   return (
     <div>
+    <section>
+      <Imager />
+    </section>
       <section className="container2 dynamic-content">
         {/* Loop 1 */}
         {!firstLoopFinished ? (

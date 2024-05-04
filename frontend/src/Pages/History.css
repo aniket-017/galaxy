@@ -266,3 +266,62 @@ time {
   display: flex;
   margin-left: 4px;
 } */
+
+
+.team-info {
+  padding: 50px 0;
+}
+
+.team-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.team-list li {
+  margin: 20px;
+  text-align: center;
+}
+
+.team-list li img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.team-list li strong {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.team-list li span {
+  font-size: 1rem;
+}
+
+
+.director-message {
+  padding: 50px 0;
+  background-color: #f9f9f9;
+}
+
+.director-message .hiscontainer {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.director-message h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.director-message p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+}

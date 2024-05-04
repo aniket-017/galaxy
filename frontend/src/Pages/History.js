@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./History.css";
+import dummy from "../assets/images/team members/profiledummy.png"
 
 const History = () => {
   useEffect(() => {
@@ -39,6 +40,70 @@ const History = () => {
   }, []);
   return (
     <div>
+    <section className="director-message">
+  <div className="hiscontainer">
+    <h2>Director's Message</h2>
+    <p>
+      Dear Progressian,
+      {/* Add Director's message content here */}
+      At Progressive, we exist because it is our steadfast mission to establish a brand of repute in the Architecture, Engineering, and Construction (AEC) industry. Our commitment lies in designing, building and maintaining monumental projects in varied geographical boundaries, delighting our customers with innovative solutions, speedy delivery of projects and exceptional performance.
+    </p>
+    {/* Additional CSS for director's message can be added in History.css */}
+  </div>
+</section>
+
+<section className="team-info">
+  <div className="hiscontainer">
+    <h2>Our Team</h2>
+    {/* Team members' information */}
+    <ul className="team-list">
+  <li>
+    <img src={dummy} alt="C M Abhang" />
+    <strong>C M Abhang</strong> (Chairman)
+  </li>
+  <li>
+    <img src={dummy} alt="Uday Abhang" />
+    <strong>Uday Abhang</strong> (Managing Director)
+  </li>
+  <li>
+    <img src={dummy} alt="Ashlesha Ambade" />
+    <strong>Ashlesha Ambade</strong> (Director)
+  </li>
+  <li>
+    <img src={dummy} alt="Eknath Rajkar" />
+    <strong>Eknath Rajkar</strong> (General Manager)
+  </li>
+  <li>
+    <img src={dummy} alt="Ulhas Abhang" />
+    <strong>Ulhas Abhang</strong> (Manager, Supply Chain)
+  </li>
+  <li>
+    <img src={dummy} alt="Satish Madhale" />
+    <strong>Satish Madhale</strong> (Manager, Account & Finance)
+  </li>
+  <li>
+    <img src={dummy} alt="Ramdas Wanjare" />
+    <strong>Ramdas Wanjare</strong> (Manager, Technical)
+  </li>
+  <li>
+    <img src={dummy} alt="Shiv Mittal" />
+    <strong>Shiv Mittal</strong> (CFO)
+  </li>
+  <li>
+    <img src={dummy} alt="Vidyasagar" />
+    <strong>Vidyasagar</strong> (Contracts)
+  </li>
+  <li>
+    <img src={dummy} alt="Jennil Shah" />
+    <strong>Jennil Shah</strong> (HR & IR)
+  </li>
+</ul>
+
+    {/* Additional CSS for team information can be added in History.css */}
+  </div>
+</section>
+
+
       <section class="intro">
         <div class="hiscontainer">
           <h1 className="hishead">Our History &darr;</h1>

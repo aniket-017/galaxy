@@ -8,10 +8,11 @@
    */
   /* .logogrid */
   .logogrid {
+  
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next row */
     justify-content: space-between; /* Adjust the spacing between items */
-    gap: 2rem; /* Adjust the gap between items */
+    gap: 3.2rem; /* Adjust the gap between items */
     padding-bottom: 50px;
   }
   
@@ -22,6 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
   }
   
   /* .logogrid__img */
@@ -45,8 +47,8 @@
   
   .clientcontainer {
     padding-top: 100px;
-    width: 90%;
-    max-width: 1000px;
+    width: 80%;
+    /* max-width: 1000px; */
     margin: auto;
   } 
  
