@@ -2,13 +2,18 @@
 
 .project-details-container {
     /* max-width: 800px; */
+    
+    display: flex;
     margin: 0 auto;
     padding: 20px;
+    padding-top: 80px;
   }
   
-  .project-details-container img {
+  .productdetailimag {
     /* width: 100vw; */
     height:80vh;
+
+    width: 50vw;
     /* height: auto; */
     margin-bottom: 20px;
   }
@@ -16,10 +21,39 @@
   .project-details-container h2 {
     font-size: 24px;
     margin-bottom: 10px;
+    text-align: center;
+    padding: 40px 20px 10px 20px;
   }
   
   .project-details-container p {
     font-size: 16px;
     line-height: 1.6;
+    text-align: justify;
+    padding: 10px 30px;
   }
   
+
+  .project-brief{
+    padding: 10px 30px;
+  }
+
+
+  
+
+
+
+@media only screen and (max-width: 600px) {
+  .project-details-container {
+    flex-direction: column; 
+}
+
+.productdetailimag {
+  width: 85vw;
+    /* width: 50%; */
+    height: 40vh;
+}
+
+.project-details-container div:last-child {
+    padding-left: 20px;
+}
+}

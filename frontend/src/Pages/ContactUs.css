@@ -1,72 +1,80 @@
+/* .contactpage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+}
+
+.contactpage h1 {
+   text-align: center;
+   padding-top: 80px;
+ }
+
 .contact-container {
-    /* max-width: 800px; */
-    padding: 20px 100px;
-    margin: 0 auto;
-    /* padding: 20px; */
-    padding-top: 80px;
-  }
-  
-  .office, .queries {
-    margin-bottom: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 100px;
+}
 
-  .contactFirstColumn h1{
-    text-align: center;
-  }
-  .office h2, .queries h2 {
-  
-    color: #333;
-  }
-  
-  .office p, .queries p {
-    margin-bottom: 5px;
-  }
-  
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
+.contactFirstColumn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
 
-  .contact-container {
-    display: flex;
-    justify-content: space-between;
-  }
+.office {
+ 
+  padding: 20px;
+  border-radius: 10px;
+ 
+}
+
+.office h2 {
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.office p {
   
+  color: #666;
+}
+
+.office p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.office p a:hover {
+  text-decoration: underline;
+}
+
+.allqueries{
+  text-align: left;
+}
+.queries {
+  
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.queries h2 {
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.queries p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.queries p a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
   .contactFirstColumn {
-    flex: 1;
-    margin-right: 20px;
+    grid-template-columns: 1fr;
   }
-  
-  .contactSecondColumn {
-    flex: 1;
-  }
-  
-
-  .contactSecondColumn {
-    width: 100%; /* Full width */
-    height: auto; /* Automatically adjust height based on content */
-    margin-top: 20px; /* Add some top margin */
-  }
-  
-  .contactSecondColumn iframe {
-    width: 100%; /* Make the iframe responsive */
-    height: 450px; /* Set a fixed height */
-    border: 0; /* Remove iframe border */
-  }
-  
-  @media (max-width: 768px){
-    .contact-container{
-      padding:70px 20px;
-    }
-  }
-
-
-
-
-  
+} */

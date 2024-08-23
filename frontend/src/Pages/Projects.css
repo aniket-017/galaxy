@@ -1,108 +1,12 @@
-/* .cards-list {
-    z-index: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
-  .card {
-    margin: 30px auto;
-    width: 300px;
-    height: 300px;
-    border-radius: 40px;
-  box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
-    cursor: pointer;
-    transition: 0.4s;
-  }
-  .headproj{
-    text-align: center;
-    color: #444;
-    font: 800 350%/1.4 "Open Sans", sans-serif;
-    text-transform: uppercase;
-    margin-top: 80px;
-    margin-bottom: 80px;
-  }
 
-  .headproj:hover {
-    -webkit-text-stroke: 4px #fb8a05;
-    text-stroke: 4px #fb8a05;
-    color: transparent;
-  }
-  
-  .card .card_image {
-    width: inherit;
-    height: inherit;
-    border-radius: 40px;
-  }
-  
-  .card .card_image img {
-    width: inherit;
-    height: inherit;
-    border-radius: 40px;
-    object-fit: cover;
-  }
-  
-  .card .card_title {
-    text-align: center;
-    border-radius: 0px 0px 40px 40px;
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 30px;
-    margin-top: -80px;
-    height: 40px;
-  }
-  
-  .card:hover {
-    transform: scale(0.9, 0.9);
-    box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25), 
-      -5px -5px 30px 15px rgba(0,0,0,0.22);
-  }
-  
-  .title-white {
-    color: white;
-  }
-  
-  .title-black {
-    color: black;
-  }
-  
-  @media all and (max-width: 500px) {
-    .card-list {
-      
-      flex-direction: column;
-    }
-  } */
-
-
-
-  /* Section 5 - Hover Effect #05 */
 
   @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,700&display=swap');
 
-/* Core Styles */
 
-*,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-family: 'Rubik', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-}
-
-/* body {
-    background: #efefef;
-} */
 
 .projsection {
   text-align: center;
-  padding: 3em 1em;   
+  padding: 6em 1em;   
   /* this line affect histort as direct css given to section */
   background-color: white;
   /* margin:0 auto; */
@@ -167,15 +71,18 @@ html {
 }
 
 .section-5 .figure {
-
-  height: 418px;
+  height: 38 0px;
 }
 
 .section-5 .figure img {
-  max-width: 100%;
+  width: 110%;
+
   position: relative;
+  left: -12px;
   opacity: 0.7;
 }
+
+
 
 .section-5 .figure figcaption {
   position: absolute;
@@ -188,7 +95,7 @@ html {
   border-width: 0 1px;
   background-color: rgba(29,29,29,0.2);
   color: #efefef;
-/*   width: 220px; */
+  /* width: 220px; */
 }
 
 .section-5 .figure h2 {
@@ -284,12 +191,14 @@ html {
   right: 0;
   bottom: 0;
   left: 0;
+
   position: absolute;
   z-index: 1;
 }
 
 .section-5 .figure:hover img,
 .section-5 .figure.hover img {
+ 
   opacity: 0.15;
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
@@ -459,6 +368,7 @@ html {
   justify-content:center;
   align-items: center;
   margin-bottom: 50px;
+  margin-top: 20px;
 
 }
 
@@ -470,6 +380,8 @@ html {
   color: #000000;
   border-radius: 35px;
   cursor: pointer;
+
+
 }
 
 .industrialfilters div:hover {
@@ -486,13 +398,11 @@ html {
   font-size: 60px;
 } 
 
-.infrastructureFilters {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
+
 
 .infrastructureFilters div {
+  display: flex;
+  flex-direction: column;
   padding: 8px 20px;
   margin: 0 10px;
   background-color: #555;
@@ -510,4 +420,47 @@ html {
 .infrastructureFilters .active {
   background-color: #fff;
   color: #000;
+}
+
+
+.infrastructureFilters .active {
+  background-color: #fff;
+  color: #000;
+}
+
+
+@media (max-width: 576px) {
+
+  .section-5 .figure img {
+    width: 110%;
+  height: 180px;
+    position: relative;
+    left: -12px;
+    opacity: 0.7;
+  }
+
+  .industrialfilters {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    flex-direction: column;
+  }
+
+  .section-6 .heading h1 {
+    font-size: 40px;
+  }
+
+  .industrialfilters div {
+    padding: 6px 17px;
+    margin-left: 25px;
+    margin-right: 25px;
+    background-color: #555;
+    color: #000000;
+    border-radius: 35px;
+    cursor: pointer;
+    width: 200px;
+    margin-bottom: 12px;
+  }
 }

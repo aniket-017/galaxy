@@ -1,0 +1,245 @@
+/* Policy Component CSS */
+
+.custom-container {
+  max-width: 860px;
+  min-height: 440px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section {
+  min-width: 300px;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-text {
+  max-height: 380px;
+  overflow: hidden;
+  font-weight: 200;
+  font-size: 1rem;
+  cursor: text;
+  color: DimGrey;
+  margin: 0px 25px 25px 25px;
+  display: none;
+}
+
+.button-thin {
+  width: 40px;
+  height: 40px;
+  padding: 0px;
+  border: 1px solid LightGrey;
+  border-radius: 50%;
+  background-color: transparent;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-thin svg {
+  color: DimGrey;
+  font-size: 20px;
+}
+
+.section h3 {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin-top: 10px;
+  padding: 60px 20px 0 20px;
+  text-align: center;
+}
+
+.section-1 {
+  background-color: #ffbb33; /* Orange */
+}
+
+.section-1 h3 {
+  color: #ffbb33; /* Orange */
+}
+
+.section-1 .button-thin {
+  border-color: #ffbb33; /* Orange */
+}
+
+.section-2 {
+  background-color: #ff69b4; /* Hot Pink */
+}
+
+.section-2 h3 {
+  color: #ff69b4; /* Hot Pink */
+}
+
+.section-2 .button-thin {
+  border-color: #ff69b4; /* Hot Pink */
+}
+
+.section-3 {
+  background-color: #1e90ff; /* Dodger Blue */
+}
+
+.section-3 h3 {
+  color: #1e90ff; /* Dodger Blue */
+}
+
+.section-3 .button-thin {
+  border-color: #1e90ff; /* Dodger Blue */
+}
+
+.section-4 {
+  background-color: #4caf50; /* Green */
+}
+
+.section-4 h3 {
+  color: #4caf50; /* Green */
+}
+
+.section-4 .button-thin {
+  border-color: #4caf50; /* Green */
+}
+
+.section-5 {
+  background-color: #9370db; /* Purple */
+}
+
+.section-5 h3 {
+  color: #9370db; 
+}
+
+.section-5 .button-thin {
+  border-color: #9370db; 
+}
+
+.section-6 {
+  background-color: #ffff66;
+}
+
+
+.section-6 ul{
+  color: #fffefe;
+}
+.section-6 h3 {
+  color: #ffff66; 
+}
+
+.section-6 .button-thin {
+  border-color: #ffff66; 
+}
+
+.section-7 {
+  background-color: #ff8c00; 
+}
+
+.section-7 h3 {
+  color: #ff8c00; 
+}
+
+.section-7 .button-thin {
+  border-color: #ff8c00; 
+}
+
+.grow {
+  flex: 5;
+  background-color: white;
+  order: 1;
+}
+
+.grow h3 {
+  padding: 20px 0px 0px 0px;
+  text-align: center;
+}
+
+.grow .button-thin {
+  transform: rotate(180deg);
+}
+
+.shrink {
+  min-width: 65px;
+  flex: 0.1;
+}
+
+.shrink h3 {
+  color: WhiteSmoke;
+  transform-origin: 20% 100%;
+  writing-mode: vertical-rl;
+  margin: 20px 3px 15px 15px;
+}
+
+.shrink .button-thin {
+  color: WhiteSmoke;
+  border: 1px solid WhiteSmoke;
+  margin: 20px 0px 0px 10px;
+}
+
+@keyframes slide {
+  from {
+      transform: translateY(-120px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0px);
+      opacity: 100%;
+  }
+}
+
+.show {
+  display: block;
+}
+
+.animate {
+  animation: slide 0.4s ease;
+}
+
+@media (max-width: 768px) {
+  .section {
+      min-width: 100%;
+  }
+
+  .main-text {
+      font-size: 0.9rem;
+  }
+
+  .section h3 {
+      font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-thin {
+    left:10px;
+top:0px;
+
+      width: 35px;
+      height: 35px;
+  }
+
+  .shrink .button-thin{
+    margin-top: 10px;
+  }
+
+  .button-thin svg {
+      font-size: 18px;
+  }
+
+
+  .shrink h3{
+    writing-mode: horizontal-tb;
+   padding:0;
+  }
+  .section h3 {
+      font-size: 1em;
+  }
+
+  .main-text {
+      font-size: 0.8rem;
+  }
+}

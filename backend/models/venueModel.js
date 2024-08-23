@@ -7,10 +7,6 @@ const projectSchema = new mongoose.Schema({
     Description: { type: String, required:true },
    
 
-   
-
-
-
 });
 
 module.exports = mongoose.model('Projects', projectSchema);
