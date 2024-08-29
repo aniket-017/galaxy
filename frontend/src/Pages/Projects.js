@@ -8,14 +8,39 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Projects = () => {
   const navigate = useNavigate();
+  // const history = useHistory();
   const location = useLocation();
 
   const [activeSection, setActiveSection] = useState("null");
   const [activeFilter, setActiveFilter] = useState("All Industrial");
   // const [activeFilter, setActiveFilter] = useState("Engineering Structures");
-  const [activeFilterInfrastructure, setActiveFilterInfrastructure] = useState("Bridges, Flyovers and Aqueducts");
-  const [activeFilterSpecialAssignments, setActiveFilterSpecialAssignments] = useState("Customized Housing");
-  const [activeFilterMultistoredBuilding, setActiveFilterMultistoredBuilding] = useState("Cummercial Buildings");
+  const [activeFilterInfrastructure, setActiveFilterInfrastructure] = useState("All Infrastructure");
+  const [activeFilterSpecialAssignments, setActiveFilterSpecialAssignments] = useState("All Specialassignment");
+  const [activeFilterMultistoredBuilding, setActiveFilterMultistoredBuilding] = useState("Multistored");
+
+  const savedState = JSON.parse(localStorage.getItem("productDetailsState"));
+
+  useEffect(() => {
+    // Scroll to the top of the page
+
+    if (savedState) {
+      // console.log(savedState.activeFilter);
+      setActiveSection(savedState.activeSection);
+      setActiveFilter(savedState.activeFilter);
+      setActiveFilterInfrastructure(savedState.activeFilterInfrastructure);
+      setActiveFilterSpecialAssignments(savedState.activeFilterSpecialAssignments);
+      setActiveFilterMultistoredBuilding(savedState.activeFilterMultistoredBuilding);
+      // console.log(savedState.activeSection);
+      localStorage.removeItem("productDetailsState");
+    }
+
+    window.scrollTo(0, 0);
+    // Clean up: Remove local storage when component unmounts or page is refreshed
+
+    return () => {
+      localStorage.removeItem("productDetailsState");
+    };
+  }, [location.state]);
 
   const handleProductClick = (product) => {
     navigate(`/projects/${product.id}`, {
@@ -71,7 +96,7 @@ const Projects = () => {
   // };
 
   const scrollIntoView = (section) => {
-    console.log(section);
+    // console.log(section);
 
     // Check the viewport width
     const isMobileView = window.innerWidth <= 768; // Adjust the width threshold as needed
@@ -1243,7 +1268,8 @@ const Projects = () => {
   ];
 
   function truncateDescription(description, maxLength) {
-    // console.log(description.length)
+    console.log(description, description.length, maxLength);
+
     if (description.length <= maxLength) {
       return description;
     } else {
@@ -1252,6 +1278,539 @@ const Projects = () => {
       return truncatedText.substring(0, lastSpaceIndex) + "...";
     }
   }
+
+  // Multistored
+  const multistored = [
+    // Multi-stored commercial buildings
+    {
+      id: 1,
+      title: "Sun-Magnetica Mall",
+      description: [
+        "This mall is designed by Sanjay Puri, the architect that specializes in Malls.",
+        "The scope of work includes for shopping mall, commercial building, restaurant block and office buildings with podium and parking lots.",
+      ],
+      project_brief: {
+        "Total area of the project": "1,50,000 sft",
+        "Total storied": "G+6",
+        Basement: "1 nos",
+        "Area of showroom interiors": "20000 sft",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355097/Progressive/2.Muiltistored%20building/1.Commercial/1.Sun-Magnetica%20Mall/sunmagnetica_e_bldn7e.jpg",
+      ],
+    },
+    {
+      id: 2,
+      title: "Siemens Car Park Tower, Bangalore",
+      description: [
+        "This car park tower is constructed at Electronic city on Hosur road at Bangalore infront of Infosys.",
+        "The only difference in this car park is that the circular plan area has been changed to oval shape with additional lifts.",
+        "The additional area so derived is used for parking of two wheelers and additional cars.",
+        "This carpark is based on the success of the earlier car park tower at Worli Mumbai for the same client – Siemens.",
+      ],
+      project_brief: {
+        "Total area of the project": "1,30,000 sft",
+        RCC: "Form finish",
+        "Total concrete quantity": "5500 cum",
+        "Total nos of car parks": "225 nos",
+        "Total nos of two wheelers": "100 nos",
+        "Floor to floor height": "3.15 mtr",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355098/Progressive/2.Muiltistored%20building/1.Commercial/2.Siemens%20Car%20Park%20Tower%2C%20Bangalore/siemens_bangalore_1_e_fx1vxm.jpg",
+      ],
+    },
+    {
+      id: 3,
+      title: "Siemens Car Park Tower, Worli, Mumbai",
+      description: [
+        "The G+7 storeyed building is only devoted for car parks and is first of its kind in India.",
+        "The building rests on 14 peripheral columns with two conical hollow shear walls which in turn rests on raft foundation resting on the piles.",
+        "The diameter of the building is 33 mtrs with the outer periphery used for parking car and the central portion having lift & staircase for vertical movement of persons.",
+        "The space between the car park and the central portion is the driveway for up & down movement of the vehicles.",
+      ],
+      project_brief: {
+        "Total area of the project": "90,000 sft",
+        "Total area of the project": "90,000 sft",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355100/Progressive/2.Muiltistored%20building/1.Commercial/3.Siemens%20Car%20Park%20Tower%2C%20Worli%2C%20Mumbai/building_oieqvz.png",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355129/Progressive/2.Muiltistored%20building/1.Commercial/3.Siemens%20Car%20Park%20Tower%2C%20Worli%2C%20Mumbai/building1_e_purujh.png",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355101/Progressive/2.Muiltistored%20building/1.Commercial/3.Siemens%20Car%20Park%20Tower%2C%20Worli%2C%20Mumbai/siemens_worli_e_xlifyv.jpg",
+      ],
+    },
+    {
+      id: 4,
+      title: "Citicorp Information Technology Ltd (CITIL)",
+      description: [
+        "This building is a part of the IT development center for Citicorp – world’s leading financial corporate.",
+        "The job involved piling -conventional and micro-piling, pile caps, RCC framed structure, beams spanning 25 mtrs.",
+        "Space constrains, working offices and conventional site mix concrete made the job difficult.",
+      ],
+      project_brief: {},
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355104/Progressive/2.Muiltistored%20building/1.Commercial/4.Citicorp%20Information%20Technology%20Ltd%20%28CITIL%29/citi_e_vrwg3i.jpg",
+      ],
+    },
+
+    {
+      id: 5,
+      title: "Shiv Samath Smarak.",
+      category: "Public Buildings",
+      description: [
+        "The scope of work was to construct a memorial in the memory of Shri Shivaji Maharaj. This was a design and built project awarded by JNPT.",
+        "Scope of work included ",
+        "Design - The scope of design was",
+        "Architectural consultant - to improve on the basic design proposed by the client.",
+
+        "Structural design consultant -design and third party vetting",
+
+        "MEP design consultant - Designing each component and integrating it within the building.",
+
+        "Landscaping consultant.- to improve on the landscaping aspects. ",
+      ],
+      project_brief: {
+        "Foundation work": "Piling, Ground improvement by PVD, Earth filling and compaction etc.",
+        "RCC works": "Construction of buildings, statue foundation etc.",
+        "Masonry work": "Brickwork, Plaster and waterproofing",
+        "Interior works": "Flooring, tiling, false ceiling, acoustic room, murals",
+        "Door, Window and Facade works": "Spider glazing, Automatic doors etc.",
+        "MEP works":
+          "Electrical HT & LT (including liasioning, getting electrical connection to project site) ELV (including camera, fire alarm system), Passenger Lift, DG, musical fountains",
+        "External development":
+          "Landscaping, Road, drains, stamped concrete, amphitheater, underground pump house with water tanks, Sloping garden, compound wall and gate",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720710437/Progressive/2.Muiltistored%20building/2.Public/9.JNPT/EBO8A5119LR_as8nrn.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720710438/Progressive/2.Muiltistored%20building/2.Public/9.JNPT/EBO8A4943LR_aqhw5h.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720710437/Progressive/2.Muiltistored%20building/2.Public/9.JNPT/BO8A4795LR_qf1h5b.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720710437/Progressive/2.Muiltistored%20building/2.Public/9.JNPT/EBO8A4868LR_vimges.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720710438/Progressive/2.Muiltistored%20building/2.Public/9.JNPT/BO8A5158LR_x03ymk.jpg",
+      ],
+    },
+    {
+      id: 6,
+      title: "Vashi Railway Station (Deck Slab)",
+      category: "Public Buildings",
+      description: [
+        "This station building is basically a bridge structure given a form of a building. This entire work was already awarded to NBCC, a leading government construction company. However, to expedite the job and to get the railway into Navi Mumbai it was necessary to expedite the project and hence the job was awarded to us through re-tendering.",
+        "Our scope of work included the pier and deck slab for 50% of the station building area including columns, beams, and slab. The total concrete quantity of the project was 5000 cum.",
+        "The bigger slab was of the tune of 600 cum each and the smaller of 400 cum each. This entire pour of 600 cum was continuously concreted through manual means as the use of pump or ready mix concrete was not prominent at that time.",
+        "More than 1000 labors were required in different shifts and the concreting process was more than 3 days at times. The work was completed in time and this structure was inaugurated by the President of India.",
+      ],
+      project_brief: {
+        Architect: "Firoz Khodianwala",
+        "Structural Consultant": "Dubon",
+        Owner: "CIDCO for MTP Railways",
+        "Value of Work": "Rs.300 lacs in 1991",
+        "Work Competition period": "6 months",
+        Concrete: "6000 M3",
+        "Reinf. Steel": "F.B.E.C. 1000 MT",
+        "Floor span": "25 Meter",
+        "Floor beam": "550 mm (W) x 2100 mm (D)",
+        "Form work & false work": "24000 M2 (Steel modular)",
+        "Flooring dewatering, power float & power trowel": "Floor slab concrete finishing done by Tremix vacuum",
+        "Built up area": "5000 sqft",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355107/Progressive/2.Muiltistored%20building/2.Public/1.Vashi%20Railway%20Station%20%28Deck%20Slab%29/deckslabvashistn_e_cwbx8r.jpg",
+      ],
+    },
+    {
+      id: 7,
+      title: "Dr. Babasaheb Ambedkar Memorial",
+      category: "Public Buildings",
+      description: [
+        "This is a National memorial in respect of Dr Babasaheb Ambedkar – comprising of multi-purpose building complex having auditorium, library, swimming pool, museum, banks, multiple hall, hostel buildings.",
+        "The building boasts various architectural features such as polycarbonate domes, Puf ceilings, renova plasters among various others.",
+      ],
+      project_brief: {
+        "Total area of the project": "1,80,000 sft",
+        "Total concrete quantity": "14,500 cum",
+        "Total reinforcement quantity": "1225 mt",
+        Masonry: "8000 cum",
+        Plastering: "45000 sqm",
+        "Floor to floor height": "3.15 mtr",
+        "Project Duration": "18 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355109/Progressive/2.Muiltistored%20building/2.Public/2.Dr.%20Babasaheb%20Ambedkar%20Memorial/drbabasaheb_e_drvsvb.jpg",
+      ],
+    },
+    {
+      id: 8,
+      title: "Loreto Convent School",
+      category: "Public Buildings",
+      description: [
+        "This was extension work done in the initial formation years of the company. The scope of work included the addition of the classroom from ground floor to the first floor.",
+        "The scope was not huge but still important to be mentioned here as these were initial projects which were the founding stones of the company.",
+      ],
+      project_brief: {
+        // Project brief details can be added here if available
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355115/Progressive/2.Muiltistored%20building/2.Public/4.Loreto%20Convent%20School/loreto_e_polxsl.png",
+      ],
+    },
+    {
+      id: 9,
+      title: "Georai Hospital",
+      category: "Public Buildings",
+      description: [
+        "This is a 150 bedded hospital constructed in Georai in Marathwada region near Beed.",
+        "The scope of work included construction of OPD (Out patients department), Operation Theaters -2 nos, IPD, Pediatric wards, X-Ray rooms, Male and Female wards, special wards and other various other structures.",
+        "This is a ground floor structure however spread over a vast area.",
+      ],
+      project_brief: {
+        // Project brief details can be added here if available
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355118/Progressive/2.Muiltistored%20building/2.Public/6.Georai%20Hospital/georai_e_rsqp0a.png",
+      ],
+    },
+    {
+      id: 10,
+      title: "Maharaja Agrasen Bhavan",
+      category: "Public Buildings",
+      description: [
+        "This is a Memorial Bhavan in respect of Maharaja Agrasen – comprising of multi-purpose building complex having Maharaja Agrasen Hall, A/C multi-purpose hall, Dining hall, Three star hostel buildings of 32 A/C rooms with attached toilet and bathroom, Two separate common toilets for Gents and Ladies.",
+        "The building boasts various architectural features such as polycarbonate domes, Huge passages, Puf ceilings, Jaisalmer cladding for outside face of wall among various others.",
+      ],
+      project_brief: {
+        "Total area of the project": "60,000 sft",
+        "Total storied": "G +2 nos",
+        Basement: "1 nos (partial)",
+        "Total concrete quantity": "3000 cum",
+        "Total reinforcement": "180 mt",
+        "Structural steel": "85 mt",
+        "Portal section": "ISMB 450, 72.5 kg per mtr. (25 mtr long)",
+        Masonry: "1250 cum",
+        Plastering: "15000 sqm",
+        "Total area of plot": "2 acres",
+        "Floor to floor height": "4 mtr",
+        Duration: "12 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355112/Progressive/2.Muiltistored%20building/2.Public/3.Maharaja%20Agrasen%20Bhavan/agrasen_e_vcwqnb.jpg",
+      ],
+    },
+    {
+      id: 11,
+      title: "Roha Temple",
+      category: "Public Buildings",
+      description: [
+        "The podium for the temple is constructed for a temple located at Roha, Maharashtra.",
+        "The scope of work included excavation, RCC works, and finishing items of high standards.",
+      ],
+      project_brief: {
+        // Project brief details can be added here if available
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720355126/Progressive/2.Muiltistored%20building/2.Public/7.Roha%20Temple/roha_e_ldwojb.png",
+      ],
+    },
+  ];
+
+  const allspecialassignment = [
+    {
+      id: 1,
+      title: "Awsari Bungalow",
+      category: "Customised Housing",
+      description: [
+        "This bungalow was built for the Abhang family at their native place in Pune district. The architectural work was based on the Gothic style. The total area of the bungalow is 8000 sft.",
+      ],
+      project_brief: { "Total area of the project": " " },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503436/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/3.Awsari%20Bungalow/1_004_sdwl40.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503540/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/3.Awsari%20Bungalow/1_003_a34rkq.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503020/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/3.Awsari%20Bungalow/awsari_e_zt8xte.png",
+      ],
+    },
+    {
+      id: 2,
+      title: "RAAJ Bungalow",
+      category: "Customised Housing",
+      description: [
+        "This bungalow was built for the Ramkrishnan family at New Bombay. The scope of work included all RCC work, sloping slabs, architectural RCC finishes, brickwork, plasters, doors, windows, aluminium works, high-quality finishes, and paints, etc., complete with waterproofing. The total area of the bungalow is 2500 sft.",
+      ],
+      project_brief: { "Total area of the project": " " },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503022/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/4.RAAJ%20Bunglow/raaj1_e_c12y6b.png",
+      ],
+    },
+    {
+      id: 3,
+      title: "Johnson & Johnson (Interior project for Regional lab Asian Pacific)",
+      category: "Interiors & Fitouts",
+      description: [
+        "Apart from the RCC work, the company undertakes interior projects for select clientele. The Regional Lab - Asia Pacific region interior works were carried out by the company containing high specification of flooring (natural granite, Italian marbles, marbonite), cladding, spiral staircase, aluminum windows/doors, glass doors, high-quality sanitary wares, false ceilings, various plasters, and painting. All these works were done within tight time duration and with a highly specialized workforce.",
+      ],
+      project_brief: {},
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720507439/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/2.Interior/1.%20johnson%20and%20johnson/john_e_lo4sdy.jpg",
+      ],
+    },
+    {
+      id: 4,
+      title: "Siemens India HQ (Interior project for Canteen Building)",
+      category: "Interiors & Fitouts",
+      description: [
+        "The interiors of the canteen, cafeteria, and conference rooms of the Siemens HQ of India were executed by the company. The scope included high specification of flooring (natural granite, Italian marbles, marbonite), cladding (stone tiles, granite cladding), aluminum windows/doors, glass doors, high-quality sanitary wares, false ceilings, plasters, and painting. The marbonite tiles were cut in wave pattern along with a reverse color which had to be done with an electronic theodolite and CAD drawings.",
+      ],
+      project_brief: {},
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503024/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/2.Interior/3.Siemens%20India%20HQ%20%28Interior%20project%20for%20Canteen%20Building.%29/siemenscanteen_e_kbfbvv.jpg",
+      ],
+    },
+  ];
+
+  const infrastructure = [
+    {
+      id: 1,
+      title: "Phulambry Bridge",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 993,
+      description: [
+        "This is a major bridge across Phulambri river on Aurangabad Jalgoan road in Marathwada area. The total length of the bridge is 77 mtr of 7 mtr span with 250 meter length approaches. The bridge consists of Raft foundation, solid abutment/pier and solid deck slab.",
+      ],
+      project_brief: {
+        "Total length": "77 mtrs",
+        "Concrete quantity": "1850 cum",
+        "Shuttering quantity": "5200 sqm",
+        "Reinforcement quantity": "98 MT",
+        Span: "11 nos",
+        Foundation: "Raft",
+        "Time period": "18 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436520/Progressive/3.Infrastructure/1.Bridge/9.Phulambry%20Bridge/Phulambry_e_lyiqnj.png",
+      ],
+    },
+    {
+      id: 2,
+      title: "Borli Mandala Creek Bridge",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 1019,
+      description: [
+        "This bridge is about 200 mtr from the sea. The tidal variation at this location is in the range of 2.5 mtrs. As in other creek bridges, foundation was the most difficult part of the entire structure. The total length of the bridge is 60 mtr and 20 mt span x 3 nos.",
+      ],
+      project_brief: {
+        "Total length": "60 mtrs",
+        "Concrete quantity": "2800 cum",
+        "Reinforcement quantity": "150 mt",
+        Span: "20 mts",
+        Foundation: "Open",
+        "Tidal variation": "2.5 mtrs",
+        "Time period": "12 Months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436455/Progressive/3.Infrastructure/1.Bridge/12.Borli%20Mandala%20Creek%20Bridge/borli_e_l6arbj.png",
+      ],
+    },
+    {
+      id: 3,
+      title: "Tawsal Creek Bridge",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 1019,
+      description: [
+        "This creek bridge is about 100 mtrs from the Arabian sea as a part of Coastal Road project in Maharashtra. The total length of the bridge is 60 mtr made up of two spans of each 30 mtrs. The foundation was critical and was carried out by well sinking process. The sinking of the well had to be done to a depth of 30 mtr below the mean sea level.",
+      ],
+      project_brief: {
+        "Total length": "80 mtrs",
+        "Concrete quantity": "5500 cum",
+        "Reinforcement quantity": "500 mt",
+        Span: "30 mts box",
+        Foundation: "Well foundation",
+        "Tidal variation": "3.5 mtrs",
+        Concrete: "M 25, M 30 site mix",
+        "Time period": "12 Months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436461/Progressive/3.Infrastructure/1.Bridge/14.Tawsal%20Creek%20Bridge/tewsal_e_sms5al.png",
+      ],
+    },
+    {
+      id: 4,
+      title: "Desai Creek Bridge",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 1443,
+      description: [
+        "On 15 Dec 1999, there was a slab collapse of a major but old bridge across Desai creek due to weakening of masonry structure supporting the slabs. Considering the urgency of the situation, a tender was floated by the PWD Department of Govt of Maharashtra by calling selected 10 bridge contractors and we were fortunate to be awarded the work despite competition from big construction companies.",
+        "Our scope included dismantling of existing bridge and reconstruction of the same at the same location. Despite high variation of tide we were successful in completion of the bridge in record time of 86 days which is still a record in creek bridges in Maharashtra.",
+      ],
+      project_brief: {
+        "Total length": "80 mtrs",
+        "Concrete quantity": "3000 cum",
+        "Reinforcement quantity": "550 mt",
+        Span: "13.5 mts",
+        Foundation: "Open",
+        "Tidal variation": "2 mtrs",
+        Concrete: "M 25 site mix",
+        "Time period": "86 days",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436464/Progressive/3.Infrastructure/1.Bridge/15.Desai%20Creek%20Bridge/desai_e_xwdreu.png",
+      ],
+    },
+    {
+      id: 5,
+      title: "Kendal River Bridge",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 1114,
+      description: [
+        "The entire river was a sand bed with minimum thickness of 1.5 mtr. The cutoff wall had encountered heavy dewatering creating problems for cutoff wall concreting. The problems were so severe that precast concrete wall had to be done to execute the works. In certain cases well sinking had to be done in rectangular shape of cutoff wall.",
+      ],
+      project_brief: {
+        "Total length": "185 mtrs",
+        "Concrete quantity": "2500 cum",
+        "Shuttering quantity": "15000 sqm",
+        "Reinforcement quantity": "450 mt",
+        Span: "9 mt x 3 nos box",
+        Foundation: "Raft",
+        "Time period": "15 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436470/Progressive/3.Infrastructure/1.Bridge/16.Kendal%20River%20Bridge/kendal_e_i9tj0n.png",
+      ],
+    },
+    {
+      id: 6,
+      title: "Neelkant Bridge",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 1082,
+      description: [
+        "The work of the bridge proper was self-designed. To enable economies the span was designed as continuous span bridges. Hence 15 mts support span had to be casted as 45 mtrs in one pour.",
+      ],
+      project_brief: {
+        "Total length": "135 mtrs",
+        "Concrete quantity": "2800 cum",
+        "Shuttering quantity": "12000 sqm",
+        "Reinforcement quantity": "300 mt",
+        Span: "45 mt x 3 nos",
+        Foundation: "Open",
+        "Time period": "8 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436470/Progressive/3.Infrastructure/1.Bridge/17.Neelkant%20Bridge/neelkanth_e_h9qstc.png",
+      ],
+    },
+    {
+      id: 7,
+      title: "Shekta Bridge",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 1539,
+      description: [
+        "Normally a bridge is perpendicular to the flow of the river. However, this bridge is unique as the alignment is in skew of 65 % to the flow of the river. This skew angle is one of the highest in this part of the region. Hence the normal length of the 7.5 mt road width has now measured at 28 mtr at skew length.",
+      ],
+      project_brief: {
+        "Total length": "45 mtrs",
+        "Concrete quantity": "1500 cum",
+        "Shuttering quantity": "5500 sqm",
+        "Reinforcement quantity": "150 mt",
+        Span: "9 mt",
+        Foundation: "Raft",
+        "Time period": "4 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436474/Progressive/3.Infrastructure/1.Bridge/18.Shekta%20Bridge/shekta_e_ctoqef.png",
+      ],
+    },
+    {
+      id: 8,
+      title: "Savitri Bridge",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 1688,
+      description: [
+        "The bridge spans a major river Savitri in the Konkan area. The total length of the bridge is 300 mtr and the span is of concrete arches designed and then constructed by the company. The existing bridge constructed by the British is along the same alignment. The arches have enabled good aesthetics. The company has been awarded the 1st prize by Indian Institute of Bridge Engineers for this bridge at a National level.",
+      ],
+      project_brief: {
+        "Total length": "300 mtrs",
+        "Concrete quantity": "8000 cum",
+        "Shuttering quantity": "12000 sqm",
+        "Reinforcement quantity": "325 mt",
+        Span: "9.0, 9.3 & 10.2 mtrs",
+        Foundation: "Open",
+        "Time period": "15 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436479/Progressive/3.Infrastructure/1.Bridge/19.Savitri%20Bridge/savitri_e_aszt9s.png",
+      ],
+    },
+    {
+      id: 9,
+      title: "Badlapur Flyover (K.B.M.C)",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 2329,
+      description: [
+        "The Badlapur flyover was built for the Kulgaon Badlapur Municipal Corporation. The total length of the flyover is 680 mtrs connecting the east Badlapur to the west. The horizontal curve is of S shape to accommodate the heavy gradient created at the junction of the railway bridge and the small river ie this flyover passes over two obligatory road spans and existing railway (which is again over the small river). The height at this junction is more than 10 mtrs.",
+      ],
+      project_brief: {
+        "Total length": "680 mtrs",
+        "Concrete quantity": "9500 cum",
+        "Shuttering quantity": "38000 sqm",
+        "Reinforcement quantity": "1200 mt",
+        Foundation: "Open",
+        "Time period": "12 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436501/Progressive/3.Infrastructure/1.Bridge/20.Badlapur%20Flyover%20%28K.B.M.C%29/WhatsApp_Image_2024-07-04_at_6.07.37_PM_n7gofs.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436513/Progressive/3.Infrastructure/1.Bridge/20.Badlapur%20Flyover%20%28K.B.M.C%29/WhatsApp_Image_2024-07-04_at_6.07.39_PM_j4xm5z.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436510/Progressive/3.Infrastructure/1.Bridge/20.Badlapur%20Flyover%20%28K.B.M.C%29/WhatsApp_Image_2024-07-04_at_6.07.38_PM_2_mqffze.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436519/Progressive/3.Infrastructure/1.Bridge/20.Badlapur%20Flyover%20%28K.B.M.C%29/WhatsApp_Image_2024-07-04_at_6.07.38_PM_1_kl5pd4.jpg",
+      ],
+    },
+    {
+      id: 10,
+      title: "Rajiv Gandhi Flyover, Nerul, Navi Mumbai",
+      category: "Bridges, Flyovers and Aquaducts",
+      hits: 2603,
+      description: [
+        "This bridge is 860 mtr long ROB built within Nerul node of Navi Mumbai connecting the phase 1 and phase 2 of Nerul. The typical span of the bridge is 12.5 mtr with conventional T girder design with two obligatory spans of 25 mtrs each. This bridge crosses 8 railway tracks when completed and two main roads on either side of the railway track.",
+        "Anticrash barrier - first time in India was used and tested on this bridge. Now this is a common feature used on all roads and bridges of the golden quadrilateral project.",
+      ],
+      project_brief: {
+        "Total length": "860 mtrs",
+        "Concrete quantity": "6000 cum",
+        "Shuttering quantity": "25000 sqm",
+        "Reinforcement quantity": "900 mt",
+        Span: "12.5 & 25 mtrs",
+        Foundation: "Open & Piling",
+        "Time period": "12 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436505/Progressive/3.Infrastructure/1.Bridge/21.Rajiv%20Gandhi%20Flyover%2C%20Nerul%2C%20Navi%20Mumbai/nerulfly_e_qfg9ht.png",
+      ],
+    },
+    {
+      id: 11,
+      title: "Microtrol - Cobalt 66 Radiation Unit",
+      category: "Nuclear Structures",
+      hits: 1598,
+      description: [
+        "Cobalt 66 is a radioactive material used for sterilization of food materials. The construction encompassed the raw-material bay, the processing area, and the finished goods area along with office building and area developments. The most critical area was the construction of the Radiation unit. The raft is 8 mtr deep and thk is 2 mt, walls are 2 mtr thk and slab is 1.7 mtr. The concrete volume of this unit itself is more than 250 cum.",
+      ],
+      project_brief: {
+        "Total concrete quantity": "1000 cum",
+        "Total reinforcement": "140 mt",
+        Duration: "6 months",
+      },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436528/Progressive/3.Infrastructure/2.Nuclear/Microtrol%20-Cobalt%2066%20Radiation%20Unit/microtrol_e_z4ly9u.png",
+      ],
+    },
+    {
+      id: 12,
+      title: "Konkan Railway (Tunnel Lining Project)",
+      category: "Mass Excavation & Geotechnical Projects",
+      description: [
+        "For all tunnels from Roha to Khed on the Konkan Railway project, certain critical patches of soft soil or fissured rock occurred within the tunnels, which were unable to resist the vibratory forces generated due to the speed of fast-moving trains and ultimately could lead to collapse. In order to avoid this, concrete lining was carried out for the arches and the walls, and guniting/shotcreting was applied to the walls/ceilings.",
+      ],
+      project_brief: { "Total area of the project": " " },
+      image: [
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436518/Progressive/3.Infrastructure/4.Mass%20Exavation/3.Konkan%20Railway%20%28Tunnel%20Lining%20Project%29/roha_e_tujuls.png",
+      ],
+    },
+  ];
 
   return (
     <div>
@@ -1495,6 +2054,21 @@ const Projects = () => {
             </div>
           </div>
           <div className="row">
+            {activeFilterInfrastructure === "All Infrastructure" && (
+              <>
+                {infrastructure.map((product) => (
+                  <figure className="figure" key={product.id} onClick={() => handleProductClick(product)}>
+                    {/* <figure className="figure"> */}
+                    <img src={product.image[0]} alt="" />
+                    <figcaption>
+                      <h3>{product.title}</h3>
+                      <p>{truncateDescription(product.description, 100)}</p>
+                    </figcaption>
+                    {/* </figure> */}
+                  </figure>
+                ))}
+              </>
+            )}
             {activeFilterInfrastructure === "Bridges, Flyovers and Aqueducts" && (
               <>
                 {infrabfa.map((product) => (
@@ -1573,6 +2147,21 @@ const Projects = () => {
           </div>
 
           <div className="row">
+            {activeFilterSpecialAssignments === "All Specialassignment" && (
+              <>
+                {allspecialassignment.map((product) => (
+                  <figure className="figure" key={product.id} onClick={() => handleProductClick(product)}>
+                    {/* <figure className="figure"> */}
+                    <img src={product.image[0]} alt="" />
+                    <figcaption>
+                      <h3>{product.title}</h3>
+                      <p>{truncateDescription(product.description, 100)}</p>
+                    </figcaption>
+                    {/* </figure> */}
+                  </figure>
+                ))}
+              </>
+            )}
             {activeFilterSpecialAssignments === "Customized Housing" && (
               <>
                 {speassch.map((product) => (
@@ -1636,6 +2225,22 @@ const Projects = () => {
           </div>
 
           <div className="row">
+            {activeFilterMultistoredBuilding === "Multistored" && (
+              <>
+                {multistored.map((product) => (
+                  <figure className="figure" key={product.id} onClick={() => handleProductClick(product)}>
+                    {/* <figure className="figure"> */}
+                    <img src={product.image[0]} alt="" />
+                    <figcaption>
+                      <h3>{product.title}</h3>
+                      <p>{truncateDescription(product.description, 100)}</p>
+                    </figcaption>
+                    {/* </figure> */}
+                  </figure>
+                ))}
+              </>
+            )}
+
             {activeFilterMultistoredBuilding === "Cummercial Buildings" && (
               <>
                 {mbcb.map((product) => (

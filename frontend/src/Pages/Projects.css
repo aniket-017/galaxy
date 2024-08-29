@@ -45,7 +45,7 @@
   padding:0 auto;
   margin: 0 auto;
  
-  justify-content: space-evenly;
+  justify-content:center;
 }
 
 .heading {
@@ -230,6 +230,7 @@
 .section-6 {
   background: #1d1d1d;
   color: #efefef;
+
 }
 
 .section-6 .figure {
@@ -237,7 +238,8 @@
   background: #1d1d1d;
   font-size: 16px;
   max-width: 400px;
-  max-height: 220px;
+  max-height: 200px;
+  min-height: 200px;
   min-width: 230px;
 }
 

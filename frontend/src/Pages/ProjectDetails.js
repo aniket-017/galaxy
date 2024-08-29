@@ -5,14 +5,23 @@ import "./ProjectDetails.css"; // Import your CSS file
 
 const ProjectDetails = () => {
   const location = useLocation();
-  const { product, activeSection } = location.state;
+  const { product, activeSection } = location.state || JSON.parse(localStorage.getItem("productDetailsState")) || {};
   console.log(activeSection);
 
   useEffect(() => {
-    // Scroll to the top of the page when the component mounts
+    // Save state to local storage when component mounts
+    if (location.state) {
+      localStorage.setItem("productDetailsState", JSON.stringify(location.state));
+    }
+
+    // Scroll to the top of the page
     window.scrollTo(0, 0);
-  });
-  
+
+    // Clean up: Remove local storage when component unmounts or page is refreshed
+    return () => {
+      localStorage.removeItem("productDetailsState");
+    };
+  }, [location.state]);
 
   if (!product.image) {
     return <div>No images found for this project.</div>;
