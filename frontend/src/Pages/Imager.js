@@ -12,7 +12,7 @@ import Carousel from "react-bootstrap/Carousel";
 const Imager = () => {
   return (
     <div>
-      <Carousel interval={2000} pause={false}>
+      <Carousel interval={2600} pause={false}>
         <Carousel.Item>
           <img
             className="d-block w-100 carousel-image"
@@ -194,7 +194,6 @@ const Imager = () => {
             </div>
           </Carousel.Caption>
         </Carousel.Item>
-
 
         <Carousel.Item>
           <img

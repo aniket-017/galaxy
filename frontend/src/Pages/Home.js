@@ -344,7 +344,7 @@ const Home = () => {
               </div>
               <div className="infocol">
                 <h3>Industrial Buildings</h3>
-                <p>Progressive takes pride in our engineering work done for industrial buildings...</p>
+                <p>Progressive takes pride in our engineering work done for industrial buildings.</p>
               </div>
             </div>
 
@@ -354,7 +354,7 @@ const Home = () => {
               </div>
               <div className="infocol">
                 <h3>Infrastructure Projects</h3>
-                <p>We have received accolades for our work in infrastructure projects...</p>
+                <p>We have received accolades for our work in infrastructure projects.</p>
               </div>
             </div>
 
@@ -364,7 +364,7 @@ const Home = () => {
               </div>
               <div className="infocol">
                 <h3>Road Construction</h3>
-                <p>Our team has extensive experience in road construction projects...</p>
+                <p>Our team has extensive experience in road construction projects.</p>
               </div>
             </div>
 
@@ -376,7 +376,7 @@ const Home = () => {
                 <h3>Special Assignments</h3>
                 <p>
                   No task is too big or too difficult at Progressive. Our team has actively completed a variety of
-                  special assignments...
+                  special assignments.
                 </p>
               </div>
             </div>
@@ -384,7 +384,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="turnkey-projects">
+      {/* <section className="turnkey-projects">
         <h2>Turnkey Projects: Your One-Stop Solution</h2>
         <p>
           We provide comprehensive turnkey solutions for industrial and commercial buildings, handling everything from
@@ -459,7 +459,7 @@ const Home = () => {
             <p>We provide a smooth handover, ensuring all aspects are completed to your satisfaction.</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section ref={sectionRef} className="achievements-section">
         <h2 className="section-title">Our Stats</h2>

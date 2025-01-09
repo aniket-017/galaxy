@@ -24,7 +24,7 @@ const Projects = () => {
     // Scroll to the top of the page
 
     if (savedState) {
-      // console.log(savedState.activeFilter);
+      console.log(savedState.activeFilter);
       setActiveSection(savedState.activeSection);
       setActiveFilter(savedState.activeFilter);
       setActiveFilterInfrastructure(savedState.activeFilterInfrastructure);
@@ -1268,7 +1268,7 @@ const Projects = () => {
   ];
 
   function truncateDescription(description, maxLength) {
-    console.log(description, description.length, maxLength);
+    // console.log(description, description.length, maxLength);
 
     if (description.length <= maxLength) {
       return description;

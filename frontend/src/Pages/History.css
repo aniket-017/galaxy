@@ -1,4 +1,16 @@
 
+@font-face {
+  font-family: 'HeyMarch';
+  src: url('../fonts/Hey March.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Grunge';
+  src: url('../fonts/Grunge.ttf') format('truetype');
+}
+
+
+
 
  .intro {
   /* background: #f1e9c9eb; */
@@ -347,13 +359,14 @@ time {
 .mission-text {
   font-size: 1.2em;
   line-height: 1.6;
+  text-align: left;
+  font-family: 'HeyMarch', Arial, sans-serif;
 }
 
 .highlight {
   font-weight: bold;
-  color: #ffd700; 
-  color: #ff3131; 
   color: #004aad;
+  font-family: 'Grunge', Arial, sans-serif;
 }
 
 
@@ -674,8 +687,9 @@ color: #333;
 /* Vision text */
 .vision-text {
   font-size: 1.2rem;
-  
+  font-family: 'HeyMarch', Arial, sans-serif;
   line-height: 1.6;
+  text-align: left;
 }
 
 /* Highlighted text */
@@ -752,7 +766,7 @@ color: #333;
 }
 
 .highlight {
-  color: #ff6347; /* Tomato */
+  color: #0c56b7; /* Tomato */
   font-weight: bold;
 }
 

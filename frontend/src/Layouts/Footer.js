@@ -1,5 +1,5 @@
-import React from 'react';
-import './Footer.css'; // Make sure to create and import a CSS file for the styles
+import React from "react";
+import "./Footer.css"; // Make sure to create and import a CSS file for the styles
 
 const Footer = () => {
   return (
@@ -8,36 +8,66 @@ const Footer = () => {
         <div className="footer-column">
           <h3>Home</h3>
           <ul>
-            <li><a href="/">Core Areas of Expertise</a></li>
-            <li><a href="/">Turnkey Projects: Your One-Stop Solution</a></li>
-            <li><a href="/">Our Achievements</a></li>
+            <li>
+              <a href="/">Core Areas of Expertise</a>
+            </li>
+            <li>
+              <a href="/">Turnkey Projects: Your One-Stop Solution</a>
+            </li>
+            <li>
+              <a href="/">Our Achievements</a>
+            </li>
           </ul>
         </div>
         <div className="footer-column">
           <h3>About Us</h3>
           <ul>
-            <li><a href="/aboutus">Our Mission</a></li>
-            <li><a href="/aboutus">Our Vision</a></li>
-            <li><a href="/aboutus">Our Team</a></li>
-            <li><a href="/aboutus">Our History</a></li>
+            <li>
+              <a href="/aboutus">Our Mission</a>
+            </li>
+            <li>
+              <a href="/aboutus">Our Vision</a>
+            </li>
+            <li>
+              <a href="/aboutus">Our Team</a>
+            </li>
+            <li>
+              <a href="/aboutus">Our History</a>
+            </li>
           </ul>
         </div>
         <div className="footer-column">
           <h3>Projects</h3>
           <ul>
-            <li><a href="/projects">Industrial Buildings</a></li>
-            <li><a href="/projects">Multistored Buildings</a></li>
-            <li><a href="/projects">Infrastructure</a></li>
-            <li><a href="/projects">Special Assignment</a></li>
+            <li>
+              <a href="/projects">Industrial Buildings</a>
+            </li>
+            <li>
+              <a href="/projects">Multistored Buildings</a>
+            </li>
+            <li>
+              <a href="/projects">Infrastructure</a>
+            </li>
+            <li>
+              <a href="/projects">Special Assignment</a>
+            </li>
           </ul>
         </div>
         <div className="footer-column">
           <h3>Career</h3>
           <ul>
-            <li><a href="/careerPage">Our Initiatives</a></li>
-            <li><a href="/careerPage">Life at Progressive Galaxy</a></li>
-            <li><a href="/careerPage">Why Work With Us?</a></li>
-            <li><a href="/careerPage">Join Us</a></li>
+            <li>
+              <a href="/careerPage">Our Initiatives</a>
+            </li>
+            <li>
+              <a href="/careerPage">Life at Progressive Galaxy</a>
+            </li>
+            <li>
+              <a href="/careerPage">Why Work With Us?</a>
+            </li>
+            <li>
+              <a href="/careerPage">Join Us</a>
+            </li>
           </ul>
         </div>
         <div className="footer-column">
@@ -51,7 +81,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-rights">
-        <p>All rights reserved © 2024 Progressive Galaxy</p>
+        <p>All rights reserved © 2025 Progressive Galaxy</p>
       </div>
     </footer>
   );

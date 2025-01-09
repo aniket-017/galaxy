@@ -14,9 +14,12 @@ import {
   FaHeadset,
   FaCheckCircle,
   FaUsers,
+  FaChevronDown,
 } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import "./CareerPage.css";
+import JobApplicationForm from "./JobApplicationForm";
+
 // import c1 from "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c1_znpljk.jpg";
 // import c2 from "../assets/images/celebration/c2.jpeg";
 // import c3 from "../assets/images/celebration/c3.jpeg";
@@ -54,7 +57,6 @@ const CareerPage = () => {
     "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c13_nor984.jpg",
     "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c14_z6ye0c.jpg",
     "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c15_givarj.jpg",
-
   ];
 
   const form = useRef();
@@ -67,8 +69,6 @@ const CareerPage = () => {
     designation: "",
     currentLocation: "",
   });
-
-
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
@@ -105,7 +105,7 @@ const CareerPage = () => {
 
   const videoRef = useRef(null);
 
-    useEffect(() => {
+  useEffect(() => {
     const video = videoRef.current;
 
     const playPromise = video.play();
@@ -131,26 +131,21 @@ const CareerPage = () => {
   }, []);
   return (
     <section className="career-page">
-
-
-
-<section>
+      <section>
         <div className="hero-section">
-          <video ref={videoRef}  className="hero-video" loop muted>
-            <source src="https://res.cloudinary.com/dzmn9lnk5/video/upload/v1720781979/Progressive/hero_spo8vf.mp4" type="video/mp4" />
+          <video ref={videoRef} className="hero-video" loop muted>
+            <source
+              src="https://res.cloudinary.com/dzmn9lnk5/video/upload/v1720781979/Progressive/hero_spo8vf.mp4"
+              type="video/mp4"
+            />
             Your browser does not support the video tag.
           </video>
           <div className="hero-text">
-          <h1>Building the Future, Today.</h1>
-          <p>Join our team and build a successful career with Progressive Galaxy.</p>
+            <h1>Building the Future, Today.</h1>
+            <p>Join our team and build a successful career with Progressive Galaxy.</p>
           </div>
         </div>
       </section>
-
-
-
-
-    
 
       <section className="initiatives">
         <h2>Our Initiatives</h2>
@@ -257,25 +252,27 @@ const CareerPage = () => {
           </p>
         </div>
         <div>
-      <div className="photo-gallery">
-        {photos.map((photo, index) => (
-          <img 
-            key={index} 
-            src={photo} 
-            alt={`Life at Progressive ${index + 1}`} 
-            onClick={() => handlePhotoClick(photo)}
-          />
-        ))}
-      </div>
-      {selectedPhoto && (
-        <div className="modal" onClick={closeModal}>
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
-            <img src={selectedPhoto} alt="Enlarged view" />
+          <div className="photo-gallery">
+            {photos.map((photo, index) => (
+              <img
+                key={index}
+                src={photo}
+                alt={`Life at Progressive ${index + 1}`}
+                onClick={() => handlePhotoClick(photo)}
+              />
+            ))}
           </div>
+          {selectedPhoto && (
+            <div className="modal" onClick={closeModal}>
+              <div className="modal-content">
+                <span className="close" onClick={closeModal}>
+                  &times;
+                </span>
+                <img src={selectedPhoto} alt="Enlarged view" />
+              </div>
+            </div>
+          )}
         </div>
-      )}
-    </div>
         <div className="life-content">
           <h4>Employee Wellness</h4>
           <p>
@@ -400,119 +397,116 @@ const CareerPage = () => {
       </section> */}
 
       <section className="join-us">
-        <h2>Join Us</h2>
+
+      <JobApplicationForm/>
+        {/* <h2>Join Us</h2>
         <form ref={form} className="join-form" onSubmit={sendEmail}>
-      <div className="form-group">
-        <label htmlFor="fullName">Full Name</label>
-        <input type="text" id="fullName" name="fullName" className="form-control" placeholder="Enter your full name" required />
-      </div>
+          <div className="form-group">
+            <label htmlFor="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              className="form-control"
+              placeholder="Enter your first name"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              className="form-control"
+              placeholder="Enter your last name"
+              required
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="contactNumber">Contact Number</label>
-        <input type="text" id="contactNumber" name="contactNumber" className="form-control" placeholder="Enter your contact number" required />
-      </div>
+          <div className="form-group">
+            <label htmlFor="qualification">Qualification</label>
+            <input
+              type="text"
+              id="qualification"
+              name="qualification"
+              className="form-control"
+              placeholder="Enter your qualification"
+              required
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="qualification">Qualification</label>
-        <input type="text" id="qualification" name="qualification" className="form-control" placeholder="Enter your qualification" required />
-      </div>
+          <div className="form-group">
+            <label htmlFor="experience">Year of Experience</label>
+            <select id="experience" name="experience" className="form-control" required>
+              <option value="0-1">0-1 year (fresher)</option>
+              <option value="1-3">1-3 years</option>
+              <option value="3-6">3-6 years</option>
+              <option value="6-12">6-12 years</option>
+              <option value="12-20">12-20 years</option>
+              <option value="20-30">20-30 years</option>
+              <option value="30+">30+ years</option>
+            </select>
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="experience">Year of Experience</label>
-        <select id="experience" name="experience" className="form-control" required>
-          <option value="0-1">0-1 year (fresher)</option>
-          <option value="1-3">1-3 years</option>
-          <option value="3-6">3-6 years</option>
-          <option value="6-12">6-12 years</option>
-          <option value="12-20">12-20 years</option>
-          <option value="20-30">20-30 years</option>
-          <option value="30+">30+ years</option>
-        </select>
-      </div>
+          <div className="form-group">
+            <label htmlFor="designation">Applying For Designation</label>
+            <select id="designation" name="designation" className="form-control" required>
+              <option value="">Select Designation</option>
+    
+              
+            </select>
+            <span>
+              <FaChevronDown />
+            </span>
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="designation">Applying For Designation</label>
-        <select id="designation" name="designation" className="form-control" required>
-          <option value="">Select Designation</option>
-          <optgroup label="Project Management">
-            <option value="Project Manager">Project Manager</option>
-            <option value="Assistant Project Manager">Assistant Project Manager</option>
-            <option value="Project Coordinator">Project Coordinator</option>
-            <option value="Project Engineer">Project Engineer</option>
-            <option value="Site Manager">Site Manager</option>
-          </optgroup>
-          <optgroup label="Engineering">
-            <option value="Senior Civil Engineer">Senior Civil Engineer</option>
-            <option value="Civil Engineer">Civil Engineer</option>
-            <option value="Structural Engineer">Structural Engineer</option>
-            <option value="Design Engineer">Design Engineer</option>
-            <option value="Construction Engineer">Construction Engineer</option>
-            <option value="Mechanical Engineer (Repair and Maintenance)">Mechanical Engineer (Repair and Maintenance)</option>
-            <option value="Mechanical Engineer (Fabrication)">Mechanical Engineer (Fabrication)</option>
-            <option value="Electrical Engineer">Electrical Engineer</option>
-            <option value="Quantity Surveyor">Quantity Surveyor</option>
-          </optgroup>
-          <optgroup label="Site Management and Supervision">
-            <option value="Site Supervisor">Site Supervisor</option>
-            <option value="Site Foreman">Site Foreman</option>
-            <option value="Site Engineer">Site Engineer</option>
-          </optgroup>
-          <optgroup label="Planning and Estimation">
-            <option value="Planning Engineer">Planning Engineer</option>
-            <option value="Cost Estimator">Cost Estimator</option>
-          </optgroup>
-          <optgroup label="Quality Control and Safety">
-            <option value="Quality Control Manager">Quality Control Manager</option>
-            <option value="Quality Control Engineer">Quality Control Engineer</option>
-            <option value="Safety Manager">Safety Manager</option>
-            <option value="Safety Officer">Safety Officer</option>
-            <option value="Safety Engineer">Safety Engineer</option>
-          </optgroup>
-          <optgroup label="Procurement and Contracts">
-            <option value="Procurement Manager">Procurement Manager</option>
-            <option value="Procurement Engineer">Procurement Engineer</option>
-            <option value="Contracts Manager">Contracts Manager</option>
-            <option value="Purchase Officer">Purchase Officer</option>
-            <option value="Legal Advisor">Legal Advisor</option>
-          </optgroup>
-          <optgroup label="Finance and Administration">
-            <option value="Finance Manager">Finance Manager</option>
-            <option value="Site Accountant">Site Accountant</option>
-            <option value="Accountant">Accountant</option>
-            <option value="HR Manager">HR Manager</option>
-            <option value="HR Officer">HR Officer</option>
-            <option value="Admin Officer">Admin Officer</option>
-            <option value="Administrative Manager">Administrative Manager</option>
-            <option value="Store Officer">Store Officer</option>
-          </optgroup>
-          <optgroup label="Specialized Roles">
-            <option value="Marketing Officer">Marketing Officer</option>
-            <option value="Business Development Manager">Business Development Manager</option>
-            <option value="Surveyor">Surveyor</option>
-            <option value="Draftsman">Draftsman</option>
-            <option value="BIM Specialist">BIM Specialist</option>
-          </optgroup>
-          <optgroup label="Support Staff">
-            <option value="Office Administrator">Office Administrator</option>
-            <option value="Clerk">Clerk</option>
-            <option value="Document Controller">Document Controller</option>
-            <option value="Receptionist">Receptionist</option>
-          </optgroup>
-        </select>
-      </div>
+          <div className="form-group">
+            <label htmlFor="currentLocation">Current Location</label>
+            <input
+              type="text"
+              id="currentLocation"
+              name="currentLocation"
+              className="form-control"
+              placeholder="Enter your current location"
+              required
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="currentLocation">Current Location</label>
-        <input type="text" id="currentLocation" name="currentLocation" className="form-control" placeholder="Enter your current location" required />
-      </div>
+          <div className="form-group">
+            <label htmlFor="contactNumber">Contact Number</label>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <select
+                id="countryCode"
+                name="countryCode"
+                className="form-control"
+                style={{ width: "30%", marginRight: "10px" }}
+                required
+              >
+                <option value="+91">+91 (India)</option>
 
-      <div className="form-group">
-        <label htmlFor="resume">Upload Resume</label>
-        <input type="file" id="resume" name="resume" className="form-control-file"  />
-      </div>
+              </select>
+              <input
+                type="text"
+                id="contactNumber"
+                name="contactNumber"
+                className="form-control"
+                placeholder="Enter your contact number"
+                style={{ flex: "1" }}
+                required
+              />
+            </div>
+          </div>
 
-      <button type="submit" className="btn btn-primary">Submit</button>
-    </form>
+          <div className="form-group">
+            <label htmlFor="resume">Upload Resume</label>
+            <input type="file" id="resume" name="resume" className="form-control-file" />
+          </div>
+
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </form> */}
       </section>
 
       {/* <section className="contact-info">

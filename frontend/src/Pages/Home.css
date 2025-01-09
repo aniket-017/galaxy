@@ -737,6 +737,7 @@
   width: 70px;
   height: 70px;
   margin-bottom: 15px;
+  filter: grayscale(100%);
 }
 
 .achievement-info p {

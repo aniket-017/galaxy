@@ -1,0 +1,332 @@
+/* Container Styles */
+.job-form-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .job-form-title {
+    font-size: 2rem;
+    color: #1a1a1a;
+    text-align: center;
+    /* margin-bottom: 2rem; */
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  
+  /* Form Layout */
+  .job-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .job-form-name-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .job-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  /* Label Styles */
+  .job-form-group label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Input Styles */
+  .job-form-group input,
+  .job-form-group select {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+    background-color: #fff;
+    color: #1a1a1a;
+  }
+  
+  .job-form-group input:focus,
+  .job-form-group select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+  
+  /* Select Dropdown Styles */
+  .job-form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+  }
+  
+  /* Phone Input Group */
+  .job-form-country-code {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0.75rem;
+  }
+  
+  .job-form-country-code select {
+    width: 100%;
+  }
+  
+  /* File Upload Styles */
+  .job-form-file-upload {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    background-color: #f3f4f6;
+    border: 1.5px dashed #d1d5db;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  
+  .job-form-file-upload:hover {
+    background-color: #e5e7eb;
+    border-color: #9ca3af;
+  }
+  
+  .job-form-file-upload input[type="file"] {
+    display: none;
+  }
+  
+  /* Submit Button Styles */
+  .job-form-submit {
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+  }
+  
+  .job-form-submit:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+  }
+  
+  .job-form-submit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+  }
+  
+  
+  /* Responsive Design */
+  @media (max-width: 640px) {
+    .job-form-container {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
+  
+    .job-form-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      }
+  
+    .job-form-group input,
+    .job-form-group select {
+      font-size: 16px; /* Prevents zoom on mobile */
+    }
+  
+    .job-form-country-code {
+      grid-template-columns: 100px 1fr;
+    }
+  }
+  
+  /* Placeholder Styles */
+  .job-form-group input::placeholder {
+    color: #9ca3af;
+  }
+  
+  /* Optgroup Styles */
+  .job-form-group optgroup {
+    font-weight: 600;
+    color: #4b5563;
+  }
+  
+  /* Hover Effects */
+  .job-form-group input:hover,
+  .job-form-group select:hover {
+    border-color: #2563eb;
+  }
+  
+  /* Disabled State Styles */
+  .job-form-group input:disabled,
+  .job-form-group select:disabled {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+
+
+  /* Container Styles */
+.job-form-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 1rem auto;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+  
+  .job-form-title {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+  
+  /* Form Layout */
+  .job-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .job-form-name-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .job-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  /* Label Styles */
+  .job-form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  /* Input Styles */
+  .job-form-group input,
+  .job-form-group select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease;
+  }
+  
+  .job-form-group input:focus,
+  .job-form-group select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  }
+  
+  /* Select Dropdown Styles */
+  .job-form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1rem;
+    padding-right: 2rem;
+  }
+  
+  /* Phone Input Group */
+  .job-form-country-code {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.5rem;
+  }
+  
+  /* File Upload Styles */
+  .job-form-file-upload {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    background-color: #f3f4f6;
+    border: 1px dashed #d1d5db;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+  }
+  
+  .job-form-file-upload:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .job-form-file-upload input[type="file"] {
+    display: none;
+  }
+  
+  /* Submit Button Styles */
+  .job-form-submit {
+    margin-top: 0.75rem;
+    padding: 0.625rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .job-form-submit:hover {
+    background-color: #1d4ed8;
+  }
+  
+  /* Error State Styles */
+  .job-form-group input:invalid:not(:placeholder-shown),
+  .job-form-group select:invalid:not(:placeholder-shown) {
+    border-color: black;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 640px) {
+    .job-form-name-group {
+      grid-template-columns: 1fr;
+    }
+    
+    .job-form-container {
+      margin: 0.5rem;
+      padding: 1rem;
+    }
+  }
+  
+  /* Optgroup Styles */
+  .job-form-group optgroup {
+    font-weight: 500;
+    color: #4b5563;
+  }
+  
+  /* Disabled State Styles */
+  .job-form-group input:disabled,
+  .job-form-group select:disabled {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }

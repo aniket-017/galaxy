@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import "./History.css";
+// import "../fonts/Grunge.ttf"
+// import "../fonts/Hey March.ttf"
 import { FaRocket, FaEye } from 'react-icons/fa';
 // import dummy from "../assets/images/team members/profiledummy.png";
 // import director from "../assets/images/team members/director 2.jpg";
@@ -333,7 +335,7 @@ const History = () => {
         </div> */}
       </section>
 
-      <section class="intro">
+      {/* <section class="intro">
         <div class="hiscontainer">
           <h1 className="hishead">Our History &darr;</h1>
           <div class="hisinfo">
@@ -368,7 +370,7 @@ const History = () => {
         <ul>
           <li>
             <div>
-              {/* <img src={first} alt="2015 project" className="historyphotos" /> */}
+              
               <time>2015</time> Completed two major residential towers G+9 each for Narayan Aura, Vadodara.
             </div>
           </li>
@@ -416,7 +418,7 @@ const History = () => {
           </li>
           <li>
             <div>
-              {/* <img src={y2007} alt="2015 project" className="historyphotos" /> */}
+             
               <time>2007</time> Construction of complete facility for Industrial paints plant for Asian Paints at
               Taloja, Tal. Panvel, Dist. Raigad
             </div>
@@ -478,7 +480,7 @@ const History = () => {
           </li>
           <li>
             <div>
-              {/* <img src={y1997} alt="2015 project" className="historyphotos" /> */}
+              
               <time>1997</time> The company gets its first projects in the public works department after being
               registered. Thereafter the company has executed more 3 dozen bridges in various districts of Maharashtra
             </div>
@@ -498,7 +500,7 @@ const History = () => {
           </li>
           <li>
             <div>
-              {/* <img src={y1988} alt="2015 project" className="historyphotos" /> */}
+            
               <time>1988</time> Company becomes a private limited company.
             </div>
           </li>
@@ -510,20 +512,20 @@ const History = () => {
           </li>
           <li>
             <div>
-              {/* <img src={y1982} alt="2015 project" className="historyphotos" /> */}
+             
               <time>1982</time> Starts operations in Navi Mumbai area. Received projects from the ‘Tata’ scientist and
               officers housing project and various projects in CIDCO.
             </div>
           </li>
           <li>
             <div>
-              {/* <img src={y1976} alt="2015 project" className="historyphotos" /> */}
+       
               <time>1976</time> Company was established and started its construction operations with its first work
               “Construction of bridge on nalla in RCF” in Trombay, Mumbai.
             </div>
           </li>
         </ul>
-      </section>
+      </section> */}
     </div>
   );
 };
