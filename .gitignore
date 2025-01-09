@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 
+/backend/config/config.env
 # Ignore node_modules in the frontend directory
 frontend/node_modules/
 
