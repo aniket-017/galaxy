@@ -78,6 +78,7 @@ const Footer = () => {
           <p>Navi Mumbai, Maharashtra, India.</p>
           <p>Pin - 400703.</p>
           <p>Tele: +91- (022) 27882021</p>
+          <p>marketing@progressivegalaxy.com</p>
         </div>
       </div>
       <div className="footer-rights">

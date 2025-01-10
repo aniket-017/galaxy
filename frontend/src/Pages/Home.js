@@ -6,6 +6,10 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RiBuilding2Fill } from "react-icons/ri";
 import { MdWork } from "react-icons/md";
 
+import team from "../assets/icons/management.png"
+import projects from "../assets/icons/building-plan.png"
+import customers from "../assets/icons/costumer.png"
+
 import CountUp from "react-countup";
 import { FaMedal, FaTrophy, FaGlobe, FaUsers, FaRegThumbsUp } from "react-icons/fa";
 
@@ -474,7 +478,7 @@ const Home = () => {
             </div>
           </div>
           <div className="achievement">
-            <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778821/Progressive/achievements/project_qaxrvt.png" alt="jourent icon" className="achievement-icon" />
+            <img src={projects} className="statsicon"/>
             <div className="achievement-info">
               <p>
                 <CountUp start={0} end={750} duration={5} start={startCount ? 0 : 1000} className="countupnumber" />+
@@ -499,8 +503,8 @@ const Home = () => {
             </div>
           </div>
           <div className="achievement">
-            <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778821/Progressive/achievements/teamsize_dcwhut.png" alt="jourent icon" className="achievement-icon" />
-            <div className="achievement-info">
+            <img src={team} className="statsicon" />
+            <div className="achievement-info" >
               <p>
                 <CountUp start={0} end={150} duration={4} start={startCount ? 0 : 150} className="countupnumber" />+
                 Team Size
@@ -508,7 +512,7 @@ const Home = () => {
             </div>
           </div>
           <div className="achievement">
-            <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778820/Progressive/achievements/customer_njhpwx.png" alt="jourent icon" className="achievement-icon" />
+            <img src={customers} className="statsicon"/>
             <div className="achievement-info">
               <p>
                 <CountUp start={0} end={450} duration={4} start={startCount ? 0 : 500} className="countupnumber" />{" "}

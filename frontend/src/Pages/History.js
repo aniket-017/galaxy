@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./History.css";
 // import "../fonts/Grunge.ttf"
 // import "../fonts/Hey March.ttf"
-import { FaRocket, FaEye } from 'react-icons/fa';
+import { FaRocket, FaEye } from "react-icons/fa";
 // import dummy from "../assets/images/team members/profiledummy.png";
 // import director from "../assets/images/team members/director 2.jpg";
 // import t3 from "../assets/images/team members/Ashlesha Ambade.jpeg";
@@ -82,79 +82,119 @@ const History = () => {
 
   return (
     <div>
-<section className="mission-section">
-  <div className="mission-content">
-    <h2>Our Mission</h2>
-    <p className="mission-text">
-      WE EXIST because it is <span className="highlight">OUR MISSION</span> to be
-      <span className="highlight"> A BRAND of REPUTE</span> that
-      <span className="highlight"> designs, builds & maintains MONUMENTAL PROJECTS</span> universally by
-      <span className="highlight"> INCORPORATING DIVERSE TECHNOLOGIES</span>, delivering
-      <span className="highlight"> STELLAR PERFORMANCE</span> delighting our customers with
-      <span className="highlight"> HIGH-QUALITY PEOPLE</span> who are
-      <span className="highlight"> PROUD TO BE ASSOCIATED</span> with the
-      <span className="highlight"> PROGRESSIVE NETWORK</span>.
-    </p>
-  </div>
-  <div className="mission-image">
-    <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721540669/Progressive/vision_mission/mission_ul3oge.png" alt="Mission Image" />
-  </div>
-</section>
+      <section className="mission-section">
+        <div className="mission-content">
+          <h2>Our Mission</h2>
+          <p className="mission-text">
+            We exist because it is <span className="highlight">our mission</span>
+            <br />
+            to be <span className="highlight">a brand of repute</span>
+            <br />
+            that <span className="highlight">designs, builds & maintains</span>
+            <br />
+            <span className="highlight">monumental projects universally</span>
+            <br />
+            by <span className="highlight">incorporating diverse technologies</span>,<br />
+            delivering <span className="highlight">stellar performance</span>
+            <br />
+            delighting our customers
+            <br />
+            with <span className="highlight">high-quality Samruddh people</span>
+            <br />
+            who are <span className="highlight">proud to be associated</span>
+            <br />
+            with the <span className="highlight">Progressive Galaxy network </span>.
+          </p>
+        </div>
+        {/* <div className="mission-image">
+          <img
+            src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721540669/Progressive/vision_mission/mission_ul3oge.png"
+            alt="Mission Image"
+          />
+        </div> */}
+        <div className="vision-content">
+          <h2>Our Vision</h2>
+          <p className="vision-text">
+            Heart to heart, <span className="highlight">our vision</span> is to be
+            <br />
+            <span className="highlight">a global Design Built company</span>
+            <br />
+            most admired for
+            <br />
+            <span className="highlight">its people, projects, and performance</span>.
+          </p>
+        </div>
+      </section>
 
-<section className="vision-section">
-  <div className="vision-image">
-    <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721540668/Progressive/vision_mission/vision_eosdsn.png" alt="Vision Image" />
-  </div>
-  <div className="vision-content">
-    <h2>Our Vision</h2>
-    <p className="vision-text">
-      Heart to heart, <span className="highlight">our vision</span> is to be
-      <span className="highlight"> a global DB company</span> most admired for its
-      <span className="highlight"> people, projects, and performance</span>.
-    </p>
-  </div>
-</section>
+      {/* <section className="vision-section">
+        <div className="vision-image">
+          <img
+            src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721540668/Progressive/vision_mission/vision_eosdsn.png"
+            alt="Vision Image"
+          />
+        </div>
+        <div className="vision-content">
+          <h2>Our Vision</h2>
+          <p className="vision-text">
+            Heart to heart, <span className="highlight">our vision</span> is to be
+            <br />
+            <span className="highlight">a global Design Built company</span>
+            <br />
+            most admired for
+            <br />
+            <span className="highlight">its people, projects, and performance</span>.
+          </p>
+        </div>
+      </section> */}
 
-
-      
       <section className="director-message-section">
-      <h2>Chairman's Message</h2>
-      <div className="director-message-content">
-        <div className="chairman-info">
-          <img  src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721300950/Progressive/team%20members/cma_htazbf.jpg" alt="Director" className="director-photo" />
-          <div className="director-text">
-            
-            <p>
-              Dear All,
-            </p>
-            <p>
-            Welcome to our company's website.
-            </p>
-            <p>
-            Reflecting on the journey that my partner and I embarked upon four decades ago, I am filled with immense pride and gratitude. From our humble beginnings, we have grown into a leading company in the field of construction, specializing in industrial structures, buildings, and infrastructure projects. Our portfolio is adorned with the names of leading brands, each a testament to our commitment to quality and excellence.
-            </p>
-            <p>
-            Our success has been built on the timeless principles of sincerity, honesty, and hard work. These values have guided us through challenging times, shaping our reputation and fostering trust with our clients.
-            </p>
-            <p>
-            As we look to the future, I am confident that the new leaders of our company, who have been trained under the same guiding principles, will achieve even greater successes.
-            </p>
-            <p>
-            The future holds exciting possibilities. With a foundation built on strong values and a vision for growth, client satisfaction, and innovation, we are well-positioned to achieve bigger and better accomplishments.
-            </p>
-            <p>
-            I sincerely thank all who have been part of our journey and welcome the new. Together, we will continue to build a legacy of excellence and success.
-            </p>
-           
-            <p>
-            With best regards,<br />
-            C M Abhang.<br />
-            Chairman.
-            </p>
+        <h2>Chairman's Message</h2>
+        <div className="director-message-content">
+          <div className="chairman-info">
+            <img
+              src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721300950/Progressive/team%20members/cma_htazbf.jpg"
+              alt="Director"
+              className="director-photo"
+            />
+            <div className="director-text">
+              <p>Dear All,</p>
+              <p>Welcome to our company's website.</p>
+              <p>
+                Reflecting on the journey that my partner and I embarked upon four decades ago, I am filled with immense
+                pride and gratitude. From our humble beginnings, we have grown into a leading company in the field of
+                construction, specializing in industrial structures, buildings, and infrastructure projects. Our
+                portfolio is adorned with the names of leading brands, each a testament to our commitment to quality and
+                excellence.
+              </p>
+              <p>
+                Our success has been built on the timeless principles of sincerity, honesty, and hard work. These values
+                have guided us through challenging times, shaping our reputation and fostering trust with our clients.
+              </p>
+              <p>
+                As we look to the future, I am confident that the new leaders of our company, who have been trained
+                under the same guiding principles, will achieve even greater successes.
+              </p>
+              <p>
+                The future holds exciting possibilities. With a foundation built on strong values and a vision for
+                growth, client satisfaction, and innovation, we are well-positioned to achieve bigger and better
+                accomplishments.
+              </p>
+              <p>
+                I sincerely thank all who have been part of our journey and welcome the new. Together, we will continue
+                to build a legacy of excellence and success.
+              </p>
+
+              <p>
+                With best regards,
+                <br />
+                C M Abhang.
+                <br />
+                Chairman.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       <section className="director-message-section">
         <h2>Director's Message</h2>
@@ -191,7 +231,7 @@ const History = () => {
               <p>
                 Warm regards,
                 <br />
-               U C Abhang
+                U C Abhang
                 <br />
                 Director.
               </p>
