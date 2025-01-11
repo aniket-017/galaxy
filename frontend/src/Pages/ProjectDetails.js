@@ -31,13 +31,13 @@ const ProjectDetails = () => {
 
   return (
     <div>
-      <div className="breadcrumb">
+      {/* <div className="breadcrumb">
         <Link to="/projects">projects</Link> &gt;
         <Link to="/projects">{activeSection}</Link>
         &gt;
       
         &gt; <span>{product.title}</span>
-      </div>
+      </div> */}
 
       <div className="project-details-container">
         {/* Breadcrumb Navigation */}

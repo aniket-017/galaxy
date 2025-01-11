@@ -687,10 +687,12 @@ color: #333;
 
 /* Vision text */
 .vision-text {
-  font-size: 1.2rem;
+  font-size: 1.2rem !important;
   font-family: 'HeyMarch', Arial, sans-serif;
   line-height: 1.6;
-  text-align: left;
+  text-align: left; 
+  padding-left: 100px;
+  
 }
 
 /* Highlighted text */
@@ -727,7 +729,7 @@ color: #333;
 
 .mission-section, .vision-section {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   /* margin: 50px 0; */
   padding: 60px 40px;
   /* border-radius: 10px; */
@@ -748,6 +750,9 @@ color: #333;
 .mission-content, .vision-content {
   flex: 1;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .mission-image, .vision-image {
@@ -788,6 +793,14 @@ color: #333;
   }
 
   .mission-text{
+    text-align: center;
+    font-size: 1.2em !important;
+  line-height: 1.6;
+  text-align: left;
+  padding-left: 0px;
+  }
+
+  .vision-text{
     text-align: center;
     font-size: 1.2em !important;
   line-height: 1.6;
