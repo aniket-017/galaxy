@@ -10,6 +10,7 @@ const ProjectDetails = () => {
 
   console.log(location.state);
   // console.log(activeSection);
+  console.log(product.project_brief);
   useEffect(() => {
     // Save state to local storage when component mounts
     if (location.state) {
@@ -55,16 +56,20 @@ const ProjectDetails = () => {
         <div>
           <h2>{product.title}</h2>
           <p>{product.description}</p>
-          <div className="project-brief">
-            <h4>Project Brief:</h4>
-            <ul>
-              {Object.entries(product.project_brief).map(([key, value], idx) => (
-                <li key={idx}>
-                  <strong>{key}:</strong> {value}
-                </li>
-              ))}
-            </ul>
-          </div>
+
+          {/* i want to show below part if product.project_brief is present */}
+          {product.project_brief && Object.keys(product.project_brief).length > 0 && (
+            <div className="project-brief">
+              <h4>Project Brief:</h4>
+              <ul>
+                {Object.entries(product.project_brief).map(([key, value], idx) => (
+                  <li key={idx}>
+                    <strong>{key}:</strong> {value}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
