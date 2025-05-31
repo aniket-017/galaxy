@@ -1,0 +1,296 @@
+/* AddProject.css - Modern Professional Styling */
+
+.apex_project_creation_container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    padding: 2rem 1rem;
+  }
+  
+  .aurora_form_wrapper {
+    
+    max-width: 64rem;
+    margin: 0 auto;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    margin-top: 5rem;
+  }
+  
+  .zenith_header_section {
+    background: linear-gradient(90deg, #2563eb 0%, #4338ca 100%);
+    padding: 2rem;
+  }
+  
+  .phoenix_main_title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+  
+  .stellar_subtitle {
+    color: #dbeafe;
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+    margin-bottom: 0;
+  }
+  
+  .cosmos_form_content {
+    padding: 2rem;
+  }
+  
+  .quantum_project_form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .prism_field_label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+  }
+  
+  .velocity_title_input,
+  .nova_description_textarea,
+  .magnus_category_select,
+  .nexus_subcategory_select,
+  .aurora_brief_key_input,
+  .zenith_brief_value_input,
+  .quantum_images_textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: #1f2937;
+    background: white;
+    transition: all 0.2s ease;
+  }
+  
+  .velocity_title_input:focus,
+  .nova_description_textarea:focus,
+  .magnus_category_select:focus,
+  .nexus_subcategory_select:focus,
+  .aurora_brief_key_input:focus,
+  .zenith_brief_value_input:focus,
+  .quantum_images_textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+  
+  .velocity_title_input::placeholder,
+  .nova_description_textarea::placeholder,
+  .aurora_brief_key_input::placeholder,
+  .zenith_brief_value_input::placeholder,
+  .quantum_images_textarea::placeholder {
+    color: #9ca3af;
+  }
+  
+  .eclipse_description_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .orbit_description_row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  
+  .nova_description_textarea {
+    flex: 1;
+    resize: vertical;
+    min-height: 6rem;
+  }
+  
+  .crimson_remove_desc_btn,
+  .crimson_remove_brief_btn {
+    padding: 0.5rem 1rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    height: fit-content;
+    white-space: nowrap;
+  }
+  
+  .crimson_remove_desc_btn:hover,
+  .crimson_remove_brief_btn:hover {
+    background: #dc2626;
+  }
+  
+  .azure_add_desc_btn {
+    padding: 0.75rem 1.5rem;
+    background: #f3f4f6;
+    color: #374151;
+    border: 2px dashed #d1d5db;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .azure_add_desc_btn:hover {
+    background: #e5e7eb;
+    border-color: #9ca3af;
+  }
+  
+  .spectrum_category_section {
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .spectrum_category_section {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .galaxy_brief_container {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .stellar_brief_row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  
+  .aurora_brief_key_input,
+  .zenith_brief_value_input {
+    flex: 1;
+  }
+  
+  .azure_add_brief_btn {
+    padding: 0.75rem 1.5rem;
+    background: #dbeafe;
+    color: #1d4ed8;
+    border: 2px dashed #93c5fd;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .azure_add_brief_btn:hover {
+    background: #bfdbfe;
+    border-color: #60a5fa;
+  }
+  
+  .quantum_images_textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+  
+  .meridian_images_help_text {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+  }
+  
+  .titan_submit_section {
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .apex_submit_button {
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, #2563eb 0%, #4f46e5 100%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  .apex_submit_button:hover {
+    background: linear-gradient(90deg, #1d4ed8 0%, #4338ca 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .apex_submit_button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  }
+  
+  @media (min-width: 768px) {
+    .apex_submit_button {
+      width: auto;
+    }
+  }
+  
+  /* Animation for smooth transitions */
+  * {
+    box-sizing: border-box;
+  }
+  
+  .quantum_project_form > * {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .apex_project_creation_container {
+      padding: 1rem 0.5rem;
+    }
+    
+    .cosmos_form_content {
+      padding: 1rem;
+    }
+    
+    .zenith_header_section {
+      padding: 1.5rem;
+    }
+    
+    .phoenix_main_title {
+      font-size: 1.5rem;
+    }
+    
+    .stellar_subtitle {
+      font-size: 1rem;
+    }
+    
+    .orbit_description_row,
+    .stellar_brief_row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .crimson_remove_desc_btn,
+    .crimson_remove_brief_btn {
+      align-self: flex-end;
+      margin-top: 0.5rem;
+    }
+  }

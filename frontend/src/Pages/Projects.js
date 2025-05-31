@@ -174,7 +174,7 @@ const Projects = () => {
       title: "Toyo",
       description:
         "Toyo Engineering was awarded the EPC contract for executing 1500 mt of Ammonia plant at Taloja premises by Deepak Fertiliser. Our scope of work comprised of construction of cooling tower (110 mtr x 12 mtrs- 6 bays), service water tanks (2 nos of 30 mtr dia), lagoon (125 mts x 20 mtr x 6 ntrs), pipe rack foundations (total length 800 mtr), machine foundations (3 major foundation), various plant buildings and its related foundations. The total concrete volume was 19000 cum.  ",
-      project_brief: { },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186225/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/3.%20Heavy%20Engineering%20Projects/2.Toyo/toyo2_umtm2s.png",
       ],
@@ -183,7 +183,7 @@ const Projects = () => {
       id: 4,
       title: "ONGC",
       description: "",
-      project_brief: { },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186215/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/3.%20Heavy%20Engineering%20Projects/1.ONGC/ONGC_civil_works_izuazb.jpg",
       ],
@@ -193,7 +193,7 @@ const Projects = () => {
       title: "BPCL, Uran",
       description:
         "Irure id incididunt est ad dolor elit quis velit veniam irure Lorem.Dolore sit minim et nulla consequat officia aliqua Lorem occaecat ullamco deserunt deserunt duis.",
-      project_brief: { },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186216/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/3.%20Heavy%20Engineering%20Projects/5.BPCL%2C%20LPG%20Tank%20Pad%2C%20Uran/Bpcl_jgikzf.jpg",
       ],
@@ -211,8 +211,7 @@ const Projects = () => {
     {
       id: 7,
       title: "Johnson & Johnson",
-      description:
-        "",
+      description: "",
       project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720263231/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/2.%20Food%20and%20Pharma%20Projects/johnson%20and%20johnson/jj_afsmyy.png",
@@ -241,8 +240,7 @@ const Projects = () => {
     {
       id: 9,
       title: "Smith & Nephew",
-      description:
-        "",
+      description: "",
       project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720262926/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/2.%20Food%20and%20Pharma%20Projects/2.Smith%20and%20Nephew/Smith_and_newphaw_sinnar_1_x0ttnr.png",
@@ -251,8 +249,7 @@ const Projects = () => {
     {
       id: 10,
       title: "Microtrol",
-      description:
-        "",
+      description: "",
       project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186215/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/2.%20Food%20and%20Pharma%20Projects/6.Microtrol/microtrol1_xnxf5o.png",
@@ -355,7 +352,7 @@ const Projects = () => {
       title: "Lodha",
       description:
         "Lodha logistic park comprises the central box area and the adjoining infra works. The total work comprised all civil, structural, interiors, plumbing, fire fighting, roads, drainage and other related works including facade. This has been executed within the Usatne premises of Lodha Logistics",
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186218/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/4.%20Logistics%20Structures/3.Lodha/WhatsApp_Image_2024-07-03_at_4.40.14_PM_xkqcbe.jpg",
       ],
@@ -365,7 +362,7 @@ const Projects = () => {
       title: "Kellogg's",
       description:
         "Kellogg India Private Limited is a UK based multinational food products manufacturing company. It is manufacturer of chipmunks fruit flavored snacks, golden honey nut flakes, roasted nut and honey OS, fruit flavored snacks, thick and fluffy original waffles. We had undertaken the expansion project for Kellogg near Palwel at Taloja, Maharashtra. Our scope of work included the  various construction of units such as Raw material  Warehouse, Finish good warehouse, Loading unloading platforms, Roads and Drains",
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186217/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/4.%20Logistics%20Structures/2.Kellogs%20India%20Pvt.%20Ltd/Kellogs_fa9lfr.png",
       ],
@@ -375,7 +372,7 @@ const Projects = () => {
       title: "Siemens Logistics Center",
       description:
         "The center operates in Kalwa works and acts as an inhouse logistic park for Siemens. Our scope was creating a warehouse, docking yard and other infra works.",
-      project_brief: { },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186217/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/4.%20Logistics%20Structures/1.Siemens%20Logistics%20Center/2.Siemens_Logistics_Center_hdiduy.jpg",
       ],
@@ -522,8 +519,7 @@ const Projects = () => {
     {
       id: 3,
       title: "Smith & Nephew",
-      description:
-        "",
+      description: "",
       project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720262926/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/2.%20Food%20and%20Pharma%20Projects/2.Smith%20and%20Nephew/Smith_and_newphaw_sinnar_1_x0ttnr.png",
@@ -532,8 +528,7 @@ const Projects = () => {
     {
       id: 4,
       title: "Microtrol",
-      description:
-        "",
+      description: "",
       project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186215/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/2.%20Food%20and%20Pharma%20Projects/6.Microtrol/microtrol1_xnxf5o.png",
@@ -542,8 +537,7 @@ const Projects = () => {
     {
       id: 5,
       title: "Johnson & Johnson",
-      description:
-        "",
+      description: "",
       project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720263231/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/2.%20Food%20and%20Pharma%20Projects/johnson%20and%20johnson/jj_afsmyy.png",
@@ -558,7 +552,7 @@ const Projects = () => {
       id: 1,
       title: "ONGC",
       description: "",
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186215/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/3.%20Heavy%20Engineering%20Projects/1.ONGC/ONGC_civil_works_izuazb.jpg",
       ],
@@ -568,7 +562,7 @@ const Projects = () => {
       title: "Toyo",
       description:
         "Toyo Engineering was awarded the EPC contract for executing 1500 mt of Ammonia plant at Taloja premises by Deepak Fertiliser. Our scope of work comprised of construction of cooling tower (110 mtr x 12 mtrs- 6 bays), service water tanks (2 nos of 30 mtr dia), lagoon (125 mts x 20 mtr x 6 ntrs), pipe rack foundations (total length 800 mtr), machine foundations (3 major foundation), various plant buildings and its related foundations. The total concrete volume was 19000 cum.  ",
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186225/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/3.%20Heavy%20Engineering%20Projects/2.Toyo/toyo2_umtm2s.png",
       ],
@@ -593,9 +587,8 @@ const Projects = () => {
     {
       id: 4,
       title: "BPCL, Uran",
-      description:
-        "",
-      project_brief: {  },
+      description: "",
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186216/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/3.%20Heavy%20Engineering%20Projects/5.BPCL%2C%20LPG%20Tank%20Pad%2C%20Uran/Bpcl_jgikzf.jpg",
       ],
@@ -619,7 +612,7 @@ const Projects = () => {
       title: "Lodha",
       description:
         "Lodha logistic park comprises the central box area and the adjoining infra works. The total work comprised all civil, structural, interiors, plumbing, fire fighting, roads, drainage and other related works including facade. This has been executed within the Usatne premises of Lodha Logistics",
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186218/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/4.%20Logistics%20Structures/3.Lodha/WhatsApp_Image_2024-07-03_at_4.40.14_PM_xkqcbe.jpg",
       ],
@@ -639,7 +632,7 @@ const Projects = () => {
       title: "Siemens Logistics Center",
       description:
         "The center operates in Kalwa works and acts as an inhouse logistic park for Siemens. Our scope was creating a warehouse, docking yard and other infra works.",
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720186217/Progressive/1.Industrial-20240705T132840Z-001/1.Industrial/4.%20Logistics%20Structures/1.Siemens%20Logistics%20Center/2.Siemens_Logistics_Center_hdiduy.jpg",
       ],
@@ -893,7 +886,7 @@ const Projects = () => {
       description: [
         "For all tunnels from Roha to Khed on the Konkan Railway project, certain critical patches of soft soil or fissured rock occurred within the tunnels, which were unable to resist the vibratory forces generated due to the speed of fast-moving trains and ultimately could lead to collapse. In order to avoid this, concrete lining was carried out for the arches and the walls, and guniting/shotcreting was applied to the walls/ceilings.",
       ],
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436518/Progressive/3.Infrastructure/4.Mass%20Exavation/3.Konkan%20Railway%20%28Tunnel%20Lining%20Project%29/roha_e_tujuls.png",
       ],
@@ -909,7 +902,7 @@ const Projects = () => {
       description: [
         "This bungalow was built for the Abhang family at their native place in Pune district. The architectural work was based on the Gothic style. The total area of the bungalow is 8000 sft.",
       ],
-      project_brief: { },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503436/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/3.Awsari%20Bungalow/1_004_sdwl40.jpg",
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503540/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/3.Awsari%20Bungalow/1_003_a34rkq.jpg",
@@ -923,7 +916,7 @@ const Projects = () => {
       description: [
         "This bungalow was built for the Ramkrishnan family at New Bombay. The scope of work included all RCC work, sloping slabs, architectural RCC finishes, brickwork, plasters, doors, windows, aluminium works, high-quality finishes, and paints, etc., complete with waterproofing. The total area of the bungalow is 2500 sft.",
       ],
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503022/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/4.RAAJ%20Bunglow/raaj1_e_c12y6b.png",
       ],
@@ -1519,7 +1512,7 @@ const Projects = () => {
       description: [
         "This bungalow was built for the Abhang family at their native place in Pune district. The architectural work was based on the Gothic style. The total area of the bungalow is 8000 sft.",
       ],
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503436/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/3.Awsari%20Bungalow/1_004_sdwl40.jpg",
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503540/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/3.Awsari%20Bungalow/1_003_a34rkq.jpg",
@@ -1533,7 +1526,7 @@ const Projects = () => {
       description: [
         "This bungalow was built for the Ramkrishnan family at New Bombay. The scope of work included all RCC work, sloping slabs, architectural RCC finishes, brickwork, plasters, doors, windows, aluminium works, high-quality finishes, and paints, etc., complete with waterproofing. The total area of the bungalow is 2500 sft.",
       ],
-      project_brief: { },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720503022/Progressive/3.Special%20assignment-20240709T052809Z-001/3.Special%20assignment/1.Coustomise%20Housing/4.RAAJ%20Bunglow/raaj1_e_c12y6b.png",
       ],
@@ -1805,7 +1798,7 @@ const Projects = () => {
       description: [
         "For all tunnels from Roha to Khed on the Konkan Railway project, certain critical patches of soft soil or fissured rock occurred within the tunnels, which were unable to resist the vibratory forces generated due to the speed of fast-moving trains and ultimately could lead to collapse. In order to avoid this, concrete lining was carried out for the arches and the walls, and guniting/shotcreting was applied to the walls/ceilings.",
       ],
-      project_brief: {  },
+      project_brief: {},
       image: [
         "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720436518/Progressive/3.Infrastructure/4.Mass%20Exavation/3.Konkan%20Railway%20%28Tunnel%20Lining%20Project%29/roha_e_tujuls.png",
       ],

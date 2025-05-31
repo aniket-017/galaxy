@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const Project = require('../models/projectModel');
-const ErrorHander = require('../utils/errorhander');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
-const cloudinary = require('cloudinary');
-const fileUpload = require('express-fileupload');
+const mongoose = require("mongoose");
+const Project = require("../models/Project");
+const ErrorHander = require("../utils/errorhander");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const cloudinary = require("cloudinary");
+const fileUpload = require("express-fileupload");
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -14,54 +14,47 @@ cloudinary.v2.config({
 // Create Project -- Admin
 exports.createProject = catchAsyncErrors(async (req, res, next) => {
   try {
-    let photos = [];
-    let videos = [];
+    console.log("Received request body:", req.body); // Debug log
+    let images = [];
 
     if (req.files) {
-      const { photos: photoFiles, videos: videoFiles } = req.files;
+      const { images: imageFiles } = req.files;
 
-      if (photoFiles) {
-        photos = await Promise.all(
-          photoFiles.map(async (file) => {
+      if (imageFiles) {
+        images = await Promise.all(
+          imageFiles.map(async (file) => {
             const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-              folder: 'projects/photos',
+              folder: "projects/images",
             });
-            return {
-              public_id: result.public_id,
-              url: result.secure_url,
-            };
-          })
-        );
-      }
-
-      if (videoFiles) {
-        videos = await Promise.all(
-          videoFiles.map(async (file) => {
-            const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-              resource_type: 'video',
-              folder: 'projects/videos',
-            });
-            return {
-              public_id: result.public_id,
-              url: result.secure_url,
-            };
+            return result.secure_url;
           })
         );
       }
     }
 
+    // Ensure project brief is properly formatted
+    const projectBrief = req.body.projectBrief || {};
+    console.log("Project brief before creation:", projectBrief); // Debug log
+
+    // Create the project with all data
     const project = await Project.create({
-      projectName: req.body.projectName,
-      projectDescription: req.body.projectDescription,
-      photos,
-      videos,
+      title: req.body.title,
+      description: req.body.description,
+      category: req.body.category,
+      subcategory: req.body.subcategory,
+      projectBrief: projectBrief,
+      images: req.body.images || images,
     });
+
+    console.log("Created project:", project); // Debug log
 
     res.status(201).json({
       success: true,
       project,
     });
   } catch (error) {
+    console.error("Error creating project:", error);
+    console.error("Error details:", error.message); // Debug log
     next(error);
   }
 });
@@ -80,7 +73,7 @@ exports.getProjectDetails = catchAsyncErrors(async (req, res, next) => {
   const project = await Project.findById(req.params.id);
 
   if (!project) {
-    return next(new ErrorHander('Project not found', 404));
+    return next(new ErrorHander("Project not found", 404));
   }
 
   res.status(200).json({
@@ -92,64 +85,42 @@ exports.getProjectDetails = catchAsyncErrors(async (req, res, next) => {
 // Update Project -- Admin
 exports.updateProject = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
-
+  console.log("Received request body:", req.body); // Debug log
   let project = await Project.findById(id);
 
   if (!project) {
-    return next(new ErrorHander('Project not found', 404));
+    return next(new ErrorHander("Project not found", 404));
   }
 
   // If there are new files to upload
-  let photos = project.photos;
-  let videos = project.videos;
+  let images = project.images;
 
   if (req.files) {
-    const { photos: photoFiles, videos: videoFiles } = req.files;
+    const { images: imageFiles } = req.files;
 
-    if (photoFiles) {
-      photos = await Promise.all(
-        photoFiles.map(async (file) => {
+    if (imageFiles) {
+      images = await Promise.all(
+        imageFiles.map(async (file) => {
           const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-            folder: 'projects/photos',
+            folder: "projects/images",
           });
-          return {
-            public_id: result.public_id,
-            url: result.secure_url,
-          };
-        })
-      );
-    }
-
-    if (videoFiles) {
-      videos = await Promise.all(
-        videoFiles.map(async (file) => {
-          const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-            resource_type: 'video',
-            folder: 'projects/videos',
-          });
-          return {
-            public_id: result.public_id,
-            url: result.secure_url,
-          };
+          return result.secure_url;
         })
       );
     }
   }
 
-  project = await Project.findByIdAndUpdate(
-    id,
-    {
-      projectName: req.body.projectName,
-      projectDescription: req.body.projectDescription,
-      photos,
-      videos,
-    },
-    {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
-    }
-  );
+  // Update project fields
+  project.title = req.body.title;
+  project.description = req.body.description;
+  project.category = req.body.category;
+  project.subcategory = req.body.subcategory;
+  project.projectBrief = req.body.projectBrief;
+  project.images = req.body.images || images;
+  project.updatedAt = Date.now();
+
+  // Save the updated project
+  await project.save();
 
   res.status(200).json({
     success: true,
@@ -162,21 +133,56 @@ exports.deleteProject = catchAsyncErrors(async (req, res, next) => {
   const project = await Project.findById(req.params.id);
 
   if (!project) {
-    return next(new ErrorHander('Project not found', 404));
+    return next(new ErrorHander("Project not found", 404));
   }
 
-  // Delete images and videos from Cloudinary
-  for (const photo of project.photos) {
-    await cloudinary.v2.uploader.destroy(photo.public_id);
-  }
-  for (const video of project.videos) {
-    await cloudinary.v2.uploader.destroy(video.public_id, { resource_type: 'video' });
+  // Delete images from Cloudinary if they were uploaded through cloudinary
+  for (const image of project.images) {
+    if (image.includes("cloudinary")) {
+      const public_id = image.split("/").slice(-1)[0].split(".")[0];
+      await cloudinary.v2.uploader.destroy(public_id);
+    }
   }
 
   await project.deleteOne();
 
   res.status(200).json({
     success: true,
-    message: 'Project Deleted Successfully',
+    message: "Project Deleted Successfully",
+  });
+});
+
+// Get projects by category
+exports.getProjectsByCategory = catchAsyncErrors(async (req, res, next) => {
+  const { category } = req.params;
+  const projects = await Project.find({ category });
+
+  res.status(200).json({
+    success: true,
+    projects,
+  });
+});
+
+// Get projects by category and subcategory
+exports.getProjectsByCategoryAndSubcategory = catchAsyncErrors(async (req, res, next) => {
+  const { category, subcategory } = req.params;
+  const projects = await Project.find({ category, subcategory });
+
+  res.status(200).json({
+    success: true,
+    projects,
+  });
+});
+
+// Search projects
+exports.searchProjects = catchAsyncErrors(async (req, res, next) => {
+  const { query } = req.query;
+  const projects = await Project.find({ $text: { $search: query } }, { score: { $meta: "textScore" } }).sort({
+    score: { $meta: "textScore" },
+  });
+
+  res.status(200).json({
+    success: true,
+    projects,
   });
 });

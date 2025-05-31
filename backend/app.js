@@ -18,10 +18,14 @@ app.use(fileUpload());
 // const product = require("./routes/productRoute");
 const venue = require("./routes/venueRoute")
 const user = require("./routes/userRoute")
+const project = require("./routes/projectRoute")
+const authRoutes = require("./routes/authRoutes")   
 
 // app.use("/api/z1",product);
 app.use("/aak/l1",venue);
 app.use("/aak/l1",user);
+app.use("/aak/l1",project);
+app.use("/aak/l1", authRoutes)
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
