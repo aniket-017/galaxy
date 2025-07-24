@@ -130,8 +130,15 @@
   }
   
   .photo-gallery img:hover {
-    transform: scale(1.05);
-  }
+  transform: scale(1.05);
+}
+
+.photos-loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 1.1rem;
+}
   
   .modal {
     display: flex;
@@ -550,6 +557,13 @@ select.form-control {
 .btn-primary:hover {
   background-color: #0056b3;
 }
+
+@media (max-width: 768px) {
+  .join-form {
+    padding: 20px;
+  }
+}
+
 
 @media (max-width: 768px) {
   .join-form {

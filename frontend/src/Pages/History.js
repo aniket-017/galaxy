@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./History.css";
+import axios from "axios";
 // import "../fonts/Grunge.ttf"
 // import "../fonts/Hey March.ttf"
 import { FaRocket, FaEye } from "react-icons/fa";
@@ -33,7 +34,16 @@ import { FaRocket, FaEye } from "react-icons/fa";
 
 import Policy from "./Policy.js";
 const History = () => {
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [teamLoading, setTeamLoading] = useState(true);
+  const [leadership, setLeadership] = useState({ chairman: null, director: null });
+  const [leadershipLoading, setLeadershipLoading] = useState(true);
+
   useEffect(() => {
+    // Fetch team members and leadership
+    fetchTeamMembers();
+    fetchLeadership();
+
     // define variables
     const items = document.querySelectorAll(".timeline li");
 
@@ -68,6 +78,56 @@ const History = () => {
       window.removeEventListener("scroll", callbackFunc);
     };
   }, []);
+
+  const fetchTeamMembers = async () => {
+    try {
+      setTeamLoading(true);
+      const response = await axios.get("/aak/l1/team");
+      if (response.data.success) {
+        setTeamMembers(response.data.members);
+      }
+    } catch (error) {
+      console.error("Error fetching team members:", error);
+      // Fallback to empty array if API fails
+      setTeamMembers([]);
+    } finally {
+      setTeamLoading(false);
+    }
+  };
+
+  const fetchLeadership = async () => {
+    try {
+      setLeadershipLoading(true);
+      const response = await axios.get("/aak/l1/leadership");
+      if (response.data.success) {
+        const leaders = response.data.leaders;
+        const chairman = leaders.find((leader) => leader.role === "Chairman");
+        const director = leaders.find((leader) => leader.role === "Director");
+        setLeadership({ chairman, director });
+      }
+    } catch (error) {
+      console.error("Error fetching leadership:", error);
+      // Fallback to default if API fails
+      setLeadership({
+        chairman: {
+          name: "C M Abhang",
+          photoUrl:
+            "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721300950/Progressive/team%20members/cma_htazbf.jpg",
+          message: "Default Chairman message...",
+          signature: "With best regards,\nC M Abhang.\nChairman.",
+        },
+        director: {
+          name: "U C Abhang",
+          photoUrl:
+            "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778851/Progressive/team%20members/director_2_adxfuf.jpg",
+          message: "Default Director message...",
+          signature: "Warm regards,\nU C Abhang\nDirector.",
+        },
+      });
+    } finally {
+      setLeadershipLoading(false);
+    }
+  };
 
   // const safetyPhotos = [
   //   c8,
@@ -149,182 +209,128 @@ const History = () => {
 
       <section className="director-message-section">
         <h2>Chairman's Message</h2>
-        <div className="director-message-content">
-          <div className="chairman-info">
-            <img
-              src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721300950/Progressive/team%20members/cma_htazbf.jpg"
-              alt="Director"
-              className="director-photo"
-            />
-            <div className="director-text">
-              <p>Dear All,</p>
-              <p>Welcome to our company's website.</p>
-              <p>
-                Reflecting on the journey that my partner and I embarked upon four decades ago, I am filled with immense
-                pride and gratitude. From our humble beginnings, we have grown into a leading company in the field of
-                construction, specializing in industrial structures, buildings, and infrastructure projects. Our
-                portfolio is adorned with the names of leading brands, each a testament to our commitment to quality and
-                excellence.
-              </p>
-              <p>
-                Our success has been built on the timeless principles of sincerity, honesty, and hard work. These values
-                have guided us through challenging times, shaping our reputation and fostering trust with our clients.
-              </p>
-              <p>
-                As we look to the future, I am confident that the new leaders of our company, who have been trained
-                under the same guiding principles, will achieve even greater successes.
-              </p>
-              <p>
-                The future holds exciting possibilities. With a foundation built on strong values and a vision for
-                growth, client satisfaction, and innovation, we are well-positioned to achieve bigger and better
-                accomplishments.
-              </p>
-              <p>
-                I sincerely thank all who have been part of our journey and welcome the new. Together, we will continue
-                to build a legacy of excellence and success.
-              </p>
-
-              <p>
-                With best regards,
-                <br />
-                C M Abhang.
-                <br />
-                Chairman.
-              </p>
+        {leadershipLoading ? (
+          <div className="loading-message">
+            <p>Loading Chairman's message...</p>
+          </div>
+        ) : leadership.chairman ? (
+          <div className="director-message-content">
+            <div className="chairman-info">
+              <img
+                src={leadership.chairman.photoUrl}
+                alt={leadership.chairman.name}
+                className="director-photo"
+                onError={(e) => {
+                  e.target.src = "https://via.placeholder.com/300x300/cccccc/666666?text=Chairman";
+                }}
+              />
+              <div className="director-text">
+                {leadership.chairman.message.split("\n").map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+                {leadership.chairman.signature && (
+                  <p className="signature">
+                    {leadership.chairman.signature.split("\n").map((line, index) => (
+                      <span key={index}>
+                        {line}
+                        {index < leadership.chairman.signature.split("\n").length - 1 && <br />}
+                      </span>
+                    ))}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="loading-message">
+            <p>Chairman's message not available.</p>
+          </div>
+        )}
       </section>
 
       <section className="director-message-section">
         <h2>Director's Message</h2>
-        <div className="director-message-content">
-          <div className="director-info">
-            <img
-              src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778851/Progressive/team%20members/director_2_adxfuf.jpg"
-              alt="Director"
-              className="director-photo"
-            />
-            <div className="director-text">
-              <p>Dear All,</p>
-              <p>
-                As you are aware, Progressive started with humble beginnings and have now grown into a trusted brand in
-                the construction industry. But a lot still needs to be done.
-              </p>
-              <p>
-                Heart to heart, our vision is to be a global design-build company most admired for its people, projects,
-                and performance.
-              </p>
-              <p>
-                To achieve this vision, we need to recognize the challenges and embracing change will be key to success
-                and growth, starting with mindset.
-              </p>
-              <p>
-                We need to continuously learn, adopt new technologies, improve internal processes, focus on client’s
-                evolving needs, and forge strong partnerships with like-minded companies, consultants, and professionals
-                to enable us to push our boundaries.
-              </p>
-              <p>
-                I extend heartfelt gratitude to our clients, our team members, and our associates. Look forward to your
-                continued support and trust to create marvelous experiences for our customers.
-              </p>
-              <p>
-                Warm regards,
-                <br />
-                U C Abhang
-                <br />
-                Director.
-              </p>
+        {leadershipLoading ? (
+          <div className="loading-message">
+            <p>Loading Director's message...</p>
+          </div>
+        ) : leadership.director ? (
+          <div className="director-message-content">
+            <div className="director-info">
+              <img
+                src={leadership.director.photoUrl}
+                alt={leadership.director.name}
+                className="director-photo"
+                onError={(e) => {
+                  e.target.src = "https://via.placeholder.com/300x300/cccccc/666666?text=Director";
+                }}
+              />
+              <div className="director-text">
+                {leadership.director.message.split("\n").map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+                {leadership.director.signature && (
+                  <p className="signature">
+                    {leadership.director.signature.split("\n").map((line, index) => (
+                      <span key={index}>
+                        {line}
+                        {index < leadership.director.signature.split("\n").length - 1 && <br />}
+                      </span>
+                    ))}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="loading-message">
+            <p>Director's message not available.</p>
+          </div>
+        )}
       </section>
 
       <section className="team-info" id="ourteam">
         <div className="hiscontainer">
           <h2>Our Team</h2>
-          {/* Team members' information */}
-          <ul className="team-list">
-            {/* <li>
-              <img src={dummy} alt="C M Abhang" />
-              <strong>C M Abhang</strong> (Chairman)
-            </li> */}
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721125911/Progressive/team%20members/uday_abhang_white_hsgol2.png"
-                alt="Uday Abhang"
-              />
-              <strong>Uday Abhang</strong> (Managing Director)
-            </li>
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721126251/Progressive/team%20members/Ashlesha_Ambadewhite_qofqlq.png"
-                alt="Ashlesha Ambade"
-              />
-              <strong>Ashlesha Ambade</strong> (Director)
-            </li>
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721125394/Progressive/team%20members/rajkar_sir_gdi0qx.jpg"
-                alt="Eknath Rajkar"
-              />
-              <strong>Eknath Rajkar</strong> (Director, Operations)
-            </li>
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778855/Progressive/team%20members/ulhas_abhang_e6mroi.jpg"
-                alt="Ulhas Abhang"
-              />
-              <strong>A. Ulhas </strong> (Mgr, Supply Chain)
-            </li>
-
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778854/Progressive/team%20members/Shirish_Satam_wws2jw.jpg"
-                alt="Jennil Shah"
-              />
-              <strong>Shirish Satam</strong> (Mgr, BD)
-            </li>
-
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778852/Progressive/team%20members/Dnyaneshwar_Patil_dgocqq.png"
-                alt="Jennil Shah"
-              />
-              <strong>Dnyaneshwar Patil</strong> (Mgr, Contracts)
-            </li>
-
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778854/Progressive/team%20members/Satish_Madhle_tcszk9.jpg"
-                alt="Satish Madhale"
-              />
-              <strong>Satish Madhale</strong> (Mgr, Acct & Fin)
-            </li>
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778853/Progressive/team%20members/ramdas_wanjare_bnlxmz.jpg"
-                alt="Ramdas Wanjare"
-              />
-              <strong>Ramdas Wanjare</strong> (Mgr, Technical)
-            </li>
-
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721300946/Progressive/team%20members/sudhir_cxhu44.jpg"
-                alt="Jennil Shah"
-              />
-              <strong>Sudhir Khatardar</strong> (Mgr, Commercial)
-            </li>
-
-            <li>
-              <img
-                src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1721125493/Progressive/team%20members/Ramesh_Yadav_orxzko.jpg"
-                alt="Jennil Shah"
-              />
-              <strong>Ramesh Yadav</strong> (Asst Mgr, Mech)
-            </li>
-          </ul>
+          {teamLoading ? (
+            <div className="team-loading">
+              <p>Loading team members...</p>
+            </div>
+          ) : (
+            <ul className="team-list">
+              {teamMembers.map((member) => (
+                <li key={member._id}>
+                  <img
+                    src={member.photoUrl}
+                    alt={member.name}
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/150x150/cccccc/666666?text=No+Image";
+                    }}
+                  />
+                  <strong>{member.name}</strong> ({member.position})
+                  {(member.socialLinks?.linkedin || member.socialLinks?.twitter || member.socialLinks?.facebook) && (
+                    <div className="social-links">
+                      {member.socialLinks.linkedin && (
+                        <a href={member.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                          <i className="fab fa-linkedin"></i>
+                        </a>
+                      )}
+                      {member.socialLinks.twitter && (
+                        <a href={member.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+                          <i className="fab fa-twitter"></i>
+                        </a>
+                      )}
+                      {member.socialLinks.facebook && (
+                        <a href={member.socialLinks.facebook} target="_blank" rel="noopener noreferrer">
+                          <i className="fab fa-facebook"></i>
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 

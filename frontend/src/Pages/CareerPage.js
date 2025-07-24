@@ -17,6 +17,7 @@ import {
   FaChevronDown,
 } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
+import axios from "axios";
 import "./CareerPage.css";
 import JobApplicationForm from "./JobApplicationForm";
 
@@ -41,23 +42,8 @@ import JobApplicationForm from "./JobApplicationForm";
 // import carrerVideo from "../assets/video/hero.mp4";
 
 const CareerPage = () => {
-  const photos = [
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c1_znpljk.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778809/Progressive/celebration/c3_vts12o.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778809/Progressive/celebration/c2_kmmglc.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778809/Progressive/celebration/c4_bjtxvm.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778810/Progressive/celebration/c5_r0cf5n.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778810/Progressive/celebration/c6_j3b93p.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778810/Progressive/celebration/c7_cmlole.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778810/Progressive/celebration/c8_e7uhpg.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778811/Progressive/celebration/c9_sbpe9t.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778807/Progressive/celebration/c10_duvbdc.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c11_ay19tc.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c12_fgfsia.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c13_nor984.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c14_z6ye0c.jpg",
-    "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c15_givarj.jpg",
-  ];
+  const [photos, setPhotos] = useState([]);
+  const [photosLoading, setPhotosLoading] = useState(true);
 
   const form = useRef();
 
@@ -121,6 +107,9 @@ const CareerPage = () => {
         });
     }
 
+    // Fetch career photos
+    fetchCareerPhotos();
+
     return () => {
       // Clean up
       if (video) {
@@ -129,6 +118,26 @@ const CareerPage = () => {
       }
     };
   }, []);
+
+  const fetchCareerPhotos = async () => {
+    try {
+      setPhotosLoading(true);
+      const response = await axios.get("/aak/l1/career-photos");
+      if (response.data.success) {
+        setPhotos(response.data.photos.map((photo) => photo.imageUrl));
+      }
+    } catch (error) {
+      console.error("Error fetching career photos:", error);
+      // Fallback to default photos if API fails
+      setPhotos([
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c1_znpljk.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778809/Progressive/celebration/c3_vts12o.jpg",
+        "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778809/Progressive/celebration/c2_kmmglc.jpg",
+      ]);
+    } finally {
+      setPhotosLoading(false);
+    }
+  };
   return (
     <section className="career-page">
       <section>
@@ -252,16 +261,25 @@ const CareerPage = () => {
           </p>
         </div>
         <div>
-          <div className="photo-gallery">
-            {photos.map((photo, index) => (
-              <img
-                key={index}
-                src={photo}
-                alt={`Life at Progressive ${index + 1}`}
-                onClick={() => handlePhotoClick(photo)}
-              />
-            ))}
-          </div>
+          {photosLoading ? (
+            <div className="photos-loading">
+              <p>Loading photos...</p>
+            </div>
+          ) : (
+            <div className="photo-gallery">
+              {photos.map((photo, index) => (
+                <img
+                  key={index}
+                  src={photo}
+                  alt={`Life at Progressive ${index + 1}`}
+                  onClick={() => handlePhotoClick(photo)}
+                  onError={(e) => {
+                    e.target.src = "https://via.placeholder.com/200x150/cccccc/666666?text=Image+Not+Available";
+                  }}
+                />
+              ))}
+            </div>
+          )}
           {selectedPhoto && (
             <div className="modal" onClick={closeModal}>
               <div className="modal-content">
@@ -397,8 +415,7 @@ const CareerPage = () => {
       </section> */}
 
       <section className="join-us">
-
-      <JobApplicationForm/>
+        <JobApplicationForm />
         {/* <h2>Join Us</h2>
         <form ref={form} className="join-form" onSubmit={sendEmail}>
           <div className="form-group">

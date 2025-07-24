@@ -254,13 +254,23 @@ th {
   backdrop-filter: blur(4px);
 }
 
-.modal-content {
+.modal-content, .carousel-modal {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden;
   background: white;
   padding: 2rem;
   border-radius: 10px;
-  max-width: 400px;
-  width: 90%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-modal form {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-bottom: 1rem;
 }
 
 .modal-content h3 {
@@ -275,6 +285,13 @@ th {
 }
 
 .modal-actions {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  z-index: 2;
+  border-top: 1px solid #eee;
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
@@ -312,6 +329,544 @@ th {
   transform: translateY(-1px);
 }
 
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tab-btn {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.tab-btn:hover {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.tab-btn.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Carousel Management */
+.carousel-section {
+  background: white;
+  padding: 1.5rem;
+  
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.add-slide-btn, .add-member-btn, .add-photo-btn, .add-leader-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  background-color: #28a745;
+  color: white;
+}
+
+.add-slide-btn:hover, .add-member-btn:hover, .add-photo-btn:hover, .add-leader-btn:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+/* Job Applications specific styles */
+.application-filters {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.application-filters select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+}
+
+.application-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #dee2e6;
+}
+
+.stat-card h3 {
+  font-size: 2rem;
+  color: #007bff;
+  margin: 0;
+  font-weight: 700;
+}
+
+.stat-card p {
+  margin: 0.5rem 0 0 0;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.applicant-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.applicant-info .email {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.view-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.view-btn:hover {
+  background-color: #138496;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.status-under-review {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.status-shortlisted {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-rejected {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status-hired {
+  background-color: #6f42c1;
+  color: white;
+}
+
+/* Job Application Modal */
+.job-application-modal {
+  max-width: 800px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.applicant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.applicant-header h4 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-item label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.detail-item span {
+  color: #2c3e50;
+}
+
+.resume-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.resume-link:hover {
+  text-decoration: underline;
+}
+
+.notes-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.notes-section label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.notes-section p {
+  margin: 0;
+  color: #2c3e50;
+  line-height: 1.5;
+}
+
+.status-update {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.status-update h4 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.status-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.status-btn.pending {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.status-btn.pending:hover {
+  background-color: #e0a800;
+}
+
+.status-btn.under-review {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.status-btn.under-review:hover {
+  background-color: #138496;
+}
+
+.status-btn.shortlisted {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-btn.shortlisted:hover {
+  background-color: #218838;
+}
+
+.status-btn.rejected {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status-btn.rejected:hover {
+  background-color: #c82333;
+}
+
+.status-btn.hired {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.status-btn.hired:hover {
+  background-color: #5a32a3;
+}
+
+.carousel-table, .team-table, .career-photos-table, .leadership-table, .job-applications-table {
+  overflow-x: auto;
+}
+
+.slide-thumbnail, .member-thumbnail, .photo-thumbnail, .leader-thumbnail {
+  width: 80px;
+  height: 50px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.member-thumbnail {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.photo-thumbnail {
+  width: 100px;
+  height: 70px;
+}
+
+.leader-thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.order-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order-number {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  min-width: 20px;
+}
+
+.order-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.order-btn {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+  width: 30px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-btn:hover:not(:disabled) {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.order-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Carousel Modal */
+.carousel-modal, .team-modal, .career-photos-modal, .leadership-modal, .job-application-modal {
+  max-width: 600px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.team-modal {
+  max-width: 800px;
+}
+
+.career-photos-modal {
+  max-width: 650px;
+}
+
+.leadership-modal {
+  max-width: 700px;
+}
+
+.job-application-modal {
+  max-width: 900px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+  resize: vertical;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+  background-color: white;
+}
+
+.social-links {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.social-links h4 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.image-preview {
+  margin-top: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  display: block;
+  margin: 0 auto;
+}
+
+.save-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  background-color: #28a745;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+/* Loading States */
+.carousel-loading {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-spinner {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.carousel-error {
+  text-align: center;
+  padding: 2rem;
+  color: #dc3545;
+  background-color: #fff3f3;
+  border: 1px solid #ffcdd2;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .admin-dashboard {
@@ -341,6 +896,64 @@ th {
   .search-box {
     width: 100%;
   }
+
+  .tab-navigation {
+    flex-direction: column;
+  }
+
+  .tab-btn {
+    text-align: center;
+  }
+
+  .order-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .order-buttons {
+    flex-direction: row;
+  }
+
+  .carousel-modal, .team-modal, .career-photos-modal, .leadership-modal, .job-application-modal {
+    width: 95%;
+    margin: 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Leadership specific styles */
+.role-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.role-badge.chairman {
+  background-color: #007bff;
+  color: white;
+}
+
+.role-badge.director {
+  background-color: #28a745;
+  color: white;
+}
+
+.message-preview {
+  max-width: 200px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 2rem;
 }
 
 @media (max-width: 480px) {
@@ -350,5 +963,14 @@ th {
 
   .actions {
     flex-direction: column;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .slide-thumbnail {
+    width: 60px;
+    height: 40px;
   }
 } 

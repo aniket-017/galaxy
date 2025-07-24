@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -16,16 +15,26 @@ app.use(fileUpload());
 
 //Route Imports
 // const product = require("./routes/productRoute");
-const venue = require("./routes/venueRoute")
-const user = require("./routes/userRoute")
-const project = require("./routes/projectRoute")
-const authRoutes = require("./routes/authRoutes")   
+const venue = require("./routes/venueRoute");
+const user = require("./routes/userRoute");
+const project = require("./routes/projectRoute");
+const authRoutes = require("./routes/authRoutes");
+const carousel = require("./routes/carouselRoute");
+const team = require("./routes/teamRoute");
+const careerPhotos = require("./routes/careerPhotosRoute");
+const leadership = require("./routes/leadershipRoute");
+const jobApplication = require("./routes/jobApplicationRoute");
 
 // app.use("/api/z1",product);
-app.use("/aak/l1",venue);
-app.use("/aak/l1",user);
-app.use("/aak/l1",project);
-app.use("/aak/l1", authRoutes)
+app.use("/aak/l1", venue);
+app.use("/aak/l1", user);
+app.use("/aak/l1", project);
+app.use("/aak/l1", authRoutes);
+app.use("/aak/l1", carousel);
+app.use("/aak/l1", team);
+app.use("/aak/l1", careerPhotos);
+app.use("/aak/l1", leadership);
+app.use("/aak/l1", jobApplication);
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
@@ -33,8 +42,16 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
 });
 
+// Middleware for Errors
+app.use(errorMiddleware);
+
+module.exports = app;
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+});
 
 // Middleware for Errors
 app.use(errorMiddleware);
 
-module.exports = app
+module.exports = app;
