@@ -4,6 +4,7 @@ import axios from "axios";
 // import "../fonts/Grunge.ttf"
 // import "../fonts/Hey March.ttf"
 import { FaRocket, FaEye } from "react-icons/fa";
+import Loading from "../components/Loading";
 // import dummy from "../assets/images/team members/profiledummy.png";
 // import director from "../assets/images/team members/director 2.jpg";
 // import t3 from "../assets/images/team members/Ashlesha Ambade.jpeg";
@@ -210,9 +211,7 @@ const History = () => {
       <section className="director-message-section">
         <h2>Chairman's Message</h2>
         {leadershipLoading ? (
-          <div className="loading-message">
-            <p>Loading Chairman's message...</p>
-          </div>
+          <Loading message="Loading Chairman's message..." fullScreen={false} />
         ) : leadership.chairman ? (
           <div className="director-message-content">
             <div className="chairman-info">
@@ -251,9 +250,7 @@ const History = () => {
       <section className="director-message-section">
         <h2>Director's Message</h2>
         {leadershipLoading ? (
-          <div className="loading-message">
-            <p>Loading Director's message...</p>
-          </div>
+          <Loading message="Loading Director's message..." fullScreen={false} />
         ) : leadership.director ? (
           <div className="director-message-content">
             <div className="director-info">
@@ -293,9 +290,7 @@ const History = () => {
         <div className="hiscontainer">
           <h2>Our Team</h2>
           {teamLoading ? (
-            <div className="team-loading">
-              <p>Loading team members...</p>
-            </div>
+            <Loading message="Loading team members..." fullScreen={false} />
           ) : (
             <ul className="team-list">
               {teamMembers.map((member) => (

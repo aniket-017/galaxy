@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Imager.css";
 import Carousel from "react-bootstrap/Carousel";
 import axios from "axios";
+import Loading from "../components/Loading";
 
 const Imager = () => {
   const [slides, setSlides] = useState([]);
@@ -37,11 +38,7 @@ const Imager = () => {
   };
 
   if (loading) {
-    return (
-      <div className="carousel-loading">
-        <div className="loading-spinner">Loading...</div>
-      </div>
-    );
+    return <Loading message="Loading carousel slides..." fullScreen={false} />;
   }
 
   if (error && slides.length === 0) {

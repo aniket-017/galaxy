@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AdminDashboard.css";
+import Loading from "../components/Loading";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -729,11 +730,7 @@ const AdminDashboard = () => {
   };
 
   if (loading) {
-    return (
-      <div className="admin-dashboard">
-        <div className="loading">Loading...</div>
-      </div>
-    );
+    return <Loading message="Loading dashboard..." fullScreen={true} />;
   }
 
   return (

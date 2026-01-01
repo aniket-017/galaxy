@@ -469,7 +469,7 @@ const Home = () => {
         <h2 className="section-title">Our Stats</h2>
         <div className="achievements">
           <div className="achievement">
-            <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778820/Progressive/achievements/journey_stn8ko.png" alt="jourent icon" className="achievement-icon" />
+            <img src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767279748/journey_warjpj.png" alt="jourent icon" className="achievement-icon" />
             <div className="achievement-info">
               <p>
                 <CountUp start={0} end={4} duration={4} start={startCount ? 0 : 4} className="countupnumber" /> Decades
@@ -487,7 +487,7 @@ const Home = () => {
             </div>
           </div>
           <div className="achievement">
-            <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778820/Progressive/achievements/area_vj2dni.png" alt="jourent icon" className="achievement-icon" />
+            <img src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767279776/area_sehn2t.png" alt="jourent icon" className="achievement-icon" />
             <div className="achievement-info">
               <p>
                 <CountUp

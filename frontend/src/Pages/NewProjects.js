@@ -4,6 +4,7 @@ import { FaIndustry, FaRoad, FaTasks, FaBuildingUser, FaTimes } from "react-icon
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const categoryIcons = {
   industrial: FaIndustry,
@@ -182,10 +183,7 @@ const NewProjects = () => {
         transition={{ duration: 0.5, delay: 0.5 }}
       >
         {isLoading ? (
-          <div className="loading-container">
-            <div className="loading-spinner"></div>
-            <p>Loading projects...</p>
-          </div>
+          <Loading message="Loading projects..." fullScreen={false} />
         ) : error ? (
           <div className="error-container">
             <p>{error}</p>

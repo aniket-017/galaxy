@@ -70,7 +70,7 @@ const Navbar = () => {
       <div className="container">
         <div>
           <img
-            src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778931/Progressive/logoprogsmall.png"
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767279411/logoprogsmall_tczfjy.png"
             onClick={handleHome}
             className="logo"
           />

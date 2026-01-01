@@ -7,9 +7,7 @@ import "./Clients.css";
 // import z4 from "../assets/images/Clientlogo2/L&T.png";
 // import z5 from "../assets/images/Clientlogo2/fiat.png";
 
-
 // import z6 from "../assets/images/Clientlogo2/Ajwani-Infra.png";
-
 
 // import z8 from "../assets/images/Clientlogo2/cidco.png";
 // import z9 from "../assets/images/Clientlogo2/kokanrail.png";
@@ -64,166 +62,358 @@ import "./Clients.css";
 // import z51 from "../assets/images/Clientlogo2/sterling.png";
 // import z52 from "../assets/images/Clientlogo2/Ghv.png";
 
-
 const Clients = () => {
   return (
     <div class="clientcontainer">
       <ul class="logogrid">
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778790/Progressive/Clientlogo2/adityabrila_x10byn.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281061/adityabrila_x10byn_p8b7zb.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778790/Progressive/Clientlogo2/imagica_fssimi.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281093/imagica_fssimi_kjaz4x.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778791/Progressive/Clientlogo2/asian-paints_vui9l7.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281125/asian-paints_vui9l7_ldgu8f.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/L_T_x9skzk.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281155/L_T_x9skzk_o1vmfi.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/fiat_icehhd.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281188/fiat_icehhd_gkxs5c.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778790/Progressive/Clientlogo2/Ajwani-Infra_ml07so.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281249/Ajwani-Infra_ml07so_vhxtvr.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778790/Progressive/Clientlogo2/cidco_jm6xkk.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281288/cidco_jm6xkk_ns3yys.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/kokanrail_co1cp1.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281345/kokanrail_co1cp1_yjkfxh.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778791/Progressive/Clientlogo2/EIL1_gjpyne.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281372/EIL1_gjpyne_ngw8el.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/aon_kpjkpy.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281426/aon_kpjkpy_oolmun.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
 
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778797/Progressive/Clientlogo2/Toyo_Engineering_anlhtl.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281528/Toyo_Engineering_anlhtl_enc3tv.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/iprc_vuiom9.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281567/iprc_vuiom9_ozj7oa.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/Indian_Oil_d6fdq8.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281613/Indian_Oil_d6fdq8_t7ufz8.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/jnpt_ezbrki.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281651/jnpt_ezbrki_hkmlsm.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/deepak_fertilizer-removebg-preview_sx84xc.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281684/deepak_fertilizer-removebg-preview_sx84xc_vsvowl.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
 
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281768/lavasa_atmfdm_pvxnpp.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281781/lipi_blu1il_bpx85w.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281834/rcf_ztytok_nf61rn.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281851/narayan_ribmmp_p6mazj.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281879/valecha_hzekvk_v3u0qo.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
 
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/lavasa_atmfdm.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281893/galaxy1_w9jbum_dohvix.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/lipi_blu1il.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281905/gherzi_xgsqlf_ym3vlm.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778794/Progressive/Clientlogo2/rcf_ztytok.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767281912/godrej_zli6iz_g1ork9.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778794/Progressive/Clientlogo2/narayan_ribmmp.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282135/gufic_ubybfs_yljzhi.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778797/Progressive/Clientlogo2/valecha_hzekvk.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282159/Indiabulls_dzc0xb_s90ydh.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282223/jll_jaskbm_n15ih4.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282218/J_J_ldxhcu_h9somz.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282232/kellogs_k1vf68_bjs9m4.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282246/Citicorp-Logo_pb9lde_fsujdg.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282262/anthena_dmkttf_cvqt0a.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
 
-        
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282265/neosym_fwv6jh_ny7zwq.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282275/PWD_i05ddg_edomlg.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282284/microtrol_pt3bio_buvoea.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282293/sah_singhi_ttwina_q35tr0.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282340/sandoz-logo_wiln8n_oilsmt.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282353/Siemens_lf6phh_pdfv8c.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282359/Smith___Nephew-Logo.wine_xhwwma_s43qk7.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282368/sodexo_ky27iu_gkswpc.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282379/thyssenkrupp_xyisgb_yuebw9.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282398/STUP_k2cy4l_siuw8c.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778796/Progressive/Clientlogo2/tata_ibamkc.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282434/tata_ibamkc_lpydsb.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282844/tengl_oit2f0_hehon3.jpg"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282850/tifr_ko5nrr_wfkzwv.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282903/NetApp_log_ogsvhk_jihc3n.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
 
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/galaxy1_w9jbum.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282903/NetApp_log_ogsvhk_jihc3n.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/gherzi_xgsqlf.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282955/Lodha-removebg-preview_c73app_xigzak.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
+        </li>
+
+        <li class="logogrid__item">
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767282990/sterling_wpngsg_bbuiim.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
         <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/godrej_zli6iz.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/gufic_ubybfs.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778791/Progressive/Clientlogo2/Indiabulls_dzc0xb.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/jll_jaskbm.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/J_J_ldxhcu.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/kellogs_k1vf68.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778791/Progressive/Clientlogo2/Citicorp-Logo_pb9lde.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778791/Progressive/Clientlogo2/anthena_dmkttf.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778794/Progressive/Clientlogo2/neosym_fwv6jh.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778794/Progressive/Clientlogo2/PWD_i05ddg.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778794/Progressive/Clientlogo2/microtrol_pt3bio.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778795/Progressive/Clientlogo2/sah_singhi_ttwina.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778795/Progressive/Clientlogo2/sandoz-logo_wiln8n.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778795/Progressive/Clientlogo2/Siemens_lf6phh.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778795/Progressive/Clientlogo2/Smith___Nephew-Logo.wine_xhwwma.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778795/Progressive/Clientlogo2/sodexo_ky27iu.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778796/Progressive/Clientlogo2/thyssenkrupp_xyisgb.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778796/Progressive/Clientlogo2/STUP_k2cy4l.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778796/Progressive/Clientlogo2/tata_ibamkc.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778796/Progressive/Clientlogo2/tatasuno_wcioaw.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778796/Progressive/Clientlogo2/tengl_oit2f0.jpg" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778797/Progressive/Clientlogo2/tifr_ko5nrr.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778794/Progressive/Clientlogo2/NetApp_log_ogsvhk.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/jm_baxi_kmht01.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778793/Progressive/Clientlogo2/Lodha-removebg-preview_c73app.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778795/Progressive/Clientlogo2/sterling_wpngsg.png" class="logogrid__img" alt="Coca Cola" />
-        </li>
-        <li class="logogrid__item">
-          <img src="https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778792/Progressive/Clientlogo2/Ghv_uoikpl.png" class="logogrid__img" alt="Coca Cola" />
+          <img
+            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767283022/Ghv_uoikpl_lkerxo.png"
+            class="logogrid__img"
+            alt="Coca Cola"
+          />
         </li>
       </ul>
     </div>

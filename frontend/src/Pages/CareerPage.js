@@ -20,6 +20,7 @@ import emailjs from "@emailjs/browser";
 import axios from "axios";
 import "./CareerPage.css";
 import JobApplicationForm from "./JobApplicationForm";
+import Loading from "../components/Loading";
 
 // import c1 from "https://res.cloudinary.com/dzmn9lnk5/image/upload/v1720778808/Progressive/celebration/c1_znpljk.jpg";
 // import c2 from "../assets/images/celebration/c2.jpeg";
@@ -144,7 +145,7 @@ const CareerPage = () => {
         <div className="hero-section">
           <video ref={videoRef} className="hero-video" loop muted>
             <source
-              src="https://res.cloudinary.com/dzmn9lnk5/video/upload/v1720781979/Progressive/hero_spo8vf.mp4"
+              src="https://res.cloudinary.com/dyfjgakgf/video/upload/v1767286042/hero_spo8vf_1_jove2c.mp4"
               type="video/mp4"
             />
             Your browser does not support the video tag.
@@ -262,9 +263,7 @@ const CareerPage = () => {
         </div>
         <div>
           {photosLoading ? (
-            <div className="photos-loading">
-              <p>Loading photos...</p>
-            </div>
+            <Loading message="Loading photos..." fullScreen={false} />
           ) : (
             <div className="photo-gallery">
               {photos.map((photo, index) => (

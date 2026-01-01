@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaArrowLeft, FaArrowRight, FaChevronRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import "./NewProjectDetails.css";
+import Loading from "../components/Loading";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -49,12 +50,7 @@ const ProjectDetails = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="project-details-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading project details...</p>
-      </div>
-    );
+    return <Loading message="Loading project details..." fullScreen={true} />;
   }
 
   if (error) {

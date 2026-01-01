@@ -82,7 +82,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-rights">
-        <p>All rights reserved © 2025 Progressive Galaxy</p>
+        <p>All rights reserved © 2026 Progressive Galaxy</p>
       </div>
     </footer>
   );

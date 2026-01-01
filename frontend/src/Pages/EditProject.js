@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./AddProject.css"; // We'll reuse the same CSS
+import Loading from "../components/Loading";
 
 const EditProject = () => {
   const navigate = useNavigate();
@@ -203,11 +204,7 @@ const EditProject = () => {
   };
 
   if (loading) {
-    return (
-      <div className="apex_project_creation_container">
-        <div className="loading">Loading project details...</div>
-      </div>
-    );
+    return <Loading message="Loading project details..." fullScreen={true} />;
   }
 
   if (error) {
