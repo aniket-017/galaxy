@@ -24,6 +24,7 @@ const team = require("./routes/teamRoute");
 const careerPhotos = require("./routes/careerPhotosRoute");
 const leadership = require("./routes/leadershipRoute");
 const jobApplication = require("./routes/jobApplicationRoute");
+const contact = require("./routes/contactRoute");
 
 // app.use("/api/z1",product);
 app.use("/aak/l1", venue);
@@ -35,17 +36,9 @@ app.use("/aak/l1", team);
 app.use("/aak/l1", careerPhotos);
 app.use("/aak/l1", leadership);
 app.use("/aak/l1", jobApplication);
+app.use("/aak/l1", contact);
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
-});
-
-// Middleware for Errors
-app.use(errorMiddleware);
-
-module.exports = app;
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));

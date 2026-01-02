@@ -267,6 +267,12 @@ th {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.modal-content:not(.contact-modal) form {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
 .carousel-modal form {
   flex: 1 1 auto;
   overflow-y: auto;
@@ -290,11 +296,13 @@ th {
   background: white;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  margin-top: 1rem;
   z-index: 2;
   border-top: 1px solid #eee;
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+  flex-shrink: 0;
 }
 
 .cancel-btn, .confirm-delete-btn {
@@ -375,7 +383,7 @@ th {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.add-slide-btn, .add-member-btn, .add-photo-btn, .add-leader-btn {
+.add-slide-btn, .add-member-btn, .add-photo-btn, .add-leader-btn, .add-contact-btn {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 6px;
@@ -389,7 +397,7 @@ th {
   color: white;
 }
 
-.add-slide-btn:hover, .add-member-btn:hover, .add-photo-btn:hover, .add-leader-btn:hover {
+.add-slide-btn:hover, .add-member-btn:hover, .add-photo-btn:hover, .add-leader-btn:hover, .add-contact-btn:hover {
   background-color: #218838;
   transform: translateY(-1px);
 }
@@ -914,7 +922,7 @@ th {
     flex-direction: row;
   }
 
-  .carousel-modal, .team-modal, .career-photos-modal, .leadership-modal, .job-application-modal {
+  .carousel-modal, .team-modal, .career-photos-modal, .leadership-modal, .job-application-modal, .contact-modal {
     width: 95%;
     margin: 1rem;
   }
@@ -954,6 +962,183 @@ th {
   color: #666;
   font-style: italic;
   padding: 2rem;
+}
+
+/* Contact Us Management Styles */
+.contact-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.contact-subsection {
+  margin-bottom: 2rem;
+}
+
+.contact-subsection:last-child {
+  margin-bottom: 0;
+}
+
+.contact-subsection h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+.contact-table {
+  overflow-x: auto;
+}
+
+.contact-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.contact-table th {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.contact-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: top;
+}
+
+.contact-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.address-cell {
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.query-type-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background-color: #007bff;
+  color: white;
+  text-transform: capitalize;
+}
+
+.contact-table a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contact-table a:hover {
+  text-decoration: underline;
+}
+
+.contact-modal {
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-modal h3 {
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
+
+.contact-modal form.contact-form-scrollable {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  margin-right: -0.5rem;
+  margin-bottom: 1rem;
+  min-height: 0;
+}
+
+.contact-modal form.contact-form-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contact-modal form.contact-form-scrollable::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.contact-modal form.contact-form-scrollable::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.contact-modal form.contact-form-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.contact-modal .modal-actions {
+  flex-shrink: 0;
+  margin-top: 0;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.contact-modal .form-group {
+  margin-bottom: 1rem;
+}
+
+.contact-modal .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.contact-modal .form-group input,
+.contact-modal .form-group textarea,
+.contact-modal .form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.contact-modal .form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.contact-modal .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .contact-table {
+    font-size: 0.85rem;
+  }
+
+  .contact-table th,
+  .contact-table td {
+    padding: 0.5rem;
+  }
+
+  .address-cell {
+    max-width: 150px;
+  }
+
+  .contact-modal .form-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {

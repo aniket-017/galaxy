@@ -42,8 +42,6 @@ const ContactUs = () => {
               Gujarat, India <br />
               Pin - 390012.
             </p>
-            <p>Contact : Dharmesh Mistry </p>
-            <p>Phone: +91 95123 07668</p>
           </div>
           <div className="office">
             <h2>AURANGABAD OFFICE</h2>
@@ -59,26 +57,25 @@ const ContactUs = () => {
             <p>Phone: +91 9822826719</p>
           </div>
         </div>
-       
-          <div className="queries">
-            <h3>For any Marketing related queries:</h3>
-            <p>
-              Email: <a href="mailto:marketing@progressivegalaxy.com">marketing@progressivegalaxy.com</a>
-            </p>
-          </div>
-          <div className="queries">
-            <h3>For any Purchase related queries:</h3>
-            <p>
-              Email: <a href="mailto:purchase@progressivegalaxy.com">purchase@progressivegalaxy.com</a>
-            </p>
-          </div>
-          <div className="queries">
-            <h3>For any Recruitment related queries:</h3>
-            <p>
-              Email: <a href="mailto:hr@progressivegalaxy.com">hr@progressivegalaxy.com</a>
-            </p>
-          </div>
-    
+
+        <div className="queries">
+          <h3>For any Marketing related queries:</h3>
+          <p>
+            Email: <a href="mailto:marketing@progressivegalaxy.com">marketing@progressivegalaxy.com</a>
+          </p>
+        </div>
+        <div className="queries">
+          <h3>For any Purchase related queries:</h3>
+          <p>
+            Email: <a href="mailto:purchase@progressivegalaxy.com">purchase@progressivegalaxy.com</a>
+          </p>
+        </div>
+        <div className="queries">
+          <h3>For any Recruitment related queries:</h3>
+          <p>
+            Email: <a href="mailto:hr@progressivegalaxy.com">hr@progressivegalaxy.com</a>
+          </p>
+        </div>
       </div>
     </div>
   );

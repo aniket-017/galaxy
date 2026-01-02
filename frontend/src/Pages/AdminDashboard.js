@@ -89,6 +89,25 @@ const AdminDashboard = () => {
   const [applicationStats, setApplicationStats] = useState(null);
   const [deleteApplicationId, setDeleteApplicationId] = useState(null);
 
+  // Contact Us state
+  const [contacts, setContacts] = useState({ offices: [], emails: [] });
+  const [contactLoading, setContactLoading] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [editingContact, setEditingContact] = useState(null);
+  const [contactForm, setContactForm] = useState({
+    type: "office",
+    officeName: "",
+    address: "",
+    pinCode: "",
+    contactPerson: "",
+    phone: "",
+    telephone: "",
+    queryType: "marketing",
+    email: "",
+    order: 1,
+  });
+  const [deleteContactId, setDeleteContactId] = useState(null);
+
   const [stats, setStats] = useState({
     totalProjects: 0,
     industrialProjects: 0,
@@ -105,6 +124,7 @@ const AdminDashboard = () => {
     fetchLeadership();
     fetchJobApplications();
     fetchApplicationStats();
+    fetchContacts();
   }, []);
 
   const fetchProjects = async () => {
@@ -719,6 +739,118 @@ const AdminDashboard = () => {
     return status.replace("_", " ").replace(/\b\w/g, (l) => l.toUpperCase());
   };
 
+  // Contact Us Management Functions
+  const fetchContacts = async () => {
+    try {
+      setContactLoading(true);
+      const response = await axios.get("/aak/l1/admin/contact", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.data.success) {
+        setContacts({
+          offices: response.data.offices || [],
+          emails: response.data.emails || [],
+        });
+      }
+    } catch (error) {
+      setError("Failed to fetch contacts");
+      console.error("Error fetching contacts:", error);
+    } finally {
+      setContactLoading(false);
+    }
+  };
+
+  const handleAddContact = () => {
+    setEditingContact(null);
+    setContactForm({
+      type: "office",
+      officeName: "",
+      address: "",
+      pinCode: "",
+      contactPerson: "",
+      phone: "",
+      telephone: "",
+      queryType: "marketing",
+      email: "",
+      order: contacts.offices.length + contacts.emails.length + 1,
+    });
+    setShowContactModal(true);
+  };
+
+  const handleEditContact = (contact) => {
+    setEditingContact(contact);
+    setContactForm({
+      type: contact.type,
+      officeName: contact.officeName || "",
+      address: contact.address || "",
+      pinCode: contact.pinCode || "",
+      contactPerson: contact.contactPerson || "",
+      phone: contact.phone || "",
+      telephone: contact.telephone || "",
+      queryType: contact.queryType || "marketing",
+      email: contact.email || "",
+      order: contact.order || 1,
+    });
+    setShowContactModal(true);
+  };
+
+  const handleContactFormSubmit = async (e) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+      if (editingContact) {
+        // Update existing contact
+        await axios.put(`/aak/l1/admin/contact/${editingContact._id}`, contactForm, config);
+      } else {
+        // Create new contact
+        await axios.post("/aak/l1/admin/contact", contactForm, config);
+      }
+
+      setShowContactModal(false);
+      fetchContacts();
+      setError("");
+    } catch (error) {
+      setError(`Failed to ${editingContact ? "update" : "create"} contact`);
+      console.error("Error saving contact:", error);
+    }
+  };
+
+  const handleDeleteContact = async (contactId) => {
+    try {
+      await axios.delete(`/aak/l1/admin/contact/${contactId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      fetchContacts();
+      setDeleteContactId(null);
+      setError("");
+    } catch (error) {
+      setError("Failed to delete contact");
+      console.error("Error deleting contact:", error);
+    }
+  };
+
+  const getQueryTypeLabel = (type) => {
+    const labels = {
+      marketing: "Marketing",
+      purchase: "Purchase",
+      hr: "HR",
+      recruitment: "Recruitment",
+    };
+    return labels[type] || type;
+  };
+
   const handleAddNew = () => {
     navigate("/projects/add");
   };
@@ -786,6 +918,12 @@ const AdminDashboard = () => {
           onClick={() => setActiveTab("job-applications")}
         >
           <i className="fas fa-file-alt"></i> Job Applications
+        </button>
+        <button
+          className={`tab-btn ${activeTab === "contact" ? "active" : ""}`}
+          onClick={() => setActiveTab("contact")}
+        >
+          <i className="fas fa-address-book"></i> Contact Us
         </button>
       </div>
 
@@ -1815,6 +1953,283 @@ const AdminDashboard = () => {
                 <i className="fas fa-times"></i> Cancel
               </button>
               <button className="confirm-delete-btn" onClick={() => handleDeleteLeader(deleteLeaderId)}>
+                <i className="fas fa-trash"></i> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === "contact" && (
+        <div className="contact-section">
+          <div className="section-header">
+            <h2>Contact Us Management</h2>
+            <button className="add-contact-btn" onClick={handleAddContact}>
+              <i className="fas fa-plus"></i> Add New Contact
+            </button>
+          </div>
+
+          {contactLoading ? (
+            <div className="loading">Loading contacts...</div>
+          ) : (
+            <>
+              {/* Offices Section */}
+              <div className="contact-subsection">
+                <h3>Offices</h3>
+                <div className="contact-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Office Name</th>
+                        <th>Address</th>
+                        <th>Pin Code</th>
+                        <th>Contact Person</th>
+                        <th>Phone/Telephone</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {contacts.offices.map((office) => (
+                        <tr key={office._id}>
+                          <td>{office.officeName}</td>
+                          <td className="address-cell">{office.address}</td>
+                          <td>{office.pinCode}</td>
+                          <td>{office.contactPerson || "N/A"}</td>
+                          <td>
+                            {office.phone && <div>Phone: {office.phone}</div>}
+                            {office.telephone && <div>Tel: {office.telephone}</div>}
+                            {!office.phone && !office.telephone && "N/A"}
+                          </td>
+                          <td className="actions">
+                            <button className="edit-btn" onClick={() => handleEditContact(office)}>
+                              <i className="fas fa-edit"></i> Edit
+                            </button>
+                            <button className="delete-btn" onClick={() => setDeleteContactId(office._id)}>
+                              <i className="fas fa-trash"></i> Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                      {contacts.offices.length === 0 && (
+                        <tr>
+                          <td colSpan="6" className="no-data">
+                            No offices found. Add your first office.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Email Queries Section */}
+              <div className="contact-subsection">
+                <h3>Email Queries</h3>
+                <div className="contact-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Query Type</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {contacts.emails.map((email) => (
+                        <tr key={email._id}>
+                          <td>
+                            <span className="query-type-badge">{getQueryTypeLabel(email.queryType)}</span>
+                          </td>
+                          <td>
+                            <a href={`mailto:${email.email}`}>{email.email}</a>
+                          </td>
+                          <td className="actions">
+                            <button className="edit-btn" onClick={() => handleEditContact(email)}>
+                              <i className="fas fa-edit"></i> Edit
+                            </button>
+                            <button className="delete-btn" onClick={() => setDeleteContactId(email._id)}>
+                              <i className="fas fa-trash"></i> Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                      {contacts.emails.length === 0 && (
+                        <tr>
+                          <td colSpan="3" className="no-data">
+                            No email queries found. Add your first email query.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* Contact Modal */}
+      {showContactModal && (
+        <div className="modal-overlay">
+          <div className="modal-content contact-modal">
+            <h3>{editingContact ? "Edit Contact" : "Add New Contact"}</h3>
+            <form onSubmit={handleContactFormSubmit} className="contact-form-scrollable">
+              <div className="form-group">
+                <label>Type:</label>
+                <select
+                  value={contactForm.type}
+                  onChange={(e) => setContactForm({ ...contactForm, type: e.target.value })}
+                  required
+                  disabled={editingContact} // Prevent changing type when editing
+                >
+                  <option value="office">Office</option>
+                  <option value="email">Email Query</option>
+                </select>
+              </div>
+
+              {contactForm.type === "office" ? (
+                <>
+                  <div className="form-group">
+                    <label>Office Name:</label>
+                    <input
+                      type="text"
+                      value={contactForm.officeName}
+                      onChange={(e) => setContactForm({ ...contactForm, officeName: e.target.value })}
+                      required
+                      maxLength="100"
+                      placeholder="e.g., HEAD OFFICE"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Address:</label>
+                    <textarea
+                      value={contactForm.address}
+                      onChange={(e) => setContactForm({ ...contactForm, address: e.target.value })}
+                      required
+                      maxLength="500"
+                      rows="4"
+                      placeholder="Enter full address..."
+                    />
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Pin Code:</label>
+                      <input
+                        type="text"
+                        value={contactForm.pinCode}
+                        onChange={(e) => setContactForm({ ...contactForm, pinCode: e.target.value })}
+                        required
+                        maxLength="10"
+                        placeholder="e.g., 400703"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Order:</label>
+                      <input
+                        type="number"
+                        value={contactForm.order}
+                        onChange={(e) => setContactForm({ ...contactForm, order: parseInt(e.target.value) })}
+                        min="1"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Contact Person (Optional):</label>
+                    <input
+                      type="text"
+                      value={contactForm.contactPerson}
+                      onChange={(e) => setContactForm({ ...contactForm, contactPerson: e.target.value })}
+                      maxLength="100"
+                      placeholder="e.g., John Doe"
+                    />
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Phone (Optional):</label>
+                      <input
+                        type="tel"
+                        value={contactForm.phone}
+                        onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                        maxLength="20"
+                        placeholder="e.g., +91 93730 09191"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Telephone (Optional):</label>
+                      <input
+                        type="tel"
+                        value={contactForm.telephone}
+                        onChange={(e) => setContactForm({ ...contactForm, telephone: e.target.value })}
+                        maxLength="30"
+                        placeholder="e.g., +91- (022) 27882021"
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="form-group">
+                    <label>Query Type:</label>
+                    <select
+                      value={contactForm.queryType}
+                      onChange={(e) => setContactForm({ ...contactForm, queryType: e.target.value })}
+                      required
+                    >
+                      <option value="marketing">Marketing</option>
+                      <option value="purchase">Purchase</option>
+                      <option value="hr">HR</option>
+                      <option value="recruitment">Recruitment</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>Email:</label>
+                    <input
+                      type="email"
+                      value={contactForm.email}
+                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                      required
+                      placeholder="e.g., marketing@progressivegalaxy.com"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Order:</label>
+                    <input
+                      type="number"
+                      value={contactForm.order}
+                      onChange={(e) => setContactForm({ ...contactForm, order: parseInt(e.target.value) })}
+                      min="1"
+                      required
+                    />
+                  </div>
+                </>
+              )}
+            </form>
+            <div className="modal-actions">
+              <button type="button" className="cancel-btn" onClick={() => setShowContactModal(false)}>
+                <i className="fas fa-times"></i> Cancel
+              </button>
+              <button type="button" className="save-btn" onClick={handleContactFormSubmit}>
+                <i className="fas fa-save"></i> {editingContact ? "Update" : "Create"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contact Delete Modal */}
+      {deleteContactId && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete this contact?</p>
+            <p className="warning-text">This action cannot be undone.</p>
+            <div className="modal-actions">
+              <button className="cancel-btn" onClick={() => setDeleteContactId(null)}>
+                <i className="fas fa-times"></i> Cancel
+              </button>
+              <button className="confirm-delete-btn" onClick={() => handleDeleteContact(deleteContactId)}>
                 <i className="fas fa-trash"></i> Delete
               </button>
             </div>
