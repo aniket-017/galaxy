@@ -65,17 +65,21 @@ const EditProject = () => {
       const response = await axios.get(`/aak/l1/project/${id}`);
       if (response.data.success) {
         const project = response.data.project;
+        // Ensure description is always an array (project may have no description or a single string)
+        const descriptionArray = Array.isArray(project.description)
+          ? project.description
+          : project.description ? [project.description] : [""];
         setFormData({
-          title: project.title,
-          description: project.description,
-          category: project.category,
-          subcategory: project.subcategory,
+          title: project.title || "",
+          description: descriptionArray,
+          category: project.category || "",
+          subcategory: project.subcategory || "",
           projectBrief: project.projectBrief,
-          images: project.images,
+          images: project.images || [],
         });
 
-        // Convert project brief object to array of fields
-        const briefFields = Object.entries(project.projectBrief).map(([key, value]) => ({
+        // Convert project brief object to array of fields (handle missing/undefined projectBrief)
+        const briefFields = Object.entries(project.projectBrief || {}).map(([key, value]) => ({
           key,
           value,
         }));
