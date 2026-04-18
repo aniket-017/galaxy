@@ -9,6 +9,8 @@ import { MdWork } from "react-icons/md";
 import team from "../assets/icons/management.png"
 import projects from "../assets/icons/building-plan.png"
 import customers from "../assets/icons/costumer.png"
+import journey from "../assets/icons/journey.png"
+import area from "../assets/icons/area.png"
 
 import CountUp from "react-countup";
 import { FaMedal, FaTrophy, FaGlobe, FaUsers, FaRegThumbsUp } from "react-icons/fa";
@@ -469,7 +471,7 @@ const Home = () => {
         <h2 className="section-title">Our Stats</h2>
         <div className="achievements">
           <div className="achievement">
-            <img src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767279748/journey_warjpj.png" alt="jourent icon" className="achievement-icon" />
+            <img src={journey} alt="jourent icon" className="achievement-icon" />
             <div className="achievement-info">
               <p>
                 <CountUp start={0} end={4} duration={4} start={startCount ? 0 : 4} className="countupnumber" /> Decades
@@ -487,7 +489,7 @@ const Home = () => {
             </div>
           </div>
           <div className="achievement">
-            <img src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767279776/area_sehn2t.png" alt="jourent icon" className="achievement-icon" />
+            <img src={area} alt="jourent icon" className="achievement-icon" />
             <div className="achievement-info">
               <p>
                 <CountUp

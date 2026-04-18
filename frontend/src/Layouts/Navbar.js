@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/icons/logoprogsmall.png"
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = React.useState(false);
@@ -70,7 +71,7 @@ const Navbar = () => {
       <div className="container">
         <div>
           <img
-            src="https://res.cloudinary.com/dyfjgakgf/image/upload/v1767279411/logoprogsmall_tczfjy.png"
+            src={logo}
             onClick={handleHome}
             className="logo"
           />
