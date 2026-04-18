@@ -1,6 +1,7 @@
 const Team = require("../models/teamModel");
 const ErrorHandler = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const { uploadToS3 } = require("../utils/s3");
 
 // Get all team members
 exports.getAllTeamMembers = catchAsyncErrors(async (req, res, next) => {
@@ -26,7 +27,12 @@ exports.getAllTeamMembersAdmin = catchAsyncErrors(async (req, res, next) => {
 
 // Create new team member
 exports.createTeamMember = catchAsyncErrors(async (req, res, next) => {
-  const { name, position, photoUrl, description, email, phone, socialLinks, order, department } = req.body;
+  let { name, position, photoUrl, description, email, phone, socialLinks, order, department } = req.body;
+
+  // Handle S3 Upload
+  if (req.files && req.files.photo) {
+    photoUrl = await uploadToS3(req.files.photo, "team");
+  }
 
   // Check if order already exists
   const existingMember = await Team.findOne({ order });
@@ -61,7 +67,13 @@ exports.updateTeamMember = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Team member not found", 404));
   }
 
-  const { name, position, photoUrl, description, email, phone, socialLinks, order, department } = req.body;
+  let { name, position, photoUrl, description, email, phone, socialLinks, order, department } = req.body;
+  
+  // Handle S3 Upload
+  if (req.files && req.files.photo) {
+    photoUrl = await uploadToS3(req.files.photo, "team");
+  }
+
   const oldOrder = member.order;
 
   // If order is changing, handle reordering
@@ -94,7 +106,13 @@ exports.updateTeamMember = catchAsyncErrors(async (req, res, next) => {
     }
   }
 
-  member = await Team.findByIdAndUpdate(req.params.id, req.body, {
+  // Update data object
+  const updateData = {
+    ...req.body,
+    ...(photoUrl && { photoUrl }),
+  };
+
+  member = await Team.findByIdAndUpdate(req.params.id, updateData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,

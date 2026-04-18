@@ -14,6 +14,9 @@ const AddProject = () => {
     images: [],
   });
 
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
+
   const [projectBriefFields, setProjectBriefFields] = useState([{ key: "", value: "" }]);
 
   const categories = {
@@ -103,25 +106,43 @@ const AddProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Create a new object for project brief to ensure all fields are included
+      const myForm = new FormData();
+
+      myForm.set("title", formData.title);
+      myForm.set("category", formData.category);
+      myForm.set("subcategory", formData.subcategory);
+      
+      // Append descriptions
+      formData.description.forEach((desc) => {
+        myForm.append("description", desc);
+      });
+
+      // Append project brief
       const formattedProjectBrief = {};
       projectBriefFields.forEach((field) => {
         if (field.key && field.value) {
           formattedProjectBrief[field.key.trim()] = field.value.trim();
         }
       });
+      myForm.set("projectBrief", JSON.stringify(formattedProjectBrief));
 
-      // Create the final data object
-      const formattedData = {
-        ...formData,
-        projectBrief: formattedProjectBrief,
+      // Append existing image URLs
+      formData.images.forEach((url) => {
+        myForm.append("images", url);
+      });
+
+      // Append new image files
+      imageFiles.forEach((file) => {
+        myForm.append("images", file);
+      });
+
+      console.log("Sending project data via FormData");
+
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" },
       };
 
-      console.log("Sending project data:", formattedData);
-      console.log("Project brief fields:", projectBriefFields);
-      console.log("Formatted project brief:", formattedProjectBrief);
-
-      const response = await axios.post("/aak/l1/project/new", formattedData);
+      const response = await axios.post("/aak/l1/project/new", myForm, config);
       console.log("Server response:", response.data);
 
       if (response.data.success) {
@@ -160,6 +181,28 @@ const AddProject = () => {
       ...prev,
       images: urls,
     }));
+  };
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImageFiles((prev) => [...prev, ...files]);
+
+    const previews = files.map((file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(previews).then((newPreviews) => {
+      setImagePreviews((prev) => [...prev, ...newPreviews]);
+    });
+  };
+
+  const removeImagePreview = (index) => {
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+    setImageFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -297,13 +340,54 @@ const AddProject = () => {
             {/* Images Section */}
             <div className="phoenix_images_section">
               <label className="prism_field_label">Project Images</label>
-              <textarea
-                className="quantum_images_textarea"
-                value={formData.images.join(", ")}
-                onChange={handleImageChange}
-                placeholder="Enter image URLs separated by commas (e.g., https://example.com/image1.jpg, https://example.com/image2.jpg)"
-              />
-              <p className="meridian_images_help_text">Separate multiple image URLs with commas</p>
+              
+              <div className="upload_zone_wrapper">
+                <div className="file_upload_box">
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden_file_input"
+                    id="project_images_upload"
+                  />
+                  <label htmlFor="project_images_upload" className="upload_label">
+                    <div className="upload_icon">📤</div>
+                    <div className="upload_text">
+                      <span className="bold_text">Click to upload</span> or drag and drop
+                    </div>
+                    <div className="upload_limit">PNG, JPG, WEBP (max. 10MB)</div>
+                  </label>
+                </div>
+
+                {imagePreviews.length > 0 && (
+                  <div className="previews_grid">
+                    {imagePreviews.map((preview, index) => (
+                      <div key={index} className="preview_item">
+                        <img src={preview} alt={`Preview ${index}`} />
+                        <button
+                          type="button"
+                          className="remove_preview_btn"
+                          onClick={() => removeImagePreview(index)}
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="fallback_url_section">
+                <div className="separator_text"><span>OR</span></div>
+                <p className="meridian_images_help_text">Manual URL entry (optional fallback)</p>
+                <textarea
+                  className="quantum_images_textarea"
+                  value={formData.images.join(", ")}
+                  onChange={handleImageChange}
+                  placeholder="Enter image URLs separated by commas"
+                />
+              </div>
             </div>
 
             {/* Submit Button */}

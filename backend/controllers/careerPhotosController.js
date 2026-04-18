@@ -1,6 +1,7 @@
 const CareerPhotos = require("../models/careerPhotosModel");
 const ErrorHandler = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const { uploadToS3 } = require("../utils/s3");
 
 // Get all career photos
 exports.getAllCareerPhotos = catchAsyncErrors(async (req, res, next) => {
@@ -26,7 +27,12 @@ exports.getAllCareerPhotosAdmin = catchAsyncErrors(async (req, res, next) => {
 
 // Create new career photo
 exports.createCareerPhoto = catchAsyncErrors(async (req, res, next) => {
-  const { imageUrl, title, description, order } = req.body;
+  let { imageUrl, title, description, order } = req.body;
+
+  // Handle S3 Upload
+  if (req.files && req.files.image) {
+    imageUrl = await uploadToS3(req.files.image, "career");
+  }
 
   // Check if order already exists
   const existingPhoto = await CareerPhotos.findOne({ order });
@@ -56,7 +62,13 @@ exports.updateCareerPhoto = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Career photo not found", 404));
   }
 
-  const { imageUrl, title, description, order } = req.body;
+  let { imageUrl, title, description, order } = req.body;
+  
+  // Handle S3 Upload
+  if (req.files && req.files.image) {
+    imageUrl = await uploadToS3(req.files.image, "career");
+  }
+
   const oldOrder = photo.order;
 
   // If order is changing, handle reordering
@@ -89,7 +101,15 @@ exports.updateCareerPhoto = catchAsyncErrors(async (req, res, next) => {
     }
   }
 
-  photo = await CareerPhotos.findByIdAndUpdate(req.params.id, req.body, {
+  // Update data object
+  const updateData = {
+    title,
+    description,
+    order,
+    ...(imageUrl && { imageUrl }),
+  };
+
+  photo = await CareerPhotos.findByIdAndUpdate(req.params.id, updateData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,

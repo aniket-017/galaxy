@@ -77,6 +77,16 @@ const AdminDashboard = () => {
   });
   const [deleteLeaderId, setDeleteLeaderId] = useState(null);
 
+  // File Upload states
+  const [slideFile, setSlideFile] = useState(null);
+  const [slidePreview, setSlidePreview] = useState("");
+  const [memberFile, setMemberFile] = useState(null);
+  const [memberPreview, setMemberPreview] = useState("");
+  const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState("");
+  const [leaderFile, setLeaderFile] = useState(null);
+  const [leaderPreview, setLeaderPreview] = useState("");
+
   // Job Applications state
   const [jobApplications, setJobApplications] = useState([]);
   const [jobApplicationsLoading, setJobApplicationsLoading] = useState(false);
@@ -309,6 +319,8 @@ const AdminDashboard = () => {
       subtitle: "",
       order: carouselSlides.length + 1,
     });
+    setSlideFile(null);
+    setSlidePreview("");
     setShowCarouselModal(true);
   };
 
@@ -320,25 +332,46 @@ const AdminDashboard = () => {
       subtitle: slide.subtitle,
       order: slide.order,
     });
+    setSlideFile(null);
+    setSlidePreview(slide.imageUrl);
     setShowCarouselModal(true);
+  };
+
+  const handleSlideFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSlideFile(file);
+      const reader = new FileReader();
+      reader.onload = () => setSlidePreview(reader.result);
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSlideFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      const myForm = new FormData();
+      myForm.set("title", slideForm.title);
+      myForm.set("subtitle", slideForm.subtitle);
+      myForm.set("order", slideForm.order);
+      
+      if (slideFile) {
+        myForm.set("image", slideFile);
+      } else {
+        myForm.set("imageUrl", slideForm.imageUrl);
+      }
+
       const config = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       };
 
       if (editingSlide) {
-        // Update existing slide
-        await axios.put(`/aak/l1/admin/carousel/${editingSlide._id}`, slideForm, config);
+        await axios.put(`/aak/l1/admin/carousel/${editingSlide._id}`, myForm, config);
       } else {
-        // Create new slide
-        await axios.post("/aak/l1/admin/carousel", slideForm, config);
+        await axios.post("/aak/l1/admin/carousel", myForm, config);
       }
 
       setShowCarouselModal(false);
@@ -411,6 +444,8 @@ const AdminDashboard = () => {
       },
       order: teamMembers.length + 1,
     });
+    setMemberFile(null);
+    setMemberPreview("");
     setShowTeamModal(true);
   };
 
@@ -432,25 +467,51 @@ const AdminDashboard = () => {
       },
       order: member.order,
     });
+    setMemberFile(null);
+    setMemberPreview(member.photoUrl);
     setShowTeamModal(true);
+  };
+
+  const handleMemberFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setMemberFile(file);
+      const reader = new FileReader();
+      reader.onload = () => setMemberPreview(reader.result);
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleMemberFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      const myForm = new FormData();
+      myForm.set("name", memberForm.name);
+      myForm.set("position", memberForm.position);
+      myForm.set("description", memberForm.description);
+      myForm.set("email", memberForm.email);
+      myForm.set("phone", memberForm.phone);
+      myForm.set("department", memberForm.department);
+      myForm.set("order", memberForm.order);
+      myForm.set("socialLinks", JSON.stringify(memberForm.socialLinks));
+      
+      if (memberFile) {
+        myForm.set("photo", memberFile);
+      } else {
+        myForm.set("photoUrl", memberForm.photoUrl);
+      }
+
       const config = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       };
 
       if (editingMember) {
-        // Update existing member
-        await axios.put(`/aak/l1/admin/team/${editingMember._id}`, memberForm, config);
+        await axios.put(`/aak/l1/admin/team/${editingMember._id}`, myForm, config);
       } else {
-        // Create new member
-        await axios.post("/aak/l1/admin/team", memberForm, config);
+        await axios.post("/aak/l1/admin/team", myForm, config);
       }
 
       setShowTeamModal(false);
@@ -513,6 +574,8 @@ const AdminDashboard = () => {
       description: "",
       order: careerPhotos.length + 1,
     });
+    setPhotoFile(null);
+    setPhotoPreview("");
     setShowCareerPhotosModal(true);
   };
 
@@ -524,25 +587,46 @@ const AdminDashboard = () => {
       description: photo.description || "",
       order: photo.order,
     });
+    setPhotoFile(null);
+    setPhotoPreview(photo.imageUrl);
     setShowCareerPhotosModal(true);
+  };
+
+  const handlePhotoFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPhotoFile(file);
+      const reader = new FileReader();
+      reader.onload = () => setPhotoPreview(reader.result);
+      reader.readAsDataURL(file);
+    }
   };
 
   const handlePhotoFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      const myForm = new FormData();
+      myForm.set("title", photoForm.title);
+      myForm.set("description", photoForm.description);
+      myForm.set("order", photoForm.order);
+      
+      if (photoFile) {
+        myForm.set("image", photoFile);
+      } else {
+        myForm.set("imageUrl", photoForm.imageUrl);
+      }
+
       const config = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       };
 
       if (editingPhoto) {
-        // Update existing photo
-        await axios.put(`/aak/l1/admin/career-photos/${editingPhoto._id}`, photoForm, config);
+        await axios.put(`/aak/l1/admin/career-photos/${editingPhoto._id}`, myForm, config);
       } else {
-        // Create new photo
-        await axios.post("/aak/l1/admin/career-photos", photoForm, config);
+        await axios.post("/aak/l1/admin/career-photos", myForm, config);
       }
 
       setShowCareerPhotosModal(false);
@@ -607,6 +691,8 @@ const AdminDashboard = () => {
       message: "",
       signature: "",
     });
+    setLeaderFile(null);
+    setLeaderPreview("");
     setShowLeadershipModal(true);
   };
 
@@ -620,25 +706,48 @@ const AdminDashboard = () => {
       message: leader.message,
       signature: leader.signature || "",
     });
+    setLeaderFile(null);
+    setLeaderPreview(leader.photoUrl);
     setShowLeadershipModal(true);
+  };
+
+  const handleLeaderFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setLeaderFile(file);
+      const reader = new FileReader();
+      reader.onload = () => setLeaderPreview(reader.result);
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleLeaderFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      const myForm = new FormData();
+      myForm.set("role", leaderForm.role);
+      myForm.set("name", leaderForm.name);
+      myForm.set("title", leaderForm.title);
+      myForm.set("message", leaderForm.message);
+      myForm.set("signature", leaderForm.signature);
+      
+      if (leaderFile) {
+        myForm.set("photo", leaderFile);
+      } else {
+        myForm.set("photoUrl", leaderForm.photoUrl);
+      }
+
       const config = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       };
 
       if (editingLeader) {
-        // Update existing leader
-        await axios.put(`/aak/l1/admin/leadership/${editingLeader._id}`, leaderForm, config);
+        await axios.put(`/aak/l1/admin/leadership/${editingLeader._id}`, myForm, config);
       } else {
-        // Create new leader
-        await axios.post("/aak/l1/admin/leadership", leaderForm, config);
+        await axios.post("/aak/l1/admin/leadership", myForm, config);
       }
 
       setShowLeadershipModal(false);
@@ -1279,12 +1388,16 @@ const AdminDashboard = () => {
             <h3>{editingPhoto ? "Edit Career Photo" : "Add New Career Photo"}</h3>
             <form onSubmit={handlePhotoFormSubmit}>
               <div className="form-group">
-                <label>Image URL:</label>
+                <label>Upload Image:</label>
+                <input type="file" accept="image/*" onChange={handlePhotoFileChange} />
+              </div>
+              <div className="separator">OR</div>
+              <div className="form-group">
+                <label>Image URL (Fallback):</label>
                 <input
                   type="url"
                   value={photoForm.imageUrl}
                   onChange={(e) => setPhotoForm({ ...photoForm, imageUrl: e.target.value })}
-                  required
                   placeholder="https://example.com/image.jpg"
                 />
               </div>
@@ -1318,9 +1431,9 @@ const AdminDashboard = () => {
                   required
                 />
               </div>
-              {photoForm.imageUrl && (
+              {photoPreview && (
                 <div className="image-preview">
-                  <img src={photoForm.imageUrl} alt="Preview" />
+                  <img src={photoPreview} alt="Preview" />
                 </div>
               )}
               <div className="modal-actions">
@@ -1593,12 +1706,16 @@ const AdminDashboard = () => {
                 </div>
               </div>
               <div className="form-group">
-                <label>Photo URL:</label>
+                <label>Upload Photo:</label>
+                <input type="file" accept="image/*" onChange={handleLeaderFileChange} />
+              </div>
+              <div className="separator">OR</div>
+              <div className="form-group">
+                <label>Photo URL (Fallback):</label>
                 <input
                   type="url"
                   value={leaderForm.photoUrl}
                   onChange={(e) => setLeaderForm({ ...leaderForm, photoUrl: e.target.value })}
-                  required
                   placeholder="https://example.com/photo.jpg"
                 />
               </div>
@@ -1632,9 +1749,9 @@ const AdminDashboard = () => {
                   placeholder="e.g., With best regards, [Name]"
                 />
               </div>
-              {leaderForm.photoUrl && (
+              {leaderPreview && (
                 <div className="image-preview">
-                  <img src={leaderForm.photoUrl} alt="Preview" />
+                  <img src={leaderPreview} alt="Preview" />
                 </div>
               )}
               <div className="modal-actions">
@@ -1680,12 +1797,16 @@ const AdminDashboard = () => {
               </div>
 
               <div className="form-group">
-                <label>Photo URL:</label>
+                <label>Upload Photo:</label>
+                <input type="file" accept="image/*" onChange={handleMemberFileChange} />
+              </div>
+              <div className="separator">OR</div>
+              <div className="form-group">
+                <label>Photo URL (Fallback):</label>
                 <input
                   type="url"
                   value={memberForm.photoUrl}
                   onChange={(e) => setMemberForm({ ...memberForm, photoUrl: e.target.value })}
-                  required
                   placeholder="https://example.com/photo.jpg"
                 />
               </div>
@@ -1782,9 +1903,9 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {memberForm.photoUrl && (
+              {memberPreview && (
                 <div className="image-preview">
-                  <img src={memberForm.photoUrl} alt="Preview" />
+                  <img src={memberPreview} alt="Preview" />
                 </div>
               )}
 
@@ -1808,12 +1929,16 @@ const AdminDashboard = () => {
             <h3>{editingSlide ? "Edit Slide" : "Add New Slide"}</h3>
             <form onSubmit={handleSlideFormSubmit}>
               <div className="form-group">
-                <label>Image URL:</label>
+                <label>Upload Image:</label>
+                <input type="file" accept="image/*" onChange={handleSlideFileChange} />
+              </div>
+              <div className="separator">OR</div>
+              <div className="form-group">
+                <label>Image URL (Fallback):</label>
                 <input
                   type="url"
                   value={slideForm.imageUrl}
                   onChange={(e) => setSlideForm({ ...slideForm, imageUrl: e.target.value })}
-                  required
                   placeholder="https://example.com/image.jpg"
                 />
               </div>
@@ -1847,9 +1972,9 @@ const AdminDashboard = () => {
                   required
                 />
               </div>
-              {slideForm.imageUrl && (
+              {slidePreview && (
                 <div className="image-preview">
-                  <img src={slideForm.imageUrl} alt="Preview" />
+                  <img src={slidePreview} alt="Preview" />
                 </div>
               )}
               <div className="modal-actions">

@@ -1,6 +1,7 @@
 const Carousel = require("../models/carouselModel");
 const ErrorHandler = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const { uploadToS3 } = require("../utils/s3");
 
 // Get all carousel slides
 exports.getAllCarouselSlides = catchAsyncErrors(async (req, res, next) => {
@@ -26,7 +27,12 @@ exports.getAllCarouselSlidesAdmin = catchAsyncErrors(async (req, res, next) => {
 
 // Create new carousel slide
 exports.createCarouselSlide = catchAsyncErrors(async (req, res, next) => {
-  const { imageUrl, title, subtitle, order } = req.body;
+  let { imageUrl, title, subtitle, order } = req.body;
+
+  // Handle S3 Upload
+  if (req.files && req.files.image) {
+    imageUrl = await uploadToS3(req.files.image, "carousel");
+  }
 
   // Check if order already exists
   const existingSlide = await Carousel.findOne({ order });
@@ -56,7 +62,13 @@ exports.updateCarouselSlide = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Carousel slide not found", 404));
   }
 
-  const { imageUrl, title, subtitle, order } = req.body;
+  let { imageUrl, title, subtitle, order } = req.body;
+  
+  // Handle S3 Upload
+  if (req.files && req.files.image) {
+    imageUrl = await uploadToS3(req.files.image, "carousel");
+  }
+
   const oldOrder = slide.order;
 
   // If order is changing, handle reordering
@@ -89,7 +101,15 @@ exports.updateCarouselSlide = catchAsyncErrors(async (req, res, next) => {
     }
   }
 
-  slide = await Carousel.findByIdAndUpdate(req.params.id, req.body, {
+  // Update data object
+  const updateData = {
+    title,
+    subtitle,
+    order,
+    ...(imageUrl && { imageUrl }),
+  };
+
+  slide = await Carousel.findByIdAndUpdate(req.params.id, updateData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,

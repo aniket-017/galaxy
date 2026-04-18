@@ -2,34 +2,25 @@ const mongoose = require("mongoose");
 const Project = require("../models/Project");
 const ErrorHander = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const cloudinary = require("cloudinary");
-const fileUpload = require("express-fileupload");
-
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+const { uploadToS3 } = require("../utils/s3");
 
 // Create Project -- Admin
 exports.createProject = catchAsyncErrors(async (req, res, next) => {
   try {
     console.log("Received request body:", req.body); // Debug log
-    let images = [];
+    if (req.files && req.files.images) {
+      let imageFiles = req.files.images;
 
-    if (req.files) {
-      const { images: imageFiles } = req.files;
-
-      if (imageFiles) {
-        images = await Promise.all(
-          imageFiles.map(async (file) => {
-            const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-              folder: "projects/images",
-            });
-            return result.secure_url;
-          })
-        );
+      // Handle both single and multiple file uploads
+      if (!Array.isArray(imageFiles)) {
+        imageFiles = [imageFiles];
       }
+
+      images = await Promise.all(
+        imageFiles.map(async (file) => {
+          return await uploadToS3(file, "projects");
+        })
+      );
     }
 
     // Ensure project brief is properly formatted
@@ -95,19 +86,19 @@ exports.updateProject = catchAsyncErrors(async (req, res, next) => {
   // If there are new files to upload
   let images = project.images;
 
-  if (req.files) {
-    const { images: imageFiles } = req.files;
+  if (req.files && req.files.images) {
+    let imageFiles = req.files.images;
 
-    if (imageFiles) {
-      images = await Promise.all(
-        imageFiles.map(async (file) => {
-          const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-            folder: "projects/images",
-          });
-          return result.secure_url;
-        })
-      );
+    if (!Array.isArray(imageFiles)) {
+      imageFiles = [imageFiles];
     }
+
+    const uploadedImages = await Promise.all(
+      imageFiles.map(async (file) => {
+        return await uploadToS3(file, "projects");
+      })
+    );
+    images = [...images, ...uploadedImages];
   }
 
   // Update project fields
@@ -136,13 +127,8 @@ exports.deleteProject = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Project not found", 404));
   }
 
-  // Delete images from Cloudinary if they were uploaded through cloudinary
-  for (const image of project.images) {
-    if (image.includes("cloudinary")) {
-      const public_id = image.split("/").slice(-1)[0].split(".")[0];
-      await cloudinary.v2.uploader.destroy(public_id);
-    }
-  }
+  // Note: S3 deletion logic can be added here if needed, 
+  // but usually we keep them or handle via lifecycle policies.
 
   await project.deleteOne();
 

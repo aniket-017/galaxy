@@ -1,6 +1,7 @@
 const Leadership = require("../models/leadershipModel");
 const ErrorHandler = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const { uploadToS3 } = require("../utils/s3");
 
 // Get all leadership messages
 exports.getAllLeadership = catchAsyncErrors(async (req, res, next) => {
@@ -26,7 +27,12 @@ exports.getAllLeadershipAdmin = catchAsyncErrors(async (req, res, next) => {
 
 // Create new leadership message
 exports.createLeadership = catchAsyncErrors(async (req, res, next) => {
-  const { role, name, photoUrl, title, message, signature } = req.body;
+  let { role, name, photoUrl, title, message, signature } = req.body;
+
+  // Handle S3 Upload
+  if (req.files && req.files.photo) {
+    photoUrl = await uploadToS3(req.files.photo, "leadership");
+  }
 
   // Check if role already exists
   const existingLeader = await Leadership.findOne({ role });
@@ -57,7 +63,20 @@ exports.updateLeadership = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Leadership message not found", 404));
   }
 
-  leader = await Leadership.findByIdAndUpdate(req.params.id, req.body, {
+  let { photoUrl } = req.body;
+
+  // Handle S3 Upload
+  if (req.files && req.files.photo) {
+    photoUrl = await uploadToS3(req.files.photo, "leadership");
+  }
+
+  // Update data object
+  const updateData = {
+    ...req.body,
+    ...(photoUrl && { photoUrl }),
+  };
+
+  leader = await Leadership.findByIdAndUpdate(req.params.id, updateData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,

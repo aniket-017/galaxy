@@ -16,6 +16,9 @@ const EditProject = () => {
     images: [],
   });
 
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
+
   const [projectBriefFields, setProjectBriefFields] = useState([{ key: "", value: "" }]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -84,6 +87,11 @@ const EditProject = () => {
           value,
         }));
         setProjectBriefFields(briefFields.length > 0 ? briefFields : [{ key: "", value: "" }]);
+
+        // Initialize previews with existing images
+        if (project.images) {
+          setImagePreviews(project.images);
+        }
       }
     } catch (error) {
       console.error("Error fetching project details:", error);
@@ -171,30 +179,88 @@ const EditProject = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImageFiles((prev) => [...prev, ...files]);
+
+    const previews = files.map((file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(previews).then((newPreviews) => {
+      setImagePreviews((prev) => [...prev, ...newPreviews]);
+    });
+  };
+
+  const removeImagePreview = (index) => {
+    const previewToRemove = imagePreviews[index];
+    
+    // If it's an existing image URL, remove it from formData.images
+    if (typeof previewToRemove === "string" && !previewToRemove.startsWith("data:")) {
+      setFormData(prev => ({
+        ...prev,
+        images: prev.images.filter(url => url !== previewToRemove)
+      }));
+    } else {
+      // If it's a new file, remove it from imageFiles
+      // We need to find the index in imageFiles. 
+      // This is tricky because imagePreviews contains both URLs and fresh file previews.
+      // Let's find how many URLs are before this index.
+      const urlsBefore = imagePreviews.slice(0, index).filter(p => typeof p === "string" && !p.startsWith("data:")).length;
+      const fileIndex = index - urlsBefore;
+      setImageFiles(prev => prev.filter((_, i) => i !== fileIndex));
+    }
+
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Create a new object for project brief to ensure all fields are included
+      const myForm = new FormData();
+
+      myForm.set("title", formData.title);
+      myForm.set("category", formData.category);
+      myForm.set("subcategory", formData.subcategory);
+      
+      // Append descriptions
+      formData.description.forEach((desc) => {
+        myForm.append("description", desc);
+      });
+
+      // Append project brief
       const formattedProjectBrief = {};
       projectBriefFields.forEach((field) => {
         if (field.key && field.value) {
           formattedProjectBrief[field.key.trim()] = field.value.trim();
         }
       });
+      myForm.set("projectBrief", JSON.stringify(formattedProjectBrief));
 
-      // Create the final data object
-      const formattedData = {
-        ...formData,
-        projectBrief: formattedProjectBrief,
-      };
+      // Append remaining existing image URLs
+      formData.images.forEach((url) => {
+        myForm.append("images", url);
+      });
 
-      console.log("Sending update data:", formattedData); // Debug log
+      // Append new image files
+      imageFiles.forEach((file) => {
+        myForm.append("images", file);
+      });
 
-      const response = await axios.put(`/aak/l1/project/${id}`, formattedData, {
+      console.log("Sending update data via FormData");
+
+      const config = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
         },
-      });
+      };
+
+      const response = await axios.put(`/aak/l1/project/${id}`, myForm, config);
 
       if (response.data.success) {
         navigate("/admin/dashboard");
@@ -357,13 +423,54 @@ const EditProject = () => {
             {/* Images Section */}
             <div className="phoenix_images_section">
               <label className="prism_field_label">Project Images</label>
-              <textarea
-                className="quantum_images_textarea"
-                value={formData.images.join(", ")}
-                onChange={handleImageChange}
-                placeholder="Enter image URLs separated by commas"
-              />
-              <p className="meridian_images_help_text">Separate multiple image URLs with commas</p>
+              
+              <div className="upload_zone_wrapper">
+                <div className="file_upload_box">
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden_file_input"
+                    id="project_images_upload"
+                  />
+                  <label htmlFor="project_images_upload" className="upload_label">
+                    <div className="upload_icon">📤</div>
+                    <div className="upload_text">
+                      <span className="bold_text">Click to upload</span> or drag and drop
+                    </div>
+                    <div className="upload_limit">PNG, JPG, WEBP (max. 10MB)</div>
+                  </label>
+                </div>
+
+                {imagePreviews.length > 0 && (
+                  <div className="previews_grid">
+                    {imagePreviews.map((preview, index) => (
+                      <div key={index} className="preview_item">
+                        <img src={preview} alt={`Preview ${index}`} />
+                        <button
+                          type="button"
+                          className="remove_preview_btn"
+                          onClick={() => removeImagePreview(index)}
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="fallback_url_section">
+                <div className="separator_text"><span>OR</span></div>
+                <p className="meridian_images_help_text">Manual URL entry (optional fallback)</p>
+                <textarea
+                  className="quantum_images_textarea"
+                  value={formData.images.join(", ")}
+                  onChange={handleImageChange}
+                  placeholder="Enter image URLs separated by commas"
+                />
+              </div>
             </div>
 
             {/* Submit Button */}
