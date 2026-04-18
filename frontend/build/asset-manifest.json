@@ -1,17 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.004185ab.css",
-    "main.js": "/static/js/main.4757619e.js",
+    "main.css": "/static/css/main.7f9a8ec6.css",
+    "main.js": "/static/js/main.ea02e250.js",
+    "static/media/hero.mp4": "/static/media/hero.b6ce45e52f0d6fa154e9.mp4",
     "static/media/Grunge.ttf": "/static/media/Grunge.d15ca35184ee7a12f441.ttf",
     "static/media/Hey March.ttf": "/static/media/Hey March.52c99448cebfc944ee02.ttf",
+    "static/media/logoprogsmall.png": "/static/media/logoprogsmall.b006b22f37d610702264.png",
+    "static/media/area.png": "/static/media/area.73948584a92a3fc87a6f.png",
+    "static/media/journey.png": "/static/media/journey.a5d2973dd266c98e6cae.png",
     "static/media/costumer.png": "/static/media/costumer.7489dc13aa3c18ee1fd2.png",
     "static/media/management.png": "/static/media/management.898c2fa0f3c8a0abec4a.png",
     "index.html": "/index.html",
-    "main.004185ab.css.map": "/static/css/main.004185ab.css.map",
-    "main.4757619e.js.map": "/static/js/main.4757619e.js.map"
+    "main.7f9a8ec6.css.map": "/static/css/main.7f9a8ec6.css.map",
+    "main.ea02e250.js.map": "/static/js/main.ea02e250.js.map"
   },
   "entrypoints": [
-    "static/css/main.004185ab.css",
-    "static/js/main.4757619e.js"
+    "static/css/main.7f9a8ec6.css",
+    "static/js/main.ea02e250.js"
   ]
 }
