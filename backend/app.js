@@ -25,6 +25,7 @@ const careerPhotos = require("./routes/careerPhotosRoute");
 const leadership = require("./routes/leadershipRoute");
 const jobApplication = require("./routes/jobApplicationRoute");
 const contact = require("./routes/contactRoute");
+const clientLogo = require("./routes/clientLogoRoute");
 
 // app.use("/api/z1",product);
 app.use("/aak/l1", venue);
@@ -37,6 +38,7 @@ app.use("/aak/l1", careerPhotos);
 app.use("/aak/l1", leadership);
 app.use("/aak/l1", jobApplication);
 app.use("/aak/l1", contact);
+app.use("/aak/l1", clientLogo);
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 

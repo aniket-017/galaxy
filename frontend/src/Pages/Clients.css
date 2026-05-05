@@ -52,6 +52,16 @@
     margin: auto;
   } 
  
+  .clients-status {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #555;
+  }
+
+  .clients-status--error {
+    color: #c0392b;
+  }
+
   @media (max-width: 768px) {
     .logogrid{
       padding: 20px;

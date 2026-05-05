@@ -1158,4 +1158,151 @@ th {
     width: 60px;
     height: 40px;
   }
+}
+
+/* ---------- Shared spinners (admin) ---------- */
+@keyframes admin-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.admin-spinner {
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid rgba(0, 123, 255, 0.22);
+  border-top-color: #007bff;
+  border-radius: 50%;
+  animation: admin-spinner-spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+.admin-spinner--lg {
+  width: 2rem;
+  height: 2rem;
+  border-width: 3px;
+}
+
+.admin-spinner--btn {
+  width: 1rem;
+  height: 1rem;
+  border-color: rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  margin-right: 0.35rem;
+}
+
+.save-btn--with-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 8.5rem;
+}
+
+.modal-overlay--saving {
+  cursor: wait;
+}
+
+.modal-overlay--saving .admin-form-modal,
+.modal-overlay--saving .client-logo-modal {
+  pointer-events: none;
+  opacity: 0.94;
+}
+
+.add-slide-btn:disabled,
+.add-member-btn:disabled,
+.add-photo-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.add-slide-btn:disabled:hover,
+.add-photo-btn:disabled:hover {
+  background-color: #28a745;
+  transform: none;
+}
+
+.add-member-btn:disabled:hover {
+  background-color: #28a745;
+  transform: none;
+}
+
+.add-client-logo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* ---------- Carousel / team / career photos / client logos (reorder UX) ---------- */
+.admin-panel-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 2.75rem 1rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+.admin-reorder-table-wrap {
+  position: relative;
+  min-height: 120px;
+}
+
+.admin-reorder-busy-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  border-radius: 8px;
+}
+
+.admin-reorder-table--dimmed {
+  opacity: 0.42;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.admin-managed-section .admin-order-buttons {
+  gap: 6px;
+}
+
+.admin-managed-section .admin-order-btn {
+  width: 38px;
+  height: 34px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f3f5 100%);
+  color: #212529;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.admin-managed-section .admin-order-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #0d6efd 0%, #0b5ed7 100%);
+  color: #fff;
+  border-color: #0a58ca;
+}
+
+.admin-managed-section .admin-order-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.admin-managed-section .order-number {
+  min-width: 1.5rem;
+  text-align: center;
+  font-size: 1.15rem;
+  color: #0d6efd;
 } 

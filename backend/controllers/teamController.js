@@ -2,6 +2,7 @@ const Team = require("../models/teamModel");
 const ErrorHandler = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const { uploadToS3 } = require("../utils/s3");
+const { applyOrdersTwoPhase } = require("../utils/reorderSequential");
 
 // Get all team members
 exports.getAllTeamMembers = catchAsyncErrors(async (req, res, next) => {
@@ -167,12 +168,9 @@ exports.reorderTeamMembers = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Please provide members array", 400));
   }
 
-  // Update each member's order
-  const updatePromises = members.map((memberData) =>
-    Team.findByIdAndUpdate(memberData.id, { order: memberData.order }, { new: true, runValidators: true })
-  );
-
-  await Promise.all(updatePromises);
+  const sorted = [...members].sort((a, b) => Number(a.order) - Number(b.order));
+  const orderedIds = sorted.map((m) => m.id);
+  await applyOrdersTwoPhase(Team, orderedIds);
 
   const updatedMembers = await Team.find().sort({ order: 1 });
 

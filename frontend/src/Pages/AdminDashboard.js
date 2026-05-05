@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FiChevronDown, FiChevronUp, FiPlus } from "react-icons/fi";
 import "./AdminDashboard.css";
 import Loading from "../components/Loading";
 
@@ -25,6 +26,8 @@ const AdminDashboard = () => {
     order: 1,
   });
   const [deleteSlideId, setDeleteSlideId] = useState(null);
+  const [carouselReorderBusy, setCarouselReorderBusy] = useState(false);
+  const [carouselSlideSaving, setCarouselSlideSaving] = useState(false);
 
   // Team state
   const [teamMembers, setTeamMembers] = useState([]);
@@ -48,6 +51,8 @@ const AdminDashboard = () => {
     order: 1,
   });
   const [deleteMemberId, setDeleteMemberId] = useState(null);
+  const [teamReorderBusy, setTeamReorderBusy] = useState(false);
+  const [teamMemberSaving, setTeamMemberSaving] = useState(false);
 
   // Career Photos state
   const [careerPhotos, setCareerPhotos] = useState([]);
@@ -61,6 +66,8 @@ const AdminDashboard = () => {
     order: 1,
   });
   const [deletePhotoId, setDeletePhotoId] = useState(null);
+  const [careerReorderBusy, setCareerReorderBusy] = useState(false);
+  const [careerPhotoSaving, setCareerPhotoSaving] = useState(false);
 
   // Leadership state
   const [leadership, setLeadership] = useState([]);
@@ -118,6 +125,22 @@ const AdminDashboard = () => {
   });
   const [deleteContactId, setDeleteContactId] = useState(null);
 
+  // Client logos (Our Clients page)
+  const [clientLogos, setClientLogos] = useState([]);
+  const [clientLogosLoading, setClientLogosLoading] = useState(false);
+  const [showClientLogoModal, setShowClientLogoModal] = useState(false);
+  const [editingClientLogo, setEditingClientLogo] = useState(null);
+  const [clientLogoForm, setClientLogoForm] = useState({
+    imageUrl: "",
+    name: "",
+    order: 1,
+  });
+  const [clientLogoFile, setClientLogoFile] = useState(null);
+  const [clientLogoPreview, setClientLogoPreview] = useState("");
+  const [deleteClientLogoId, setDeleteClientLogoId] = useState(null);
+  const [clientLogoSaving, setClientLogoSaving] = useState(false);
+  const [clientLogoReorderBusy, setClientLogoReorderBusy] = useState(false);
+
   const [stats, setStats] = useState({
     totalProjects: 0,
     industrialProjects: 0,
@@ -135,6 +158,7 @@ const AdminDashboard = () => {
     fetchJobApplications();
     fetchApplicationStats();
     fetchContacts();
+    fetchClientLogos();
   }, []);
 
   const fetchProjects = async () => {
@@ -183,6 +207,25 @@ const AdminDashboard = () => {
       console.error("Error fetching carousel slides:", error);
     } finally {
       setCarouselLoading(false);
+    }
+  };
+
+  const fetchClientLogos = async () => {
+    try {
+      setClientLogosLoading(true);
+      const response = await axios.get("/aak/l1/admin/client-logos", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.data.success) {
+        setClientLogos(response.data.logos);
+      }
+    } catch (error) {
+      setError("Failed to fetch client logos");
+      console.error("Error fetching client logos:", error);
+    } finally {
+      setClientLogosLoading(false);
     }
   };
 
@@ -321,6 +364,7 @@ const AdminDashboard = () => {
     });
     setSlideFile(null);
     setSlidePreview("");
+    setCarouselSlideSaving(false);
     setShowCarouselModal(true);
   };
 
@@ -334,6 +378,7 @@ const AdminDashboard = () => {
     });
     setSlideFile(null);
     setSlidePreview(slide.imageUrl);
+    setCarouselSlideSaving(false);
     setShowCarouselModal(true);
   };
 
@@ -349,12 +394,14 @@ const AdminDashboard = () => {
 
   const handleSlideFormSubmit = async (e) => {
     e.preventDefault();
+    if (carouselSlideSaving) return;
+    setCarouselSlideSaving(true);
     try {
       const myForm = new FormData();
       myForm.set("title", slideForm.title);
       myForm.set("subtitle", slideForm.subtitle);
       myForm.set("order", slideForm.order);
-      
+
       if (slideFile) {
         myForm.set("image", slideFile);
       } else {
@@ -380,6 +427,8 @@ const AdminDashboard = () => {
     } catch (error) {
       setError(`Failed to ${editingSlide ? "update" : "create"} carousel slide`);
       console.error("Error saving carousel slide:", error);
+    } finally {
+      setCarouselSlideSaving(false);
     }
   };
 
@@ -400,17 +449,24 @@ const AdminDashboard = () => {
   };
 
   const handleMoveSlide = async (slideId, direction) => {
-    const slide = carouselSlides.find((s) => s._id === slideId);
-    if (!slide) return;
+    if (carouselReorderBusy) return;
 
-    const newOrder = direction === "up" ? slide.order - 1 : slide.order + 1;
+    const sorted = [...carouselSlides].sort((a, b) => a.order - b.order);
+    const idx = sorted.findIndex((s) => String(s._id) === String(slideId));
+    if (idx === -1) return;
 
-    if (newOrder < 1 || newOrder > carouselSlides.length) return;
+    const j = direction === "up" ? idx - 1 : idx + 1;
+    if (j < 0 || j >= sorted.length) return;
 
+    const swapped = [...sorted];
+    [swapped[idx], swapped[j]] = [swapped[j], swapped[idx]];
+    const payload = swapped.map((s, i) => ({ id: s._id, order: i + 1 }));
+
+    setCarouselReorderBusy(true);
     try {
       await axios.put(
-        `/aak/l1/admin/carousel/${slideId}`,
-        { ...slide, order: newOrder },
+        "/aak/l1/admin/carousel/reorder",
+        { slides: payload },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -419,9 +475,140 @@ const AdminDashboard = () => {
         }
       );
       fetchCarouselSlides();
+      setError("");
     } catch (error) {
       setError("Failed to reorder carousel slide");
       console.error("Error reordering carousel slide:", error);
+    } finally {
+      setCarouselReorderBusy(false);
+    }
+  };
+
+  // Client logos (public Our Clients page)
+  const handleAddClientLogo = () => {
+    setEditingClientLogo(null);
+    setClientLogoForm({
+      imageUrl: "",
+      name: "",
+      order: clientLogos.length + 1,
+    });
+    setClientLogoFile(null);
+    setClientLogoPreview("");
+    setClientLogoSaving(false);
+    setShowClientLogoModal(true);
+  };
+
+  const handleEditClientLogo = (logo) => {
+    setEditingClientLogo(logo);
+    setClientLogoForm({
+      imageUrl: logo.imageUrl,
+      name: logo.name || "",
+      order: logo.order,
+    });
+    setClientLogoFile(null);
+    setClientLogoPreview(logo.imageUrl);
+    setClientLogoSaving(false);
+    setShowClientLogoModal(true);
+  };
+
+  const handleClientLogoFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setClientLogoFile(file);
+      const reader = new FileReader();
+      reader.onload = () => setClientLogoPreview(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleClientLogoFormSubmit = async (e) => {
+    e.preventDefault();
+    if (clientLogoSaving) return;
+    setClientLogoSaving(true);
+    try {
+      const myForm = new FormData();
+      myForm.set("name", clientLogoForm.name || "");
+      myForm.set("order", clientLogoForm.order);
+
+      if (clientLogoFile) {
+        myForm.set("image", clientLogoFile);
+      } else {
+        myForm.set("imageUrl", clientLogoForm.imageUrl);
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      if (editingClientLogo) {
+        await axios.put(`/aak/l1/admin/client-logos/${editingClientLogo._id}`, myForm, config);
+      } else {
+        await axios.post("/aak/l1/admin/client-logos", myForm, config);
+      }
+
+      setShowClientLogoModal(false);
+      fetchClientLogos();
+      setError("");
+    } catch (error) {
+      setError(`Failed to ${editingClientLogo ? "update" : "add"} client logo`);
+      console.error("Error saving client logo:", error);
+    } finally {
+      setClientLogoSaving(false);
+    }
+  };
+
+  const handleDeleteClientLogo = async (logoId) => {
+    try {
+      await axios.delete(`/aak/l1/admin/client-logos/${logoId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      fetchClientLogos();
+      setDeleteClientLogoId(null);
+      setError("");
+    } catch (error) {
+      setError("Failed to delete client logo");
+      console.error("Error deleting client logo:", error);
+    }
+  };
+
+  const handleMoveClientLogo = async (logoId, direction) => {
+    if (clientLogoReorderBusy) return;
+
+    const sorted = [...clientLogos].sort((a, b) => a.order - b.order);
+    const idx = sorted.findIndex((l) => String(l._id) === String(logoId));
+    if (idx === -1) return;
+
+    const j = direction === "up" ? idx - 1 : idx + 1;
+    if (j < 0 || j >= sorted.length) return;
+
+    const swapped = [...sorted];
+    [swapped[idx], swapped[j]] = [swapped[j], swapped[idx]];
+    const payload = swapped.map((l, i) => ({ id: l._id, order: i + 1 }));
+
+    setClientLogoReorderBusy(true);
+    try {
+      await axios.put(
+        "/aak/l1/admin/client-logos/reorder",
+        { logos: payload },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      fetchClientLogos();
+      setError("");
+    } catch (error) {
+      setError("Failed to reorder client logo");
+      console.error("Error reordering client logo:", error);
+    } finally {
+      setClientLogoReorderBusy(false);
     }
   };
 
@@ -446,6 +633,7 @@ const AdminDashboard = () => {
     });
     setMemberFile(null);
     setMemberPreview("");
+    setTeamMemberSaving(false);
     setShowTeamModal(true);
   };
 
@@ -469,6 +657,7 @@ const AdminDashboard = () => {
     });
     setMemberFile(null);
     setMemberPreview(member.photoUrl);
+    setTeamMemberSaving(false);
     setShowTeamModal(true);
   };
 
@@ -484,6 +673,8 @@ const AdminDashboard = () => {
 
   const handleMemberFormSubmit = async (e) => {
     e.preventDefault();
+    if (teamMemberSaving) return;
+    setTeamMemberSaving(true);
     try {
       const myForm = new FormData();
       myForm.set("name", memberForm.name);
@@ -494,7 +685,7 @@ const AdminDashboard = () => {
       myForm.set("department", memberForm.department);
       myForm.set("order", memberForm.order);
       myForm.set("socialLinks", JSON.stringify(memberForm.socialLinks));
-      
+
       if (memberFile) {
         myForm.set("photo", memberFile);
       } else {
@@ -520,6 +711,8 @@ const AdminDashboard = () => {
     } catch (error) {
       setError(`Failed to ${editingMember ? "update" : "create"} team member`);
       console.error("Error saving team member:", error);
+    } finally {
+      setTeamMemberSaving(false);
     }
   };
 
@@ -540,17 +733,24 @@ const AdminDashboard = () => {
   };
 
   const handleMoveMember = async (memberId, direction) => {
-    const member = teamMembers.find((m) => m._id === memberId);
-    if (!member) return;
+    if (teamReorderBusy) return;
 
-    const newOrder = direction === "up" ? member.order - 1 : member.order + 1;
+    const sorted = [...teamMembers].sort((a, b) => a.order - b.order);
+    const idx = sorted.findIndex((m) => String(m._id) === String(memberId));
+    if (idx === -1) return;
 
-    if (newOrder < 1 || newOrder > teamMembers.length) return;
+    const j = direction === "up" ? idx - 1 : idx + 1;
+    if (j < 0 || j >= sorted.length) return;
 
+    const swapped = [...sorted];
+    [swapped[idx], swapped[j]] = [swapped[j], swapped[idx]];
+    const payload = swapped.map((m, i) => ({ id: m._id, order: i + 1 }));
+
+    setTeamReorderBusy(true);
     try {
       await axios.put(
-        `/aak/l1/admin/team/${memberId}`,
-        { ...member, order: newOrder },
+        "/aak/l1/admin/team/reorder",
+        { members: payload },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -559,9 +759,12 @@ const AdminDashboard = () => {
         }
       );
       fetchTeamMembers();
+      setError("");
     } catch (error) {
       setError("Failed to reorder team member");
       console.error("Error reordering team member:", error);
+    } finally {
+      setTeamReorderBusy(false);
     }
   };
 
@@ -576,6 +779,7 @@ const AdminDashboard = () => {
     });
     setPhotoFile(null);
     setPhotoPreview("");
+    setCareerPhotoSaving(false);
     setShowCareerPhotosModal(true);
   };
 
@@ -589,6 +793,7 @@ const AdminDashboard = () => {
     });
     setPhotoFile(null);
     setPhotoPreview(photo.imageUrl);
+    setCareerPhotoSaving(false);
     setShowCareerPhotosModal(true);
   };
 
@@ -604,12 +809,14 @@ const AdminDashboard = () => {
 
   const handlePhotoFormSubmit = async (e) => {
     e.preventDefault();
+    if (careerPhotoSaving) return;
+    setCareerPhotoSaving(true);
     try {
       const myForm = new FormData();
       myForm.set("title", photoForm.title);
       myForm.set("description", photoForm.description);
       myForm.set("order", photoForm.order);
-      
+
       if (photoFile) {
         myForm.set("image", photoFile);
       } else {
@@ -635,6 +842,8 @@ const AdminDashboard = () => {
     } catch (error) {
       setError(`Failed to ${editingPhoto ? "update" : "create"} career photo`);
       console.error("Error saving career photo:", error);
+    } finally {
+      setCareerPhotoSaving(false);
     }
   };
 
@@ -655,17 +864,24 @@ const AdminDashboard = () => {
   };
 
   const handleMovePhoto = async (photoId, direction) => {
-    const photo = careerPhotos.find((p) => p._id === photoId);
-    if (!photo) return;
+    if (careerReorderBusy) return;
 
-    const newOrder = direction === "up" ? photo.order - 1 : photo.order + 1;
+    const sorted = [...careerPhotos].sort((a, b) => a.order - b.order);
+    const idx = sorted.findIndex((p) => String(p._id) === String(photoId));
+    if (idx === -1) return;
 
-    if (newOrder < 1 || newOrder > careerPhotos.length) return;
+    const j = direction === "up" ? idx - 1 : idx + 1;
+    if (j < 0 || j >= sorted.length) return;
 
+    const swapped = [...sorted];
+    [swapped[idx], swapped[j]] = [swapped[j], swapped[idx]];
+    const payload = swapped.map((p, i) => ({ id: p._id, order: i + 1 }));
+
+    setCareerReorderBusy(true);
     try {
       await axios.put(
-        `/aak/l1/admin/career-photos/${photoId}`,
-        { ...photo, order: newOrder },
+        "/aak/l1/admin/career-photos/reorder",
+        { photos: payload },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -674,9 +890,12 @@ const AdminDashboard = () => {
         }
       );
       fetchCareerPhotos();
+      setError("");
     } catch (error) {
       setError("Failed to reorder career photo");
       console.error("Error reordering career photo:", error);
+    } finally {
+      setCareerReorderBusy(false);
     }
   };
 
@@ -1007,6 +1226,12 @@ const AdminDashboard = () => {
         >
           <i className="fas fa-images"></i> Carousel Management
         </button>
+        <button
+          className={`tab-btn ${activeTab === "clients" ? "active" : ""}`}
+          onClick={() => setActiveTab("clients")}
+        >
+          <i className="fas fa-building"></i> Clients
+        </button>
         <button className={`tab-btn ${activeTab === "team" ? "active" : ""}`} onClick={() => setActiveTab("team")}>
           <i className="fas fa-users"></i> Team Management
         </button>
@@ -1113,209 +1338,370 @@ const AdminDashboard = () => {
       )}
 
       {activeTab === "carousel" && (
-        <div className="carousel-section">
+        <div className="carousel-section admin-managed-section">
           <div className="section-header">
             <h2>Carousel Management</h2>
-            <button className="add-slide-btn" onClick={handleAddSlide}>
-              <i className="fas fa-plus"></i> Add New Slide
+            <button
+              type="button"
+              className="add-slide-btn add-client-logo-btn"
+              disabled={carouselSlideSaving || carouselReorderBusy}
+              onClick={handleAddSlide}
+            >
+              <FiPlus size={18} strokeWidth={2.5} aria-hidden /> Add New Slide
             </button>
           </div>
 
           {carouselLoading ? (
-            <div className="loading">Loading carousel slides...</div>
+            <div className="admin-panel-loading" role="status">
+              <span className="admin-spinner admin-spinner--lg" aria-hidden />
+              Loading carousel slides…
+            </div>
           ) : (
-            <div className="carousel-table">
+            <div className="admin-reorder-table-wrap">
+              {carouselReorderBusy && (
+                <div className="admin-reorder-busy-overlay" role="status" aria-live="polite">
+                  <span className="admin-spinner admin-spinner--lg" aria-hidden />
+                  <span>Updating order…</span>
+                </div>
+              )}
+              <div className={`carousel-table ${carouselReorderBusy ? "admin-reorder-table--dimmed" : ""}`}>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Order</th>
+                      <th>Image</th>
+                      <th>Title</th>
+                      <th>Subtitle</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {carouselSlides.map((slide) => (
+                      <tr key={slide._id}>
+                        <td>
+                          <div className="order-controls">
+                            <span className="order-number">{slide.order}</span>
+                            <div className="order-buttons admin-order-buttons">
+                              <button
+                                type="button"
+                                className="order-btn admin-order-btn"
+                                onClick={() => handleMoveSlide(slide._id, "up")}
+                                disabled={carouselReorderBusy || slide.order === 1}
+                                title="Move up"
+                              >
+                                <FiChevronUp size={20} strokeWidth={2.5} aria-hidden />
+                              </button>
+                              <button
+                                type="button"
+                                className="order-btn admin-order-btn"
+                                onClick={() => handleMoveSlide(slide._id, "down")}
+                                disabled={carouselReorderBusy || slide.order === carouselSlides.length}
+                                title="Move down"
+                              >
+                                <FiChevronDown size={20} strokeWidth={2.5} aria-hidden />
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <img src={slide.imageUrl} alt={slide.title} className="slide-thumbnail" />
+                        </td>
+                        <td>{slide.title}</td>
+                        <td>{slide.subtitle}</td>
+                        <td className="actions">
+                          <button type="button" className="edit-btn" onClick={() => handleEditSlide(slide)}>
+                            <i className="fas fa-edit"></i> Edit
+                          </button>
+                          <button type="button" className="delete-btn" onClick={() => setDeleteSlideId(slide._id)}>
+                            <i className="fas fa-trash"></i> Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === "clients" && (
+        <div className="carousel-section admin-managed-section">
+          <div className="section-header">
+            <div>
+              <h2>Client Logos</h2>
+              <p style={{ margin: "0.35rem 0 0", color: "#555", fontSize: "0.9rem", maxWidth: "42rem" }}>
+                Position 1 appears first on the Our Clients page. Use the arrows to reorder, or set a number when adding or
+                editing.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="add-slide-btn add-client-logo-btn"
+              disabled={clientLogoSaving || clientLogoReorderBusy}
+              onClick={handleAddClientLogo}
+            >
+              <FiPlus size={18} strokeWidth={2.5} aria-hidden /> Add Client Logo
+            </button>
+          </div>
+
+          {clientLogosLoading ? (
+            <div className="admin-panel-loading" role="status">
+              <span className="admin-spinner admin-spinner--lg" aria-hidden />
+              Loading client logos…
+            </div>
+          ) : (
+            <div className="admin-reorder-table-wrap">
+              {clientLogoReorderBusy && (
+                <div className="admin-reorder-busy-overlay" role="status" aria-live="polite">
+                  <span className="admin-spinner admin-spinner--lg" aria-hidden />
+                  <span>Updating order…</span>
+                </div>
+              )}
+              <div className={`carousel-table ${clientLogoReorderBusy ? "admin-reorder-table--dimmed" : ""}`}>
               <table>
                 <thead>
                   <tr>
-                    <th>Order</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Subtitle</th>
+                    <th>Position</th>
+                    <th>Logo</th>
+                    <th>Name (optional)</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {carouselSlides.map((slide) => (
-                    <tr key={slide._id}>
-                      <td>
-                        <div className="order-controls">
-                          <span className="order-number">{slide.order}</span>
-                          <div className="order-buttons">
-                            <button
-                              className="order-btn"
-                              onClick={() => handleMoveSlide(slide._id, "up")}
-                              disabled={slide.order === 1}
-                            >
-                              <i className="fas fa-arrow-up"></i>
-                            </button>
-                            <button
-                              className="order-btn"
-                              onClick={() => handleMoveSlide(slide._id, "down")}
-                              disabled={slide.order === carouselSlides.length}
-                            >
-                              <i className="fas fa-arrow-down"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <img src={slide.imageUrl} alt={slide.title} className="slide-thumbnail" />
-                      </td>
-                      <td>{slide.title}</td>
-                      <td>{slide.subtitle}</td>
-                      <td className="actions">
-                        <button className="edit-btn" onClick={() => handleEditSlide(slide)}>
-                          <i className="fas fa-edit"></i> Edit
-                        </button>
-                        <button className="delete-btn" onClick={() => setDeleteSlideId(slide._id)}>
-                          <i className="fas fa-trash"></i> Delete
-                        </button>
+                  {clientLogos.length === 0 ? (
+                    <tr>
+                      <td colSpan={4} style={{ textAlign: "center", padding: "2rem", color: "#666" }}>
+                        No logos yet. Click &quot;Add Client Logo&quot; to upload one.
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    clientLogos.map((logo) => (
+                      <tr key={logo._id}>
+                        <td>
+                          <div className="order-controls">
+                            <span className="order-number">{logo.order}</span>
+                            <div className="order-buttons admin-order-buttons">
+                              <button
+                                type="button"
+                                className="order-btn admin-order-btn"
+                                onClick={() => handleMoveClientLogo(logo._id, "up")}
+                                disabled={clientLogoReorderBusy || logo.order === 1}
+                                title="Move up"
+                              >
+                                <FiChevronUp size={20} strokeWidth={2.5} aria-hidden />
+                              </button>
+                              <button
+                                type="button"
+                                className="order-btn admin-order-btn"
+                                onClick={() => handleMoveClientLogo(logo._id, "down")}
+                                disabled={clientLogoReorderBusy || logo.order === clientLogos.length}
+                                title="Move down"
+                              >
+                                <FiChevronDown size={20} strokeWidth={2.5} aria-hidden />
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <img src={logo.imageUrl} alt={logo.name || "Client"} className="slide-thumbnail" />
+                        </td>
+                        <td>{logo.name || "—"}</td>
+                        <td className="actions">
+                          <button type="button" className="edit-btn" onClick={() => handleEditClientLogo(logo)}>
+                            <i className="fas fa-edit"></i> Edit
+                          </button>
+                          <button type="button" className="delete-btn" onClick={() => setDeleteClientLogoId(logo._id)}>
+                            <i className="fas fa-trash"></i> Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
+              </div>
             </div>
           )}
         </div>
       )}
 
       {activeTab === "team" && (
-        <div className="team-section">
+        <div className="carousel-section team-section admin-managed-section">
           <div className="section-header">
             <h2>Team Management</h2>
-            <button className="add-member-btn" onClick={handleAddMember}>
-              <i className="fas fa-plus"></i> Add New Member
+            <button
+              type="button"
+              className="add-member-btn add-client-logo-btn"
+              disabled={teamMemberSaving || teamReorderBusy}
+              onClick={handleAddMember}
+            >
+              <FiPlus size={18} strokeWidth={2.5} aria-hidden /> Add New Member
             </button>
           </div>
 
           {teamLoading ? (
-            <div className="loading">Loading team members...</div>
+            <div className="admin-panel-loading" role="status">
+              <span className="admin-spinner admin-spinner--lg" aria-hidden />
+              Loading team members…
+            </div>
           ) : (
-            <div className="team-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Order</th>
-                    <th>Photo</th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Department</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teamMembers.map((member) => (
-                    <tr key={member._id}>
-                      <td>
-                        <div className="order-controls">
-                          <span className="order-number">{member.order}</span>
-                          <div className="order-buttons">
-                            <button
-                              className="order-btn"
-                              onClick={() => handleMoveMember(member._id, "up")}
-                              disabled={member.order === 1}
-                            >
-                              <i className="fas fa-arrow-up"></i>
-                            </button>
-                            <button
-                              className="order-btn"
-                              onClick={() => handleMoveMember(member._id, "down")}
-                              disabled={member.order === teamMembers.length}
-                            >
-                              <i className="fas fa-arrow-down"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <img src={member.photoUrl} alt={member.name} className="member-thumbnail" />
-                      </td>
-                      <td>{member.name}</td>
-                      <td>{member.position}</td>
-                      <td>{member.department}</td>
-                      <td className="actions">
-                        <button className="edit-btn" onClick={() => handleEditMember(member)}>
-                          <i className="fas fa-edit"></i> Edit
-                        </button>
-                        <button className="delete-btn" onClick={() => setDeleteMemberId(member._id)}>
-                          <i className="fas fa-trash"></i> Delete
-                        </button>
-                      </td>
+            <div className="admin-reorder-table-wrap">
+              {teamReorderBusy && (
+                <div className="admin-reorder-busy-overlay" role="status" aria-live="polite">
+                  <span className="admin-spinner admin-spinner--lg" aria-hidden />
+                  <span>Updating order…</span>
+                </div>
+              )}
+              <div className={`team-table ${teamReorderBusy ? "admin-reorder-table--dimmed" : ""}`}>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Order</th>
+                      <th>Photo</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {teamMembers.map((member) => (
+                      <tr key={member._id}>
+                        <td>
+                          <div className="order-controls">
+                            <span className="order-number">{member.order}</span>
+                            <div className="order-buttons admin-order-buttons">
+                              <button
+                                type="button"
+                                className="order-btn admin-order-btn"
+                                onClick={() => handleMoveMember(member._id, "up")}
+                                disabled={teamReorderBusy || member.order === 1}
+                                title="Move up"
+                              >
+                                <FiChevronUp size={20} strokeWidth={2.5} aria-hidden />
+                              </button>
+                              <button
+                                type="button"
+                                className="order-btn admin-order-btn"
+                                onClick={() => handleMoveMember(member._id, "down")}
+                                disabled={teamReorderBusy || member.order === teamMembers.length}
+                                title="Move down"
+                              >
+                                <FiChevronDown size={20} strokeWidth={2.5} aria-hidden />
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <img src={member.photoUrl} alt={member.name} className="member-thumbnail" />
+                        </td>
+                        <td>{member.name}</td>
+                        <td>{member.position}</td>
+                        <td>{member.department}</td>
+                        <td className="actions">
+                          <button type="button" className="edit-btn" onClick={() => handleEditMember(member)}>
+                            <i className="fas fa-edit"></i> Edit
+                          </button>
+                          <button type="button" className="delete-btn" onClick={() => setDeleteMemberId(member._id)}>
+                            <i className="fas fa-trash"></i> Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>
       )}
 
       {activeTab === "career-photos" && (
-        <div className="career-photos-section">
+        <div className="carousel-section career-photos-section admin-managed-section">
           <div className="section-header">
             <h2>Career Photos Management</h2>
-            <button className="add-photo-btn" onClick={handleAddPhoto}>
-              <i className="fas fa-plus"></i> Add New Photo
+            <button
+              type="button"
+              className="add-photo-btn add-client-logo-btn"
+              disabled={careerPhotoSaving || careerReorderBusy}
+              onClick={handleAddPhoto}
+            >
+              <FiPlus size={18} strokeWidth={2.5} aria-hidden /> Add New Photo
             </button>
           </div>
 
           {careerPhotosLoading ? (
-            <div className="loading">Loading career photos...</div>
+            <div className="admin-panel-loading" role="status">
+              <span className="admin-spinner admin-spinner--lg" aria-hidden />
+              Loading career photos…
+            </div>
           ) : (
-            <div className="career-photos-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Order</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {careerPhotos.map((photo) => (
-                    <tr key={photo._id}>
-                      <td>
-                        <div className="order-controls">
-                          <span className="order-number">{photo.order}</span>
-                          <div className="order-buttons">
-                            <button
-                              className="order-btn"
-                              onClick={() => handleMovePhoto(photo._id, "up")}
-                              disabled={photo.order === 1}
-                            >
-                              <i className="fas fa-arrow-up"></i>
-                            </button>
-                            <button
-                              className="order-btn"
-                              onClick={() => handleMovePhoto(photo._id, "down")}
-                              disabled={photo.order === careerPhotos.length}
-                            >
-                              <i className="fas fa-arrow-down"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <img src={photo.imageUrl} alt={photo.title} className="photo-thumbnail" />
-                      </td>
-                      <td>{photo.title}</td>
-                      <td>{photo.description || "No description"}</td>
-                      <td className="actions">
-                        <button className="edit-btn" onClick={() => handleEditPhoto(photo)}>
-                          <i className="fas fa-edit"></i> Edit
-                        </button>
-                        <button className="delete-btn" onClick={() => setDeletePhotoId(photo._id)}>
-                          <i className="fas fa-trash"></i> Delete
-                        </button>
-                      </td>
+            <div className="admin-reorder-table-wrap">
+              {careerReorderBusy && (
+                <div className="admin-reorder-busy-overlay" role="status" aria-live="polite">
+                  <span className="admin-spinner admin-spinner--lg" aria-hidden />
+                  <span>Updating order…</span>
+                </div>
+              )}
+              <div className={`career-photos-table ${careerReorderBusy ? "admin-reorder-table--dimmed" : ""}`}>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Order</th>
+                      <th>Image</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {careerPhotos.map((photo) => (
+                      <tr key={photo._id}>
+                        <td>
+                          <div className="order-controls">
+                            <span className="order-number">{photo.order}</span>
+                            <div className="order-buttons admin-order-buttons">
+                              <button
+                                type="button"
+                                className="order-btn admin-order-btn"
+                                onClick={() => handleMovePhoto(photo._id, "up")}
+                                disabled={careerReorderBusy || photo.order === 1}
+                                title="Move up"
+                              >
+                                <FiChevronUp size={20} strokeWidth={2.5} aria-hidden />
+                              </button>
+                              <button
+                                type="button"
+                                className="order-btn admin-order-btn"
+                                onClick={() => handleMovePhoto(photo._id, "down")}
+                                disabled={careerReorderBusy || photo.order === careerPhotos.length}
+                                title="Move down"
+                              >
+                                <FiChevronDown size={20} strokeWidth={2.5} aria-hidden />
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <img src={photo.imageUrl} alt={photo.title} className="photo-thumbnail" />
+                        </td>
+                        <td>{photo.title}</td>
+                        <td>{photo.description || "No description"}</td>
+                        <td className="actions">
+                          <button type="button" className="edit-btn" onClick={() => handleEditPhoto(photo)}>
+                            <i className="fas fa-edit"></i> Edit
+                          </button>
+                          <button type="button" className="delete-btn" onClick={() => setDeletePhotoId(photo._id)}>
+                            <i className="fas fa-trash"></i> Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>
@@ -1383,8 +1769,8 @@ const AdminDashboard = () => {
 
       {/* Career Photos Modal */}
       {showCareerPhotosModal && (
-        <div className="modal-overlay">
-          <div className="modal-content career-photos-modal">
+        <div className={`modal-overlay${careerPhotoSaving ? " modal-overlay--saving" : ""}`}>
+          <div className="modal-content career-photos-modal admin-form-modal">
             <h3>{editingPhoto ? "Edit Career Photo" : "Add New Career Photo"}</h3>
             <form onSubmit={handlePhotoFormSubmit}>
               <div className="form-group">
@@ -1437,11 +1823,26 @@ const AdminDashboard = () => {
                 </div>
               )}
               <div className="modal-actions">
-                <button type="button" className="cancel-btn" onClick={() => setShowCareerPhotosModal(false)}>
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  disabled={careerPhotoSaving}
+                  onClick={() => {
+                    setShowCareerPhotosModal(false);
+                    setCareerPhotoSaving(false);
+                  }}
+                >
                   <i className="fas fa-times"></i> Cancel
                 </button>
-                <button type="submit" className="save-btn">
-                  <i className="fas fa-save"></i> {editingPhoto ? "Update" : "Create"}
+                <button type="submit" className="save-btn save-btn--with-spinner" disabled={careerPhotoSaving}>
+                  {careerPhotoSaving ? (
+                    <>
+                      <span className="admin-spinner admin-spinner--btn" aria-hidden />
+                      Uploading…
+                    </>
+                  ) : (
+                    <>{editingPhoto ? "Save changes" : "Add photo"}</>
+                  )}
                 </button>
               </div>
             </form>
@@ -1769,8 +2170,8 @@ const AdminDashboard = () => {
 
       {/* Team Modal */}
       {showTeamModal && (
-        <div className="modal-overlay">
-          <div className="modal-content team-modal">
+        <div className={`modal-overlay${teamMemberSaving ? " modal-overlay--saving" : ""}`}>
+          <div className="modal-content team-modal admin-form-modal">
             <h3>{editingMember ? "Edit Team Member" : "Add New Team Member"}</h3>
             <form onSubmit={handleMemberFormSubmit}>
               <div className="form-row">
@@ -1910,11 +2311,26 @@ const AdminDashboard = () => {
               )}
 
               <div className="modal-actions">
-                <button type="button" className="cancel-btn" onClick={() => setShowTeamModal(false)}>
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  disabled={teamMemberSaving}
+                  onClick={() => {
+                    setShowTeamModal(false);
+                    setTeamMemberSaving(false);
+                  }}
+                >
                   <i className="fas fa-times"></i> Cancel
                 </button>
-                <button type="submit" className="save-btn">
-                  <i className="fas fa-save"></i> {editingMember ? "Update" : "Create"}
+                <button type="submit" className="save-btn save-btn--with-spinner" disabled={teamMemberSaving}>
+                  {teamMemberSaving ? (
+                    <>
+                      <span className="admin-spinner admin-spinner--btn" aria-hidden />
+                      Uploading…
+                    </>
+                  ) : (
+                    <>{editingMember ? "Save changes" : "Add member"}</>
+                  )}
                 </button>
               </div>
             </form>
@@ -1924,8 +2340,8 @@ const AdminDashboard = () => {
 
       {/* Carousel Modal */}
       {showCarouselModal && (
-        <div className="modal-overlay">
-          <div className="modal-content carousel-modal">
+        <div className={`modal-overlay${carouselSlideSaving ? " modal-overlay--saving" : ""}`}>
+          <div className="modal-content carousel-modal admin-form-modal">
             <h3>{editingSlide ? "Edit Slide" : "Add New Slide"}</h3>
             <form onSubmit={handleSlideFormSubmit}>
               <div className="form-group">
@@ -1978,11 +2394,101 @@ const AdminDashboard = () => {
                 </div>
               )}
               <div className="modal-actions">
-                <button type="button" className="cancel-btn" onClick={() => setShowCarouselModal(false)}>
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  disabled={carouselSlideSaving}
+                  onClick={() => {
+                    setShowCarouselModal(false);
+                    setCarouselSlideSaving(false);
+                  }}
+                >
                   <i className="fas fa-times"></i> Cancel
                 </button>
-                <button type="submit" className="save-btn">
-                  <i className="fas fa-save"></i> {editingSlide ? "Update" : "Create"}
+                <button type="submit" className="save-btn save-btn--with-spinner" disabled={carouselSlideSaving}>
+                  {carouselSlideSaving ? (
+                    <>
+                      <span className="admin-spinner admin-spinner--btn" aria-hidden />
+                      Uploading…
+                    </>
+                  ) : (
+                    <>{editingSlide ? "Save changes" : "Add slide"}</>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Client logo modal */}
+      {showClientLogoModal && (
+        <div className={`modal-overlay${clientLogoSaving ? " modal-overlay--saving" : ""}`}>
+          <div className="modal-content carousel-modal client-logo-modal admin-form-modal">
+            <h3>{editingClientLogo ? "Edit Client Logo" : "Add Client Logo"}</h3>
+            <form onSubmit={handleClientLogoFormSubmit}>
+              <div className="form-group">
+                <label>Upload logo image:</label>
+                <input type="file" accept="image/*" onChange={handleClientLogoFileChange} />
+              </div>
+              <div className="separator">OR</div>
+              <div className="form-group">
+                <label>Image URL (if not uploading a file):</label>
+                <input
+                  type="url"
+                  value={clientLogoForm.imageUrl}
+                  onChange={(e) => setClientLogoForm({ ...clientLogoForm, imageUrl: e.target.value })}
+                  placeholder="https://..."
+                />
+              </div>
+              <div className="form-group">
+                <label>Company name (optional, for accessibility):</label>
+                <input
+                  type="text"
+                  value={clientLogoForm.name}
+                  onChange={(e) => setClientLogoForm({ ...clientLogoForm, name: e.target.value })}
+                  placeholder="e.g. Client Ltd"
+                  maxLength={120}
+                />
+              </div>
+              <div className="form-group">
+                <label>Position (1 = first on the page):</label>
+                <input
+                  type="number"
+                  value={clientLogoForm.order}
+                  onChange={(e) => setClientLogoForm({ ...clientLogoForm, order: parseInt(e.target.value, 10) || 1 })}
+                  min={1}
+                  required
+                />
+              </div>
+              {clientLogoPreview && (
+                <div className="image-preview">
+                  <img src={clientLogoPreview} alt="Preview" />
+                </div>
+              )}
+              <div className="modal-actions">
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  disabled={clientLogoSaving}
+                  onClick={() => {
+                    setShowClientLogoModal(false);
+                    setClientLogoSaving(false);
+                  }}
+                >
+                  <i className="fas fa-times"></i> Cancel
+                </button>
+                <button type="submit" className="save-btn save-btn--with-spinner" disabled={clientLogoSaving}>
+                  {clientLogoSaving ? (
+                    <>
+                      <span className="admin-spinner admin-spinner--btn" aria-hidden />
+                      Uploading…
+                    </>
+                  ) : (
+                    <>
+                      {editingClientLogo ? "Save changes" : "Add logo"}
+                    </>
+                  )}
                 </button>
               </div>
             </form>
@@ -2021,6 +2527,29 @@ const AdminDashboard = () => {
                 <i className="fas fa-times"></i> Cancel
               </button>
               <button className="confirm-delete-btn" onClick={() => handleDeleteSlide(deleteSlideId)}>
+                <i className="fas fa-trash"></i> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Client logo delete */}
+      {deleteClientLogoId && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to remove this client logo?</p>
+            <p className="warning-text">This action cannot be undone.</p>
+            <div className="modal-actions">
+              <button type="button" className="cancel-btn" onClick={() => setDeleteClientLogoId(null)}>
+                <i className="fas fa-times"></i> Cancel
+              </button>
+              <button
+                type="button"
+                className="confirm-delete-btn"
+                onClick={() => handleDeleteClientLogo(deleteClientLogoId)}
+              >
                 <i className="fas fa-trash"></i> Delete
               </button>
             </div>

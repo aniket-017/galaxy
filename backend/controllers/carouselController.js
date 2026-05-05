@@ -2,6 +2,7 @@ const Carousel = require("../models/carouselModel");
 const ErrorHandler = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const { uploadToS3 } = require("../utils/s3");
+const { applyOrdersTwoPhase } = require("../utils/reorderSequential");
 
 // Get all carousel slides
 exports.getAllCarouselSlides = catchAsyncErrors(async (req, res, next) => {
@@ -164,12 +165,9 @@ exports.reorderCarouselSlides = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Please provide slides array", 400));
   }
 
-  // Update each slide's order
-  const updatePromises = slides.map((slideData) =>
-    Carousel.findByIdAndUpdate(slideData.id, { order: slideData.order }, { new: true, runValidators: true })
-  );
-
-  await Promise.all(updatePromises);
+  const sorted = [...slides].sort((a, b) => Number(a.order) - Number(b.order));
+  const orderedIds = sorted.map((s) => s.id);
+  await applyOrdersTwoPhase(Carousel, orderedIds);
 
   const updatedSlides = await Carousel.find().sort({ order: 1 });
 

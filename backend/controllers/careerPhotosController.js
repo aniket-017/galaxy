@@ -2,6 +2,7 @@ const CareerPhotos = require("../models/careerPhotosModel");
 const ErrorHandler = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const { uploadToS3 } = require("../utils/s3");
+const { applyOrdersTwoPhase } = require("../utils/reorderSequential");
 
 // Get all career photos
 exports.getAllCareerPhotos = catchAsyncErrors(async (req, res, next) => {
@@ -164,12 +165,9 @@ exports.reorderCareerPhotos = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Please provide photos array", 400));
   }
 
-  // Update each photo's order
-  const updatePromises = photos.map((photoData) =>
-    CareerPhotos.findByIdAndUpdate(photoData.id, { order: photoData.order }, { new: true, runValidators: true })
-  );
-
-  await Promise.all(updatePromises);
+  const sorted = [...photos].sort((a, b) => Number(a.order) - Number(b.order));
+  const orderedIds = sorted.map((p) => p.id);
+  await applyOrdersTwoPhase(CareerPhotos, orderedIds);
 
   const updatedPhotos = await CareerPhotos.find().sort({ order: 1 });
 
